@@ -1,0 +1,36 @@
+body {
+    background-color: #000;  /* Set a black background */
+    color: #fff;            /* Set text color to white */
+    font-family: monospace;  /* Use a monospace font */
+    text-align: center;     /* Center align text */
+    padding: 50px;         /* Add padding around the content */
+}
+
+/*text glow effect*/
+.glow {
+    text-shadow: 
+      0 0 4px #0ff,   /* Light glow */
+      0 0 8px #0ff,   /* Medium glow */
+      0 0 12px #0ff,  /* Stronger glow */
+      0 0 16px #0ff;  /* Very strong glow */
+  }
+  /*button glow effect*/
+  .glow-button {
+    box-shadow: 
+      0 0 8px #ff00ff,    /* Light inner glow */
+      0 0 15px #ff00ff,   /* Medium outer glow */
+      0 0 20px #ff00ff,   /* Stronger outer glow */
+      0 0 30px #ff00ff;   /* Very strong outer glow */
+  }
+  /*flicker animation*/
+  @keyframes flicker {
+    0%, 100% { opacity: 1; }
+    30% { opacity: 0.7; }
+    50% { opacity: 1; }
+    70% { opacity: 0.8; }
+    90% { opacity: 0.5; }
+  }
+  
+  .flicker-element {
+    animation: flicker 4s infinite;  /* Flicker over 4 seconds endlessly */
+  }

@@ -1,0 +1,45 @@
+/* Version 01
+
+@property --my-color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: blue;
+  }
+  
+  div {
+    --my-color: blue;
+    transition: --my-color 1s;
+    background: linear-gradient(var(--my-color), red);
+    width: 200px;
+    height: 200px;
+  }
+  
+  div:hover {
+    --my-color: yellow;
+  } */
+
+  @property --my-color-from {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: blue;
+  }
+  
+  @property --my-color-to {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: blue;
+  }
+  
+  div {
+    --my-color-from: blue;
+    --my-color-to: hotpink;
+    transition: --my-color-from 1s, --my-color-to 1s;
+    background: linear-gradient(var(--my-color-from), var(--my-color-to));
+    width: 200px;
+    height: 200px;
+  }
+  
+  div:hover {
+    --my-color-from: yellow;
+    --my-color-to: red;
+  }

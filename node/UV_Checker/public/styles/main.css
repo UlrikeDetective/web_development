@@ -1,0 +1,90 @@
+/* Reset some default styles */
+body, h1, h2, p, form, input, button {
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #fff;
+}
+
+.container {
+    border: 10px solid black;
+    padding: 20px;
+    width: 400px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 2em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    border: 2px solid black;
+    width: 80%;
+    box-sizing: border-box;
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffeb3b;
+    border: 2px solid black;
+    font-size: 1.2em;
+}
+
+.result p {
+    margin: 10px 0;
+}
+
+/* Mondrian style elements */
+.mondrian {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: repeat(4, 1fr);
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.mondrian div {
+    border: 2px solid black;
+}
+
+.color1 { background-color: #ff0000; }
+.color2 { background-color: #0000ff; }
+.color3 { background-color: #ffff00; }
+.color4 { background-color: #ffffff; }
+
+.mondrian .item1 { grid-column: span 2; grid-row: span 2; }
+.mondrian .item2 { grid-column: span 1; grid-row: span 1; }
+.mondrian .item3 { grid-column: span 2; grid-row: span 1; }
+.mondrian .item4 { grid-column: span 1; grid-row: span 2; }
+.mondrian .item5 { grid-column: span 1; grid-row: span 1; }
+

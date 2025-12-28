@@ -1,0 +1,52 @@
+body {
+    background: #000;
+    color: #fff;
+    font-family: sans-serif;
+    font-size: 1.5em;
+    text-align: center;
+}
+
+path.self-drawing {
+    stroke: #0ff;
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: draw 4s ease-out forwards;
+
+    filter: drop-shadow(0 0 3px #0ff)
+            drop-shadow(0 0 6px #0ff)
+            drop-shadow(0 0 12px #0ff);
+}
+
+path.wave {
+    stroke: #f0f;
+    stroke-width: 2;
+    fill: none;
+    stroke-linecap: round;
+
+    stroke-dasharray: 400;
+    stroke-dashoffset: 400;
+    animation: wave-draw 6s ease-in-out infinite;
+
+    filter: drop-shadow(0 0 3px #f0f)
+            drop-shadow(0 0 6px #f0f)
+            drop-shadow(0 0 12px #f0f);
+}
+
+@keyframes draw {
+    to {
+        stroke-dashoffset: 0;
+    }
+}
+
+@keyframes wave-draw {
+    0%, 100% {
+        stroke-dashoffset: 400;
+    }
+    50% {
+        stroke-dashoffset: 0;
+    }
+}

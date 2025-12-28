@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UV Checker</title>
+    <link rel="stylesheet" href="/styles/main.css">
+</head>
+<body>
+    <div class="container">
+        <h1>UV Index Checker</h1>
+
+        <form action="/" method="get">
+            <input type="text" name="location" placeholder="Enter your location">
+            <button type="submit">Check UV Index</button>
+        </form>
+
+        <% if (uvData) { %>
+        <div class="result">
+            <h2>UV Index for <%= uvData.location %>:</h2>
+            <p><%= uvData.uvIndex %></p>
+            <% if (uvData.uvIndex >= 3) { %>
+            <p>You should apply sunscreen today.</p>
+            <% } else { %>
+            <p>No need for sunscreen today.</p>
+            <% } %>
+        </div>
+        <% } %>
+
+        <% if (error) { %>
+        <div class="result">
+            <p><%= error %></p>
+        </div>
+        <% } %>
+    </div>
+</body>
+</html>

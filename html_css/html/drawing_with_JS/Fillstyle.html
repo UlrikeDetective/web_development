@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Canvas experiment</title>
+  </head>
+  <body>
+
+    <canvas id="canvas1" width="300" height="300"></canvas>
+    <canvas id="canvas2" width="300" height="300"></canvas>
+    <canvas id="canvas3" width="300" height="300"></canvas>
+    <canvas id="canvas4" width="300" height="300"></canvas>
+
+    <script type="application/javascript">
+        function draw() {
+            const ctx = document.getElementById("canvas1").getContext("2d");
+            for (let i = 0; i < 6; i++) {
+                for (let j = 0; j < 6; j++) {
+                    ctx.fillStyle = `rgb(${Math.floor(255 - 42.5 * i)} ${Math.floor(255 - 42.5 * j)} 0)`;
+                    ctx.fillRect(j * 25, i * 25, 25, 25);
+                }
+            }
+        }
+        draw();
+    </script>
+
+    <script type="application/javascript">
+        function draw2() {
+            const ctx = document.getElementById("canvas2").getContext("2d");
+            for (let i = 0; i < 6; i++) {
+                for (let j = 0; j < 6; j++) {
+                    ctx.strokeStyle = `rgb(0 ${Math.floor(255 - 42.5 * i)} ${Math.floor(255 - 42.5 * j)})`;
+                    ctx.beginPath();
+                    ctx.arc(12.5 + j * 25, 12.5 + i * 25, 10, 0, 2 * Math.PI, true);
+                    ctx.stroke();
+                }
+            }
+        }
+        draw2();
+    </script>
+
+    <script type="application/javascript">
+        function draw3() {
+            const ctx = document.getElementById("canvas3").getContext("2d");
+        
+            // Draw background
+            ctx.fillStyle = "rgb(255 221 0)";
+            ctx.fillRect(0, 0, 150, 37.5);
+            ctx.fillStyle = "rgb(102 204 0)";
+            ctx.fillRect(0, 37.5, 150, 37.5);
+            ctx.fillStyle = "rgb(0 153 255)";
+            ctx.fillRect(0, 75, 150, 37.5);
+            ctx.fillStyle = "rgb(255 51 0)";
+            ctx.fillRect(0, 112.5, 150, 37.5);
+        
+            // Draw semi transparent rectangles
+            for (let i = 0; i < 10; i++) {
+            ctx.fillStyle = `rgb(255 255 255 / ${(i + 1) / 10})`;
+            for (let j = 0; j < 4; j++) {
+                ctx.fillRect(5 + i * 14, 5 + j * 37.5, 14, 27.5);
+            }
+            }
+        }
+        draw3();
+    </script>
+
+    <script type="application/javascript">
+        function draw4() {
+            const ctx = document.getElementById("canvas4").getContext("2d");
+                for (let i = 0; i < 10; i++) {
+                    ctx.lineWidth = 1 + i;
+                    ctx.beginPath();
+                    ctx.moveTo(5 + i * 14, 5);
+                    ctx.lineTo(5 + i * 14, 140);
+                    ctx.stroke();
+                }
+                }
+        draw4();
+    </script>
+
+  </body>
+</html>

@@ -1,0 +1,53 @@
+/* General styles */
+body {
+    font-family: 'Raleway', sans-serif;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #D2ECF9;
+    color: #333;
+}
+
+.container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+button {
+    padding: 10px 15px;
+    background-color: #1891AC;
+    color: #ffffff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #1F5F8B;
+}
+
+h1 {
+    color: #253B6E;
+}
+
+
+/* Link styles */
+.create-post-link {
+    display: inline-block;
+    margin: 20px 0;
+    padding: 10px 15px;
+    background-color: #1F5F8B;
+    color: #f5eef5;
+    text-decoration: none;
+    font-size: 1.3rem;
+    border-radius: 5px;
+    font-weight: 600;
+    transition: background-color 0.3s;
+}
+
+.create-post-link:hover {
+    background-color: #253B6E;
+}

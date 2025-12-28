@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bullet Colors with CSS Variables</title>
+  <style>
+    :root {
+      --bullet-color-1: #FF6347;
+      --bullet-color-2: #4682B4;
+      --bullet-color-3: #32CD32;
+      --bullet-color-4: #DA70D6;
+    }
+ul {
+      list-style: none;
+      padding-left: 0;
+    }
+    ul li:nth-child(1)::before {
+      content: '•';
+      color: var(--bullet-color-1);
+      margin-right: 10px;
+    }
+    ul li:nth-child(2)::before {
+      content: '•';
+      color: var(--bullet-color-2);
+      margin-right: 10px;
+    }
+    ul li:nth-child(3)::before {
+      content: '•';
+      color: var(--bullet-color-3);
+      margin-right: 10px;
+    }
+    ul li:nth-child(4)::before {
+      content: '•';
+      color: var(--bullet-color-4);
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+<ul>
+  <li>Tomato bullet</li>
+  <li>SteelBlue bullet</li>
+  <li>LimeGreen bullet</li>
+  <li>Orchid bullet</li>
+</ul>
+</body>
+</html>

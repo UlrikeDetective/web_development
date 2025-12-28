@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Custom Colored Bullets</title>
+  <style>
+    ul {
+      list-style-type: none;
+      padding-left: 0;
+    }ul li:nth-child(1)::before {
+      content: '🔴';
+      margin-right: 10px;
+    }
+    ul li:nth-child(2)::before {
+      content: '🔵';
+      margin-right: 10px;
+    }
+    ul li:nth-child(3)::before {
+      content: '🟢';
+      margin-right: 10px;
+    }
+    ul li:nth-child(4)::before {
+      content: '🟠';
+      margin-right: 10px;
+    }
+  </style>
+</head>
+<body>
+<ul>
+  <li>First item</li>
+  <li>Second item</li>
+  <li>Third item</li>
+  <li>Fourth item</li>
+</ul>
+</body>
+</html>

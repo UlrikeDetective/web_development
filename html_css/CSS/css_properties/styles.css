@@ -1,0 +1,79 @@
+.header {
+    position: sticky;
+    top: 0;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    font-size: 3em;
+    background-color: darkslategray;
+    color: aliceblue;
+  }
+
+.container {
+    display: flex;
+    font-size: 3em;
+    font-family: monospace;
+  }
+
+  .grid-container {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    font-size: 2em;
+    font-family: fantasy;
+    white-space: nowrap;
+  }
+
+  .flex-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    font-size: 4em;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    font-style: oblique;
+    position:relative;
+    z-index: 5;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+  }
+
+  .flex-container2 {
+    display: flex;
+    align-items: center;
+    font-size: 3em;
+    font-family: 'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+    font-stretch: ultra-expanded;
+    clip-path: circle(80%);
+  }
+
+  .image {
+    aspect-ratio: 16 / 9;
+    width: 90%;
+    height: 90%;
+    filter: grayscale(100%);
+    transition: background-color 0.3s ease;
+  }
+
+  .image2 {
+    width: 90%;
+    height: 90%;
+    object-fit: cover;
+    
+  }
+
+  .overlay {
+    position: absolute;
+    z-index: 10;
+    font-family: Impact, Haettenschweiler, 'Arial Narrow Bold', sans-serif;
+    font-size: 2em;
+  }
+
+  .frosted-glass {
+    backdrop-filter: blur(10px);
+  }
+
+  .heading {
+    text-shadow: 20px 20px 5px rgba(23, 161, 186, 0.3);
+    
+  }
+
+  .circle {
+    clip-path: circle(50%);
+    background-color: cornflowerblue;
+  }

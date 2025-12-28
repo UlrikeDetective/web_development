@@ -1,0 +1,133 @@
+body {
+    background-color: #e4e2e2;
+    color: #000;
+    font-family: GeneralSans, sans-serif;
+    font-size: 3em;
+    line-height: 1.25;
+    margin: 10;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    opacity: 10;
+}
+
+header {
+    background-color: #dad4d2;
+    padding: 20px;
+    text-align: center;
+}
+
+.header__logo img {
+    max-width: 400px;
+}
+
+.header__menu {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.header__menu__nav__item {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+.banner {
+    text-align: center;
+    padding: 50px 20px;
+    background-color: #fff;
+    height: 800px;
+}
+
+.banner__content {
+    position: relative;
+    padding-top: 1px; /* Add some padding to the top */
+    font-size: 5em;
+    line-height: 1.5;
+}
+
+.description {
+    margin: 20px;
+    padding: 20px;
+    background-color: #dddcdc;
+    text-align: center;
+}
+
+.description__text {
+    max-width: 1200px;
+
+}
+
+.artistas, .partners {
+    padding: 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.footer {
+    background-color: #dad4d2;
+    padding: 20px;
+    text-align: center;
+}
+
+.footer__title h2 {
+    margin: 0;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+*, :after, :before {
+    box-sizing: border-box;
+}
+
+
+img {
+    max-width: 100%;
+}
+
+
+html {
+    font-size: clamp(25%, .75vw, 41%);
+}
+
+::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #232323;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+@keyframes moveFromBottomToTop {
+    0% {
+        top: 100%; /* Start from the bottom */
+    }
+    100% {
+        top: 0; /* End at the top */
+    }
+}
+
+.sol {
+    position: relative;
+    height: 100px; /* Adjust height as needed */
+
+}
+
+.sol img {
+    position: absolute;
+    top: 120%; /* Start from the bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 120%;
+    height: auto;
+    animation: moveFromBottomToTop 10s forwards; /* Apply the animation */
+    opacity: 0.9; /* Make the image a bit transparent */
+}

@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="style.css">
+    <title>Document</title>
+</head>
+<body>
+    <header class="site-header">
+  <div class="container">
+    <a class="brand" href="/">Acme</a>
+    <div class="search-bar">
+        <input type="search" placeholder="Search">
+        <button type="submit">Search</button>
+    </div>
+    <div class="user-actions">
+        <a href="#" class="btn">Log In</a>
+        <a href="#" class="btn btn-secondary">Register</a>
+    </div>
+    <div class="shopping-cart">
+        <a href="#">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                <path d="M2.25 2.25a.75.75 0 000 1.5h1.386c.17 0 .318.114.362.278l2.558 9.592a3.752 3.752 0 00-2.806 3.63c0 .414.336.75.75.75h15.75a.75.75 0 000-1.5H5.378A2.25 2.25 0 017.5 15h11.218a.75.75 0 00.744-.648l2.25-8.25a.75.75 0 00-.744-.852H4.28L3.47 3.22A.75.75 0 002.72 2.5H2.25zM6 18a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0zM15.75 18a1.5 1.5 0 11-3 0 1.5 1.5 0 013 0z" />
+            </svg>
+        </a>
+    </div>
+    <!-- Desktop nav -->
+    <nav class="nav-desktop" aria-label="Main">
+      <ul class="menu">
+        <li class="menu-item has-mega">
+          <a class="menu-link" href="/products" aria-haspopup="true" aria-expanded="false">Products</a>
+          <div class="mega" role="region" aria-label="Products">
+            <div class="mega-grid">
+              <section class="mega-col">
+                <h3 class="mega-heading">Build</h3>
+                <ul class="mega-list">
+                  <li><a href="/products/editor">Editor</a></li>
+                  <li><a href="/products/cli">CLI</a></li>
+                  <li><a href="/products/sdk">SDK</a></li>
+                </ul>
+              </section>
+              <section class="mega-col">
+                <h3 class="mega-heading">Ship</h3>
+                <ul class="mega-list">
+                  <li><a href="/products/deploy">Deploy</a></li>
+                  <li><a href="/products/monitoring">Monitoring</a></li>
+                  <li><a href="/products/logs">Logs</a></li>
+                </ul>
+              </section>
+              <section class="mega-col highlight">
+                <h3 class="mega-heading">New</h3>
+                <a class="promo-card" href="/launch">
+                  <img src="/img/launch-thumb.jpg" alt="" />
+                  <div class="promo-content">
+                    <strong>Acme Launch</strong>
+                    <p>Zero-downtime rollouts with traffic shaping.</p>
+                    <span class="promo-cta">Learn more →</span>
+                  </div>
+                </a>
+              </section>
+            </div>
+          </div>
+        </li>
+        <li class="menu-item has-mega">
+          <a class="menu-link" href="/solutions" aria-haspopup="true" aria-expanded="false">Solutions</a>
+          <div class="mega" role="region" aria-label="Solutions">
+            <div class="mega-grid">
+              <section class="mega-col">
+                <h3 class="mega-heading">Teams</h3>
+                <ul class="mega-list">
+                  <li><a href="/solutions/startups">Startups</a></li>
+                  <li><a href="/solutions/enterprise">Enterprise</a></li>
+                  <li><a href="/solutions/education">Education</a></li>
+                </ul>
+              </section>
+              <section class="mega-col">
+                <h3 class="mega-heading">Use Cases</h3>
+                <ul class="mega-list">
+                  <li><a href="/solutions/edge">Edge</a></li>
+                  <li><a href="/solutions/ai">AI</a></li>
+                  <li><a href="/solutions/ecommerce">eCommerce</a></li>
+                </ul>
+              </section>
+            </div>
+          </div>
+        </li>
+        <li class="menu-item"><a class="menu-link" href="/pricing">Pricing</a></li>
+        <li class="menu-item"><a class="menu-link" href="/docs">Docs</a></li>
+      </ul>
+    </nav>
+    <!-- Mobile nav -->
+    <nav class="nav-mobile" aria-label="Main (mobile)">
+      <details>
+        <summary class="mobile-summary">Products</summary>
+        <div class="mobile-panel">
+          <a href="/products/editor">Editor</a>
+          <a href="/products/cli">CLI</a>
+          <a href="/products/sdk">SDK</a>
+          <hr>
+          <a href="/products/deploy">Deploy</a>
+          <a href="/products/monitoring">Monitoring</a>
+          <a href="/products/logs">Logs</a>
+          <hr>
+          <a class="promo" href="/launch">Acme Launch →</a>
+        </div>
+      </details>
+      <details>
+        <summary class="mobile-summary">Solutions</summary>
+        <div class="mobile-panel">
+          <a href="/solutions/startups">Startups</a>
+          <a href="/solutions/enterprise">Enterprise</a>
+          <a href="/solutions/education">Education</a>
+          <hr>
+          <a href="/solutions/edge">Edge</a>
+          <a href="/solutions/ai">AI</a>
+          <a href="/solutions/ecommerce">eCommerce</a>
+        </div>
+      </details>
+      <a class="mobile-link" href="/pricing">Pricing</a>
+      <a class="mobile-link" href="/docs">Docs</a>
+    </nav>
+    <!-- Theme toggle -->
+    <div class="theme-toggle">
+        <button id="theme-toggle-light" aria-label="Light theme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                <path d="M12 2.25a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75zM7.5 12a4.5 4.5 0 119 0 4.5 4.5 0 01-9 0zM18.894 6.106a.75.75 0 010 1.06l-1.591 1.59a.75.75 0 11-1.06-1.06l1.59-1.59a.75.75 0 011.06 0zM21.75 12a.75.75 0 01-.75.75h-2.25a.75.75 0 010-1.5H21a.75.75 0 01.75.75zM17.894 17.894a.75.75 0 01-1.06 0l-1.59-1.591a.75.75 0 111.06-1.06l1.59 1.59a.75.75 0 010 1.061zM12 18a.75.75 0 01.75.75v2.25a.75.75 0 01-1.5 0v-2.25A.75.75 0 0112 18zM5.106 17.894a.75.75 0 010-1.06l1.59-1.59a.75.75 0 011.06 1.06l-1.59 1.591a.75.75 0 01-1.06 0zM3 12a.75.75 0 01.75-.75h2.25a.75.75 0 010 1.5H3.75A.75.75 0 013 12zM6.106 6.106a.75.75 0 011.06 0l1.591 1.59a.75.75 0 01-1.06 1.06L6.106 7.167a.75.75 0 010-1.06z" />
+              </svg>
+        </button>
+        <button id="theme-toggle-dark" aria-label="Dark theme">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+                <path fill-rule="evenodd" d="M9.528 1.718a.75.75 0 01.162.819A8.97 8.97 0 009 6a9 9 0 009 9 8.97 8.97 0 004.472-.69a.75.75 0 01.82.162a.75.75 0 01-.286.948A10.452 10.452 0 0118 18a10.5 10.5 0 01-10.5-10.5c0-1.25.22-2.454.622-3.572a.75.75 0 01.948-.286z" clip-rule="evenodd" />
+              </svg>
+        </button>
+    </div>
+    <!-- Mobile menu toggle (pure CSS) -->
+    <input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true" />
+    <label class="nav-toggle-btn" for="nav-toggle" aria-label="Toggle Menu">
+      <span></span><span></span><span></span>
+    </label>
+  </div>
+  <!-- Place this “sentinel” after the header -->
+    <div class="scroll-sentinel" aria-hidden="true"></div>
+</header>
+
+<section class="hero">
+    <div class="container">
+        <h1>Welcome to Acme</h1>
+        <p>We build the best products in the world.</p>
+        <a href="/products" class="btn">View Products</a>
+    </div>
+</section>
+
+<section class="product-categories">
+    <div class="container">
+        <h2>Product Categories</h2>
+        <div class="category-grid">
+            <div class="category-card">
+                <img src="/img/category1.jpg" alt="Category 1">
+                <h3>Category 1</h3>
+            </div>
+            <div class="category-card">
+                <img src="/img/category2.jpg" alt="Category 2">
+                <h3>Category 2</h3>
+            </div>
+            <div class="category-card">
+                <img src="/img/category3.jpg" alt="Category 3">
+                <h3>Category 3</h3>
+            </div>
+            <div class="category-card">
+                <img src="/img/category4.jpg" alt="Category 4">
+                <h3>Category 4</h3>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="featured-products">
+    <div class="container">
+        <h2>Featured Products</h2>
+        <div class="product-grid">
+            <div class="product-card">
+                <img src="/img/product1.jpg" alt="Product 1">
+                <h3>Product 1</h3>
+                <p class="price">$19.99</p>
+                <a href="#" class="btn">Add to Cart</a>
+            </div>
+            <div class="product-card">
+                <img src="/img/product2.jpg" alt="Product 2">
+                <h3>Product 2</h3>
+                <p class="price">$29.99</p>
+                <a href="#" class="btn">Add to Cart</a>
+            </div>
+            <div class="product-card">
+                <img src="/img/product3.jpg" alt="Product 3">
+                <h3>Product 3</h3>
+                <p class="price">$39.99</p>
+                <a href="#" class="btn">Add to Cart</a>
+            </div>
+            <div class="product-card">
+                <img src="/img/product4.jpg" alt="Product 4">
+                <h3>Product 4</h3>
+                <p class="price">$49.99</p>
+                <a href="#" class="btn">Add to Cart</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="company-logos">
+    <div class="container">
+        <img src="/img/logo1.png" alt="Company 1">
+        <img src="/img/logo2.png" alt="Company 2">
+        <img src="/img/logo3.png" alt="Company 3">
+        <img src="/img/logo4.png" alt="Company 4">
+        <img src="/img/logo5.png" alt="Company 5">
+    </div>
+</section>
+
+<section class="faq">
+    <div class="container">
+        <h2>Frequently Asked Questions</h2>
+        <details>
+            <summary>Question 1?</summary>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et quam est. Fusce vel laoreet velit.</p>
+        </details>
+        <details>
+            <summary>Question 2?</summary>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et quam est. Fusce vel laoreet velit.</p>
+        </details>
+        <details>
+            <summary>Question 3?</summary>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et quam est. Fusce vel laoreet velit.</p>
+        </details>
+    </div>
+</section>
+
+<section class="team">
+    <div class="container">
+        <h2>Our Team</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <img src="/img/team1.jpg" alt="Team Member 1">
+                <h3>John Doe</h3>
+                <p>CEO</p>
+            </div>
+            <div class="team-member">
+                <img src="/img/team2.jpg" alt="Team Member 2">
+                <h3>Jane Doe</h3>
+                <p>CTO</p>
+            </div>
+            <div class="team-member">
+                <img src="/img/team3.jpg" alt="Team Member 3">
+                <h3>Peter Jones</h3>
+                <p>Lead Designer</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="careers">
+    <div class="container">
+        <h2>Careers</h2>
+        <div class="job-listing">
+            <h3>Software Engineer</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et quam est. Fusce vel laoreet velit.</p>
+            <a href="#" class="btn">Apply Now</a>
+        </div>
+        <div class="job-listing">
+            <h3>Product Manager</h3>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et quam est. Fusce vel laoreet velit.</p>
+            <a href="#" class="btn">Apply Now</a>
+        </div>
+    </div>
+</section>
+
+<section class="about-us">
+    <div class="container">
+        <h2>About Us</h2>
+        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et quam est. Fusce vel laoreet velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et quam est. Fusce vel laoreet velit. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et quam est. Fusce vel laoreet velit.</p>
+    </div>
+</section>
+
+<section class="press">
+    <div class="container">
+        <h2>Press</h2>
+        <div class="press-grid">
+            <div class="press-item">
+                <a href="#">
+                    <img src="/img/press1.png" alt="Press 1">
+                </a>
+            </div>
+            <div class="press-item">
+                <a href="#">
+                    <img src="/img/press2.png" alt="Press 2">
+                </a>
+            </div>
+            <div class="press-item">
+                <a href="#">
+                    <img src="/img/press3.png" alt="Press 3">
+                </a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="brand-assets">
+    <div class="container">
+        <h2>Brand Assets</h2>
+        <p>Download our brand assets for use in your own projects.</p>
+        <a href="#" class="btn">Download Assets</a>
+    </div>
+</section>
+
+<section class="features">
+    <div class="container">
+        <div class="feature">
+            <h2>Feature 1</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et quam est. Fusce vel laoreet velit.</p>
+        </div>
+        <div class="feature">
+            <h2>Feature 2</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et quam est. Fusce vel laoreet velit.</p>
+        </div>
+        <div class="feature">
+            <h2>Feature 3</h2>
+            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et quam est. Fusce vel laoreet velit.</p>
+        </div>
+    </div>
+</section>
+
+<section class="testimonials">
+    <div class="container">
+        <h2>What our customers are saying</h2>
+        <div class="testimonial">
+            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et quam est. Fusce vel laoreet velit."</p>
+            <cite>- John Doe</cite>
+        </div>
+        <div class="testimonial">
+            <p>"Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et quam est. Fusce vel laoreet velit."</p>
+            <cite>- Jane Doe</cite>
+        </div>
+    </div>
+</section>
+
+<section class="contact">
+    <div class="container">
+        <h2>Contact Us</h2>
+        <form>
+            <input type="text" placeholder="Name">
+            <input type="email" placeholder="Email">
+            <textarea placeholder="Message"></textarea>
+            <button type="submit" class="btn">Send Message</button>
+        </form>
+    </div>
+</section>
+
+<section class="pricing">
+    <div class="container">
+        <h2>Our Pricing</h2>
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Basic</h3>
+                <p class="price">$10<span>/mo</span></p>
+                <ul>
+                    <li>Feature 1</li>
+                    <li>Feature 2</li>
+                    <li>Feature 3</li>
+                </ul>
+                <a href="#" class="btn">Sign Up</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Pro</h3>
+                <p class="price">$20<span>/mo</span></p>
+                <ul>
+                    <li>Feature 1</li>
+                    <li>Feature 2</li>
+                    <li>Feature 3</li>
+                </ul>
+                <a href="#" class="btn">Sign Up</a>
+            </div>
+            <div class="pricing-card">
+                <h3>Enterprise</h3>
+                <p class="price">$50<span>/mo</span></p>
+                <ul>
+                    <li>Feature 1</li>
+                    <li>Feature 2</li>
+                    <li>Feature 3</li>
+                </ul>
+                <a href="#" class="btn">Sign Up</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="blog">
+    <div class="container">
+        <h2>From the Blog</h2>
+        <div class="blog-grid">
+            <div class="blog-post">
+                <img src="/img/blog1.jpg" alt="Blog Post 1">
+                <h3>Blog Post 1</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et quam est. Fusce vel laoreet velit.</p>
+                <a href="#">Read More</a>
+            </div>
+            <div class="blog-post">
+                <img src="/img/blog2.jpg" alt="Blog Post 2">
+                <h3>Blog Post 2</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et quam est. Fusce vel laoreet velit.</p>
+                <a href="#">Read More</a>
+            </div>
+            <div class="blog-post">
+                <img src="/img/blog3.jpg" alt="Blog Post 3">
+                <h3>Blog Post 3</h3>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed et quam est. Fusce vel laoreet velit.</p>
+                <a href="#">Read More</a>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="cta">
+    <div class="container">
+        <h2>Ready to get started?</h2>
+        <p>Sign up for a free account today.</p>
+        <a href="#" class="btn">Sign Up Now</a>
+    </div>
+</section>
+
+<section class="newsletter">
+    <div class="container">
+        <h2>Subscribe to our newsletter</h2>
+        <form>
+            <input type="email" placeholder="Enter your email">
+            <button type="submit" class="btn">Subscribe</button>
+        </form>
+    </div>
+</section>
+
+<button id="scroll-to-top" aria-label="Scroll to top">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+        <path d="M12 2.25a.75.75 0 01.75.75v16.5a.75.75 0 01-1.5 0V3a.75.75 0 01.75-.75z" />
+    </svg>
+</button>
+
+<script>
+    const themeToggleLight = document.getElementById('theme-toggle-light');
+    const themeToggleDark = document.getElementById('theme-toggle-dark');
+    const root = document.documentElement;
+    const scrollToTopBtn = document.getElementById('scroll-to-top');
+
+    themeToggleLight.addEventListener('click', () => {
+        root.setAttribute('data-theme', 'light');
+    });
+
+    themeToggleDark.addEventListener('click', () => {
+        root.setAttribute('data-theme', 'dark');
+    });
+
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 200) {
+            scrollToTopBtn.style.display = 'block';
+        } else {
+            scrollToTopBtn.style.display = 'none';
+        }
+    });
+
+    scrollToTopBtn.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    });
+</script>
+
+<footer>
+    <div class="container">
+        <p>&copy; 2025 Acme. All rights reserved.</p>
+        <div class="social-media">
+            <a href="#">Twitter</a>
+            <a href="#">Facebook</a>
+            <a href="#">Instagram</a>
+        </div>
+        <div class="legal">
+            <a href="#">Terms of Service</a>
+            <a href="#">Privacy Policy</a>
+            <a href="#">Status</a>
+            <a href="#">Contact Us</a>
+            <a href="#">Documentation</a>
+            <a href="#">API</a>
+            <a href="#">Security</a>
+            <a href="#">Sitemap</a>
+            <a href="#">Cookie Policy</a>
+            <a href="#">Cookie Settings</a>
+            <a href="#">DPA</a>
+            <a href="#">Sub-processors</a>
+            <a href="#">Candidate Privacy</a>
+        </div>
+        <div class="language-selector">
+            <select>
+                <option value="en">English</option>
+                <option value="es">Español</option>
+                <option value="fr">Français</option>
+            </select>
+        </div>
+    </div>
+</footer>
+
+</body>
+</html>

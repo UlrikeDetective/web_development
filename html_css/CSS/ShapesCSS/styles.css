@@ -1,0 +1,226 @@
+:root {
+    --grey: #e0e3e7;
+    --black: #242424;
+    --blue: #0c8fcf;
+    --white: white;
+    --orange: red;
+}
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+.body {
+    margin: 10;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: center;
+    background-image: linear-gradient(to right, #ff7e5f, #feb47b);
+    padding: 20px;
+    font-family: Inconsolata, monospace;
+}
+
+.shape-container {
+    margin: 20px;
+    text-align: center;
+    font-family: monospace;
+    font-size: 3em;
+    color: white;
+}
+
+.rectangle {
+    width: 500px;
+    height: 300px;
+    background: black;
+}
+
+.square {
+    width: 300px;
+    aspect-ratio: 1;
+    background: black;
+}
+
+.circle {
+    width: 300px;
+    aspect-ratio: 1;
+    background: black;
+    border-radius: 50%;
+}
+
+.ellipse {
+    width: 300px;
+    height: 400px;
+    background: black;
+    border-radius: 50%;
+}
+
+.oval {
+    width: 300px;
+    height: 400px;
+    background: black;
+    border-radius: 100% / 120% 120% 75% 75%;
+}
+
+.bell {
+    width: 300px;
+    height: 400px;
+    background: black;
+    border-radius: 100% / 160% 160% 25% 25%;
+}
+
+.arch {
+    width: 300px;
+    height: 400px;
+    background: black;
+    border-radius: 50% / 100% 100% 0% 0%;
+}
+
+.tear {
+    width: 300px;
+    aspect-ratio: 1;
+    background: black;
+    rotate: 45deg;
+    border-radius: 0 50% 50% 50%;
+}
+
+.heart {
+    width: 150px; /* Smaller width for better proportions */
+    height: 150px; /* Height matching width */
+    background: black;
+    position: relative;
+    transform: rotate(-45deg); /* Rotate to create a heart shape */
+    margin: 20px auto; /* Center within container */
+}
+
+.heart::before,
+.heart::after {
+    content: "";
+    position: absolute;
+    width: 150px;
+    height: 150px; /* Matching the heart size */
+    background: black;
+    border-radius: 50%; /* Makes them circular */
+    top: -75px; /* Position above the heart's square base */
+}
+
+.heart::before {
+    left: 0; /* Left circle for the rounded top */
+}
+
+.heart::after {
+    right: 0; /* Right circle for the rounded top */
+}
+
+.triangle {
+    width: 300px;
+    height: 300px;
+    background: black;
+    clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+.trapezoid {
+    width: 400px;
+    height: 300px;
+    background: black;
+    clip-path: polygon(20% 0, 80% 0, 100% 100%, 0 100%);
+}
+
+.octagon {
+    width: 300px;
+    height: 300px;
+    background: black;
+    clip-path: polygon(16.66% 16.66%, 50% 0, 83.33% 16.66%, 100% 50%, 83.33% 83.33%, 50% 100%, 16.66% 83.33%, 0 50%);
+
+}
+
+.spark {
+    width: 300px;
+    aspect-ratio: 1;
+    background: black;
+    clip-path: polygon(40% 40%, 50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%);
+}
+
+.moon {
+    width: 300px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    box-shadow: -90px 0 0 80px black;
+}
+
+.moonCrescent {
+    width: 300px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    -webkit-mask: radial-gradient(circle at 75% 50%, #0000 33%, #000 0);
+}
+
+.moonDecrescent {
+    width: 300px;
+    aspect-ratio: 1;
+    border-radius: 50%;
+    box-shadow: -90px 0 0 80px black;
+}
+
+.stain {
+    width: 300px;
+    height: 300px;
+    background:
+        repeating-conic-gradient(#000 0 3%, #0000 0 11%),
+        repeating-conic-gradient(#0000 0 5%, #000 0 7%) 50% / 60% 60%,
+        repeating-conic-gradient(#0000 0 7%, #000 0 9%) 50% / 70% 70%,
+        repeating-conic-gradient(#0000 0 11%, #000 0 13%) 50% / 80% 80%,
+        radial-gradient(#000 22%, #0000 0),
+        #fff;
+    mix-blend-mode: darken;
+    filter: blur(10px) contrast(100) brightness(1) grayscale(1);
+    box-shadow: 0 0 0 50px #fff;
+}
+element.style {
+    : ;
+}
+
+.circle-object.contact {
+    z-index: 1; /* Bring the element to the front */
+    background: linear-gradient(to bottom, red 0%, red 33%, rgb(242, 78, 78) 33%, rgb(242, 78, 78) 66%, rgb(241, 149, 149) 66%, rgb(241, 149, 149) 100%);
+    top: 320px; /* Adjusted to position under the text */
+    left: 30px; /* Centered under the text */
+    transform: rotate(-0deg);
+    animation: moveFromBottomToTop 10s forwards; /* Apply the animation */
+}
+
+.circle-object {
+    /* background-color: var(--blue); */
+    border-radius: 200px;
+    width: 250px;
+    height: 250px;
+    position: absolute;
+    z-index: 1; /* Bring the element to the front */
+}
+
+@keyframes moveFromBottomToTop {
+    0% {
+        top: 100%; /* Start from the bottom */
+    }
+    70% {
+        top: 0; /* End at the top */
+    }
+}
+
+.circle-object img {
+    position: absolute;
+    top: 90%; /* Start from the bottom */
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 120%;
+    height: auto;
+    opacity: 0.9; /* Make the image a bit transparent */
+}
+
+.w-form {
+    margin-top: auto; /* Push the form to the bottom */
+    width: 100%; /* Ensure it takes the full width */
+    padding: 20px; /* Add some padding for better appearance */
+    box-sizing: border-box; /* Include padding in the element's total width and height */
+    margin: 0 0 15px;
+}

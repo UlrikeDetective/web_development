@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>CSS Variables Magic 🎨</title>
+  <style>
+    :root {
+      --main-color: #47d7ff93;
+      --accent-color: #05769c;
+      --text-color: #ffffff;
+    }
+    body {
+      background-color: var(--main-color);
+      color: var(--text-color);
+      font-family: Arial, sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      margin: 0;
+    }
+    .box {
+      background-color: var(--accent-color);
+      padding: 50px;
+      border-radius: 10px;
+      text-align: center;
+      font-size: 1.5em;
+    }
+  </style>
+</head>
+<body>
+  <div class="box">
+    This box uses CSS Variables! 🎨
+  </div>
+</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   
+    <style>
+        div[popover]::backdrop {
+          background-color: rgba(215, 29, 168, 0.647);
+        }
+        
+        div[popover] {
+          padding: 12px;
+          border: none;
+        }
+      </style>
+      
+      <div id="pop" popover>
+        <h1> Einfach testen, testen, testen</h1>
+      </div>
+      
+      <h1><button popovertarget="pop">Show popover</button></h1>
+
+      <dialog id="dlg">
+        <form method="dialog">
+          <input type="text" placeholder="Firstname" value="John" />
+          <div style="height: 8px"></div>
+          <input type="text" placeholder="Lastname" autofocus/>
+          <div style="height: 8px"></div>
+          <button>Save</button>
+        </form>
+      </dialog>
+      <button onclick="document.getElementById('dlg').showModal()" autofocus>Show modal</button>
+
+      <br>
+      <br>
+      <form>
+        <input 
+          type="text" 
+          placeholder="i.e., GR-100200" 
+          pattern="[A-Z]{2}-[0-9]{6}" 
+          required 
+         />
+        <input type="submit"/>
+      </form>
+
+      <br>
+      <style>
+        input[type=text] {
+          border: #000 1px solid;
+          border-radius: 4px;
+          outline: none;
+          padding: 6px;
+        }
+      
+        input[type=text]:invalid {
+          border: red 1px solid;
+           + span::before {
+            content: '✖';
+            display: inline;
+            color: red;
+          }
+        }
+        
+        input[type=text]:valid {
+          border: green 1px solid;
+          + span::before {
+            content: '✓';
+            display: inline;
+            color: green;
+          }
+        }
+      
+      </style>
+      
+      <input 
+        type="text" 
+        placeholder="i.e., GR-100200" 
+        pattern="[A-Z]{2}-[0-9]{6}" required
+      />
+      <span></span>
+
+      <br>
+      <br>
+      <input type="text" placeholder="Enter OTP" pattern="[0-9]{4}" required />
+
+        <br>
+        <br>
+
+        <img src="https://www.theblondeabroad.com/wp-content/uploads/2019/06/japan-7.jpg" width=200" height="200" loading="lazy" />
+
+</body>
+</html>

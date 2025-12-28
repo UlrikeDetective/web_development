@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cocktail Recipe</title>
+  <link rel="stylesheet" href="/styles/main.css">
+  <style>
+    /* Add some basic styles for carousel and cocktail section */
+    /*
+    .carousel {
+      position: relative;
+      max-width: 100%;
+      margin: 20px auto;
+      overflow: hidden;
+    }
+
+    .carousel-images {
+      display: flex;
+      transition: transform 0.5s ease;
+    }
+
+    .carousel-images img {
+      width: 100%;
+      display: block;
+    }
+
+    .prev, .next {
+      position: absolute;
+      top: 50%;
+      background-color: #35D2CB;
+      border: none;
+      color: white;
+      padding: 10px;
+      cursor: pointer;
+      z-index: 10;
+      transform: translateY(-50%);
+    }
+
+    .prev {
+      left: 10px;
+    }
+
+    .next {
+      right: 10px;
+    }
+    */
+
+    .cocktail {
+      text-align: center;
+      margin: 20px auto;
+    }
+
+    .cocktail img {
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+    }
+
+    .cocktail ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .cocktail li {
+      margin: 5px 0;
+    }
+
+    /* Add styles for the form and search results */
+    #drink-form {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    #search-results {
+      margin-top: 20px;
+    }
+
+    .result-item {
+      margin-bottom: 20px;
+    }
+
+    .result-item img {
+      max-width: 100px;
+      height: auto;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Random Cocktail Recipe</h1>
+
+    <div class="cocktail">
+      <img src="<%= cocktail.strDrinkThumb %>" alt="<%= cocktail.strDrink %>">
+      <h2><%= cocktail.strDrink %></h2>
+      <p><strong>Category:</strong> <%= cocktail.strCategory %></p>
+      <p><strong>Instructions:</strong> <%= cocktail.strInstructions %></p>
+      <h3>Ingredients:</h3>
+      <ul>
+        <% for (let i = 1; i <= 15; i++) { %>
+          <% if (cocktail[`strIngredient${i}`]) { %>
+            <li><%= cocktail[`strIngredient${i}`] %> - <%= cocktail[`strMeasure${i}`] %></li>
+          <% } %>
+        <% } %>
+      </ul>
+    </div>
+
+    <div id="search-form">
+      <form id="drink-form">
+        <input type="text" id="search" placeholder="Enter cocktail name">
+        <button type="submit">Search</button>
+      </form>
+    </div>
+
+    <div id="search-results"></div>
+  </div>
+
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      const searchBtn = document.querySelector("#search");
+      const drinkForm = document.getElementById("drink-form");
+      let filter = '';
+
+      drinkForm.addEventListener("submit", (event) => {
+        event.preventDefault(); // Prevent the form from submitting the default way
+        loadTable(); // Invoke the loadTable function
+      });
+
+      document.getElementById("search").addEventListener("input", () => {
+        filter = document.getElementById("search").value;
+      });
+
+      function loadTable() {
+        let completeUrl = `https://www.thecocktaildb.com/api/json/v1/1/search.php?s=${filter}`;
+        
+        fetch(completeUrl)
+          .then(response => response.json())
+          .then(data => {
+            const cocktails = []; // Array to hold cocktails
+            const searchResults = document.getElementById("search-results");
+            searchResults.innerHTML = ''; // Clear previous results
+
+            for (let i = 0; i < data.drinks.length; i++) {
+              let drink = {
+                drinkName: data.drinks[i].strDrink,
+                drinkImg: data.drinks[i].strDrinkThumb,
+                alcoholic: data.drinks[i].str

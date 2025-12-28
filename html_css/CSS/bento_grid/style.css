@@ -1,0 +1,78 @@
+/* CSS Grid Layout for a Bento Box Style Layout */
+/* This CSS code creates a grid layout that resembles a bento box style. 
+   The layout is responsive and adjusts to different screen sizes. */
+/* The grid consists of 8 boxes, with some boxes spanning multiple columns or rows. */
+/* The grid is designed to be visually appealing and organized, 
+   with a light background color and rounded corners for the boxes. */
+
+   body {
+    background: hsl(36, 51%, 60%);
+    color: #333;
+    font-family: monospace;
+    font-size: 2.5em;
+    text-align: center;
+    padding: 2vw;}
+
+   .bento-grid {
+    background: hsl(36, 100%, 99%);
+    width: 100%;
+    max-width: 1500px;
+    height: 1000px;
+    display: grid;
+    gap: 1.5vw;
+    padding: 1vw;
+    grid-template-columns: repeat(4, 1fr); /* Adjusted to 4 columns */
+    grid-template-rows: auto;
+    grid-template-areas:
+      "box1 box1 box2 box2"
+      "box3 box4 box4 box5"
+      "box6 box7 box8 box8";
+  }
+
+  .box {
+    background-color: #ddd;
+    border-radius: 8px;
+    padding: 8px;
+    height: 150px;
+  }
+  
+  .box-1 {
+    grid-area: box1;
+    height: 300px;
+  }
+  
+  .box-2 {
+    background-color: azure;
+    grid-area: box2;
+    height: 300px;
+  }
+  
+  .box-3 {
+    background-color: rgb(132, 208, 208);
+    grid-area: box3;
+  }
+  
+  .box-4 {
+    background-color: rgb(118, 156, 156);
+    grid-area: box4;
+  }
+  
+  .box-5 {
+    background-color: rgb(248, 193, 161);
+    grid-area: box5;
+  }
+  
+  .box-6 {
+    background-color: rgb(243, 210, 78);
+    grid-area: box6;
+  }
+  
+  .box-7 {
+    background-color: rgb(207, 236, 165);
+    grid-area: box7;
+  }
+  
+  .box-8 {
+    background-color: rgb(185, 168, 228);
+    grid-area: box8;
+  }

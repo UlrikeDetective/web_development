@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Circle in CSS</title>
+    <style>
+        .circle-basic {
+            width: 200px;
+            height: 200px;
+            background-color: #90e293; /* Green background */
+            border-radius: 50%; /* Turns the square into a circle */
+        }
+        .circle-border-shadow {
+            width: 150px;
+            height: 150px;
+            background-color: #FF5722; /* Orange background */
+            border-radius: 50%;
+            border: 5px solid #000; /* Adds a black border */
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3); /* Adds a shadow */
+        }
+        .circle-container {
+            width: 50%; /* Container width is 50% of the viewport */
+            padding-bottom: 50%; /* Maintains aspect ratio */
+            background-color: lightgray;
+            position: relative;
+        }.circle-responsive {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: #2196F3; /* Blue background */
+            border-radius: 50%;
+        }
+        .circle-image {
+            width: 250px;
+            height: 250px;
+            border-radius: 50%;
+            background-image: url('Art_Basel.jpg'); /* Replace with your image URL */
+            background-size: cover;
+            background-position: center;
+        }
+        .circle-button {
+            width: 100px;
+            height: 100px;
+            background-color: #E91E63; /* Pink background */
+            border-radius: 50%;
+            border: none;
+            color: white;
+            font-size: 18px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 1.3s ease;
+        }.circle-button:hover {
+            background-color: #C2185B; /* Darker pink on hover */
+        }
+    </style>
+</head>
+<body>
+    <h2>Example 1: Creating a Basic Circle</h2>
+    <div class="circle-basic"></div>
+    <br>
+    <h2>Example 2: Circle with Border and Shadow</h2>
+    <div class="circle-border-shadow"></div>
+    <h2>Example 3: Responsive Circle</h2>
+    <div class="circle-container">
+        <div class="circle-responsive"></div></div>
+    <h2>Example 4: Circular Image</h2>
+    <div class="circle-image"></div>
+    <h2>Example 5: Circular Button with Hover Effect</h2>
+    <div class="circle-button">
+        <button class="circle-button">Click Me</button>
+    </div>
+</body>
+</html>

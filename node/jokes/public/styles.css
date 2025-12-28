@@ -1,0 +1,95 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Nanum+Gothic&family=Platypi:ital,wght@0,300..800;1,300..800&display=swap');
+
+
+/* Reset some default styles */
+body, h1, h2, p, form, input, button {
+    margin: 0;
+    padding: 0;
+    font-family: 'Platypi', serif;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #fff;
+}
+
+.container {
+    border: 10px solid black;
+    padding: 20px;
+    width: 600px;
+    text-align: center;
+}
+
+h1 {
+    font-size: 3em;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+form {
+    margin-bottom: 20px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    border: 2px solid black;
+    width: 80%;
+    box-sizing: border-box;
+    font-size: 1em;
+    margin-bottom: 10px;
+}
+
+button {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    font-size: 1em;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #555;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 20px;
+    background-color: #ffeb3b;
+    border: 2px solid black;
+    font-size: 1.2em;
+}
+
+.result p {
+    margin: 10px 0;
+}
+
+/* Mexican style elements */
+.mexican {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    gap: 5px;
+    margin-bottom: 20px;
+}
+
+.mexican div {
+    border: 2px solid black;
+}
+
+.color1 { background-color: #ff6a00; }
+.color2 { background-color: #fa511e; }
+.color3 { background-color: #f6393c; }
+.color4 { background-color: #f2215a; }
+.color5 { background-color: #ee0979; }
+
+.mexican .item1 { grid-column: span 2; grid-row: span 2; }
+.mexican .item2 { grid-column: span 3; grid-row: span 2; }
+.mexican .item3 { grid-column: span 3; grid-row: span 2; }
+.mexican .item4 { grid-column: span 2; grid-row: span 2; }
+.mexican .item5 { grid-column: span 3; grid-row: span 3; }
+

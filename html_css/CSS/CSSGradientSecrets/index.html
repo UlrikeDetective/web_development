@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <title>CSS Gradient Secrets</title>
+</head>
+
+<body>
+    <header>
+        <h1>CSS Gradient Secrets</h1>
+        <p>An exploration of creative uses for CSS gradients.</p>
+    </header>
+
+    <main>
+        <section class="gradient-example">
+            <h2>1. Multi-Stop Linear Gradient Button</h2>
+            <p>This button uses a <code>linear-gradient</code> with multiple color stops to create a distinct, sharp-edged effect rather than a smooth transition. The gradient goes from left to right, creating colored edges with a solid center band.</p>
+            <div class="example-container">
+                <button class="multi-btn">Click Me</button>
+            </div>
+            <pre><code class="language-css">.multi-btn {
+    background: linear-gradient(to right, #ff7e5f, #feb47b 30%, #feb47b 70%, #ff7e5f);
+}</code></pre>
+        </section>
+
+        <section class="gradient-example">
+            <h2>2. Conic Gradient Spinner</h2>
+            <p>A <code>conic-gradient</code> is used to create a pie-chart-like effect, perfect for spinners or color wheels. The gradient progresses around a center point. By setting the border-radius to 50%, we make the element a circle.</p>
+            <div class="example-container">
+                <div class="spinner"></div>
+            </div>
+            <pre><code class="language-css">.spinner {
+    background: conic-gradient(from 0deg, #ff0000, #ffff00 90deg, #00ff00 180deg, #0000ff 270deg, #ff0000);
+}</code></pre>
+        </section>
+
+        <section class="gradient-example">
+            <h2>3. Repeating Linear Gradient Background</h2>
+            <p>The <code>repeating-linear-gradient</code> creates a pattern of stripes. This example creates diagonal lines by specifying an angle (45deg) and defining a small gradient segment that repeats.</p>
+            <div class="example-container">
+                <div class="repeating-bg"></div>
+            </div>
+            <pre><code class="language-css">.repeating-bg {
+    background: repeating-linear-gradient(45deg, #f0f0f0, #f0f0f0 10px, #e74c3c 10px, #e74c3c 20px);
+}</code></pre>
+        </section>
+
+        <section class="gradient-example">
+            <h2>4. Smooth Diagonal Gradient Card</h2>
+            <p>A classic <code>linear-gradient</code> can be used to create a smooth, visually appealing background. By specifying an angle (135deg), the gradient flows diagonally across the element.</p>
+            <div class="example-container">
+                <div class="card">
+                    <h3>Gradient Card</h3>
+                    <p>This card has a smooth diagonal gradient background.</p>
+                </div>
+            </div>
+            <pre><code class="language-css">.card {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}</code></pre>
+        </section>
+
+        <section class="gradient-example">
+            <h2>5. Animated Gradient Pulse Button</h2>
+            <p>This button uses a large <code>linear-gradient</code> as its background and animates the <code>background-position</code>. This creates a mesmerizing, shimmering effect that's great for call-to-action buttons.</p>
+            <div class="example-container">
+                <button class="pulse-btn">Click Me</button>
+            </div>
+            <pre><code class="language-css">.pulse-btn {
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    animation: grad-shift 15s ease infinite;
+}
+
+@keyframes grad-shift {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}</code></pre>
+        </section>
+    </main>
+
+</body>
+
+</html>

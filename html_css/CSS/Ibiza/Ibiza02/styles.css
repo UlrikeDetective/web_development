@@ -1,0 +1,152 @@
+body {
+    background-color: #f8b120;
+    color: #000 !important;
+    font-family: GeneralSans, sans-serif;
+    font-size: 3em;
+    line-height: 1.25;
+    margin: 10;
+    display: flex;
+    flex-direction: column;
+    opacity: 10;
+    position: relative; /* Ensure the body is a positioned ancestor */
+}
+
+header {
+    background-color: #dad4d2;
+    padding: 20px;
+    text-align: center;
+    position: relative; /* Ensure the header is a positioned ancestor */
+    z-index:11; /* Ensure the header is above the background */
+}
+
+.header__logo img {
+    max-width: 400px;
+}
+
+.header__menu {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.header__menu__nav__item {
+    text-decoration: none;
+    color: #000;
+    font-weight: bold;
+}
+
+.banner {
+    text-align: center;
+    padding: 20px 20px;
+    background-color: #fff;
+    height: 10px;
+    z-index: 8;
+    position: relative; /* Ensure the banner is a positioned ancestor */
+}
+
+.banner_deco {
+    position: relative;
+    text-align: center;
+    background-color: #fff;
+    padding-top: -41px; /* Add some padding to the top */
+    font-size: 3em;
+    line-height: 1.0;
+    z-index: 7;
+    color: #000 !important; /* Ensure the text color is black */
+}
+
+.description {
+    margin: 20px;
+    padding: 20px;
+    text-align: center;
+}
+
+.description__text {
+    max-width: 1200px;
+    background-color: #f8b120;
+    background-position: top;
+    background-repeat: no-repeat;
+    color: #000;
+    bottom: 0;
+    height: calc(100% - 60vh);
+    position: relative;
+    width: 100%;
+    padding: 20px;
+    z-index: 11; /* Ensure the background is below the header */
+}
+
+.artistas, .partners {
+    padding: 20px;
+    background-color: #fff;
+    text-align: center;
+}
+
+.footer {
+    background-color: #dad4d2;
+    padding: 20px;
+    text-align: center;
+    position: relative; /* Ensure the footer is a positioned ancestor */
+    z-index: 12; /* Ensure the footer is above the background */
+}
+
+.footer__title h2 {
+    margin: 0;
+}
+
+.hidden {
+    opacity: 0;
+}
+
+*, :after, :before {
+    box-sizing: border-box;
+}
+
+img {
+    max-width: 100%;
+}
+
+html {
+    font-size: clamp(25%, .75vw, 41%);
+}
+
+::-webkit-scrollbar {
+    height: 10px;
+    width: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #232323;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+@keyframes moveFromTopToMiddle {
+    0% {
+        top: -50%; /* Start from above the top */
+    }
+    100% {
+        top: 30%; /* End in the middle */
+    }
+}
+
+.sol {
+    position: relative;
+    height: 100vh; /* Full viewport height */
+    background: transparent; /* Transparent background */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.sol img {
+    position: absolute;
+    top: -50%; /* Start from above the top */
+    left: 50%;
+    transform: translateX(-50%);
+    max-width: 80vw;
+    height: auto;
+    animation: moveFromTopToMiddle 10s forwards; /* Apply the animation */
+    opacity: 0.9; /* Make the image a bit transparent */
+}

@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UV Checker</title>
+    <link rel="stylesheet" href="/styles/main.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Nanum+Gothic&family=Platypi:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <h1>Random Taco Recipe</h1>
+  <h2>Base Layer: <%= taco.base_layer.name %></h2>
+  <p><%= taco.base_layer.recipe %></p>
+  <h2>Mixin: <%= taco.mixin.name %></h2>
+  <p><%= taco.mixin.recipe %></p>
+  <h2>Condiment: <%= taco.condiment.name %></h2>
+  <p><%= taco.condiment.recipe %></p>
+  <h2>Seasoning: <%= taco.seasoning.name %></h2>
+  <p><%= taco.seasoning.recipe %></p>
+  <h2>Shell: <%= taco.shell.name %></h2>
+  <p><%= taco.shell.recipe %></p>
+  <button onclick="location.reload();">Get Another Taco</button>
+</body>
+</html>

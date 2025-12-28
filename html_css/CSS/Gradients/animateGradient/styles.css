@@ -1,0 +1,28 @@
+/* div {
+    transition: all 1s;
+    background: linear-gradient(blue, red);
+    width: 200px;
+    height: 200px;
+  }
+  
+  div:hover {
+    background: linear-gradient(yellow, red);
+  } */
+
+  @property --my-color {
+    syntax: "<color>";
+    inherits: false;
+    initial-value: blue;
+  }
+  
+  div {
+    --my-color: blue;
+    transition: --my-color 1s;
+    background: linear-gradient(var(--my-color), red);
+    width: 200px;
+    height: 200px;
+  }
+  
+  div:hover {
+    --my-color: yellow;
+  }

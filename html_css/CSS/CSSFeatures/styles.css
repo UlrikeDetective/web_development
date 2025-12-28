@@ -1,0 +1,105 @@
+@keyframes spinner {
+    from {
+      transform: rotate(360deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
+  }
+  
+  .spinner {
+    width: 80px;
+    height: 80px;
+    background-color: transparent;
+    border: 10px inset #f21daf;
+    border-radius: 50%;
+    animation: spinner 5s linear infinite;
+  }
+
+  @keyframes spinnerSquare {
+    from {
+      transform: rotate(360deg);
+    }
+    to {
+      transform: rotate(0deg);
+    }
+  }
+  
+  .spinnerSquare {
+    width: 120px;
+    height: 80px;
+    background-color: transparent;
+    border: 10px inset #3587f1;
+    border-radius: 10%;
+    animation: spinner 15s linear infinite;
+  }
+
+  /* Button flex */
+  .button {
+    border: none;
+    background-color: #0335fca0;
+    color: #111;
+    padding: 3px;
+    font-size: 14px;
+    color: azure;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-size: 1.5em;
+    border-radius: 2px;
+    transition: all 0.5s;
+    resize: horizontal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .button:hover {
+    border: none;
+    background-color: #34ebc0;
+  }
+  
+  .button:active {
+    border: none;
+    background-color: #8403fc7a;
+  }
+
+
+
+  h1 {
+    background: #ddd;
+    white-space: nowrap;
+    padding: 12px;
+    resize: horizontal;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  h3::before {
+    content: "Section " counter(my-counter) ": ";
+    counter-increment: my-counter;
+  }
+
+  /* highlighting letters */
+  *::selection {
+    background: #f5dd89;
+    color: #ed0057;
+  }
+
+  /* input Text */
+  input[type=text] {
+    padding: 6px;
+    outline: none;
+    border: 2px solid #555;
+    border-radius: 6px;
+  }
+  
+  input[type=text]:invalid {
+    border: 2px solid #c22d00;
+  }
+  
+  input[type=text]:valid:focus {
+    border: 2px solid black;
+  }
+
+  input[type=text]::placeholder {
+    color: #031e96;
+    font-style: italic;
+  }

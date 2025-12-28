@@ -1,0 +1,174 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Advanced CSS Grid Techniques</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        /* Additional styles for better presentation */
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>A Showcase of Modern CSS Grid Techniques</h1>
+        <p>This page demonstrates different approaches to creating powerful and responsive layouts with CSS Grid, based
+            on the provided <code>style.css</code>.</p>
+    </header>
+
+    <section>
+        <h2>1. The Modern Standard: <code>repeat(auto-fit, minmax())</code></h2>
+        <p>This is the workhorse of modern responsive layouts. It creates a grid of columns that automatically wrap and
+            resize based on the available space.</p>
+        <pre><code>.grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+}</code></pre>
+        <div class="grid">
+            <div class="item-style">Item 1</div>
+            <div class="item-style">Item 2</div>
+            <div class="item-style">Item 3</div>
+            <div class="item-style">Item 4</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>2. Asymmetric & Intentional Layouts</h2>
+        <p>For more deliberate and sophisticated designs, you can define explicit tracks to create asymmetric layouts.
+        </p>
+        <pre><code>.article-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 2fr 1fr 1fr;
+}</code></pre>
+        <div class="article-grid">
+            <div class="item-style" style="grid-column: 1 / 2;">Main Content (2fr)</div>
+            <div class="item-style">Sidebar (1fr)</div>
+            <div class="item-style">Extra (1fr)</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>3. Card Layouts That Actually Work</h2>
+        <p>This approach combines the auto-fitting grid with <code>align-items: stretch</code> to ensure all cards in a
+            row have the same height, creating a clean and uniform look.</p>
+        <pre><code>.cards {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    align-items: stretch;
+}</code></pre>
+        <div class="cards">
+            <div class="item-style">
+                <h3>Card 1</h3>
+                <p>Some content here. This card might have less content.</p>
+            </div>
+            <div class="item-style">
+                <h3>Card 2</h3>
+                <p>This card has more content to demonstrate how all cards in the row will stretch to the same height.
+                    This makes the layout much tidier.</p>
+            </div>
+            <div class="item-style">
+                <h3>Card 3</h3>
+                <p>Another card.</p>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>4. Subgrid (The Game-Changer)</h2>
+        <p>Subgrid allows a nested grid to adopt the track sizing of its parent grid. This is revolutionary for creating
+            consistent alignment within components.</p>
+        <pre><code>.card-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    gap: 1.5rem;
+}
+
+.card {
+    display: grid;
+    grid-column: span 4;
+    grid-template-columns: subgrid;
+    gap: 1rem;
+}</code></pre>
+        <div class="card-grid">
+            <div class="card item-style">
+                <div class="card-image item-style" style="background-color: #80deea;">Image</div>
+                <div class="card-content item-style" style="background-color: #4dd0e1;">Content</div>
+            </div>
+            <div class="card item-style">
+                <div class="card-image item-style" style="background-color: #80deea;">Image</div>
+                <div class="card-content item-style" style="background-color: #4dd0e1;">Content</div>
+            </div>
+            <div class="card item-style">
+                <div class="card-image item-style" style="background-color: #80deea;">Image</div>
+                <div class="card-content item-style" style="background-color: #4dd0e1;">Content</div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>5. Container Queries (The Responsive Revolution)</h2>
+        <p>Instead of relying on the viewport size, container queries allow elements to adapt based on the size of their
+            parent container. This is perfect for component-based design.</p>
+        <div class="card-container"
+            style="width: 100%; resize: horizontal; overflow: auto; border: 2px dashed #ccc; padding: 1rem;">
+            <p><strong>Resize this container to see the card layout change.</strong></p>
+            <div class="card item-style">
+                <div class="item-style" style="background-color: #80deea;">Section 1</div>
+                <div class="item-style" style="background-color: #4dd0e1;">Section 2</div>
+                <div class="item-style" style="background-color: #26c6da;">Section 3</div>
+            </div>
+        </div>
+    </section>
+
+    <section>
+        <h2>6. Flexbox for When Grid Is Overkill</h2>
+        <p>For simpler, one-dimensional layouts, Flexbox can be a great choice. The "negative margin trick" helps
+            maintain equal spacing.</p>
+        <div class="flex-grid">
+            <div class="flex-item item-style">Flex Item 1</div>
+            <div class="flex-item item-style">Flex Item 2</div>
+            <div class="flex-item item-style">Flex Item 3</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>7. Fluid Typography + Fluid Spacing</h2>
+        <p>Using <code>clamp()</code> for gaps and padding makes layouts truly fluid and responsive across all screen
+            sizes, adapting smoothly without media query breakpoints.</p>
+        <div class="grid">
+            <div class="item-style">Item 1</div>
+            <div class="item-style">Item 2</div>
+            <div class="item-style">Item 3</div>
+            <div class="item-style">Item 4</div>
+        </div>
+    </section>
+
+    <section>
+        <h2>8. Masonry Layouts (Finally Native)</h2>
+        <p>Native CSS Masonry allows for creating Pinterest-style layouts where items pack together tightly. Note:
+            Browser support is still evolving (experimental in Chrome, supported in Firefox).</p>
+        <div class="masonry" style="--gap: 1rem; --columns: 4;">
+            <div class="item-style" style="height: 100px;">
+                <h2>Hello World</h2>
+                <p>Something flexible I want to add</p>
+                <p>Something blue I want to add</p>
+
+            </div>
+            <div class="item-style" style="height: 200px;"></div>
+            <div class="item-style" style="height: 150px;"></div>
+            <div class="item-style" style="height: 120px;"></div>
+            <div class="item-style" style="height: 180px;"></div>
+            <div class="item-style" style="height: 130px;"></div>
+        </div>
+    </section>
+
+
+</body>
+
+</html>

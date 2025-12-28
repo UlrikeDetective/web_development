@@ -1,0 +1,110 @@
+/* Import Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Nanum+Gothic&display=swap');
+
+/* Apply global styles */
+body {
+  font-family: 'Nanum Gothic', sans-serif;
+  background: linear-gradient(135deg, #FFFBF4 25%, #DFD4B8 25%, #DFD4B8 50%, #FFFBF4 50%, #FFFBF4 75%, #DFD4B8 75%, #DFD4B8);
+  background-size: 40px 40px;
+  color: #333;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* Container for the content */
+.container {
+  text-align: center;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  width: 90%;
+  max-width: 700px;
+}
+
+/* Cocktail image styling */
+/* .cocktail img {
+  width: 100%;
+  max-width: 500px;
+  border-radius: 8px;
+} */
+
+/* Heading styles */
+h1 {
+  color: #35D2CB;
+  font-family: 'Bodoni Moda SC', serif;
+}
+
+h2 {
+  margin: 10px 0;
+  color: #4DBB9C;
+  font-family: 'Bodoni Moda SC', serif;
+}
+
+/* Paragraph and list styles */
+p, ul {
+  font-size: 1rem;
+  color: #333;
+}
+
+/* Styling for the list of ingredients */
+ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  background: #A9E4EB;
+  border: 1px solid #DFD4B8;
+  padding: 8px;
+  margin: 5px 0;
+  border-radius: 4px;
+}
+
+/* Ensure responsiveness */
+@media (max-width: 768px) {
+  .container {
+    width: 95%;
+    padding: 10px;
+  }
+.carousel {
+  position: relative;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.carousel-images {
+  display: flex;
+  overflow: hidden;
+}
+
+.carousel-images img {
+  width: 100%;
+  transition: transform 0.5s ease;
+}
+
+button {
+  background-color: #35D2CB;
+  border: none;
+  color: white;
+  padding: 10px;
+  cursor: pointer;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+}
+
+.prev {
+  left: 10px;
+}
+
+.next {
+  right: 10px;
+}
+
+}

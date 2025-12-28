@@ -1,0 +1,86 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,500,800');
+
+body {
+  margin: 0;
+  padding: 40px;
+  font-family: 'Raleway', sans-serif;
+  background: linear-gradient(135deg, #ff6b6b 0%, #4ecdc4 50%, #45b7d1 100%);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 30px;
+}
+
+.card {
+  position: relative;
+  padding: 40px;
+  background-color: white;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  transition: transform 0.3s ease;
+}
+
+.card::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 100%;
+  transform: translateY(100%);
+  z-index: 1;
+  transition: transform 0.5s ease;
+}
+
+.card:hover::before {
+  transform: translateY(0);
+}
+
+.content {
+  position: relative;
+  z-index: 2;
+  color: #333;
+  transition: color 0.5s ease;
+  text-transform: capitalize;
+}
+
+.card:hover .content {
+  color: white;
+}
+
+h2 {
+  font-size: 30px;
+  margin: 0 0 10px;
+}
+
+p {
+  font-size: 18px;
+}
+
+a {
+  margin-top: 10px;
+  display: inline-block;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  color: #333;
+  background-color: white;
+  padding: 6px 10px;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.05);
+}
+
+.gradient1::before { background: linear-gradient(135deg, #ff6b6b, #ffb347); }
+.gradient2::before { background: linear-gradient(135deg, #4facfe, #00f2fe); }
+.gradient3::before { background: linear-gradient(135deg, #43e97b, #38f9d7); }
+.gradient4::before { background: linear-gradient(135deg, #667eea, #764ba2); }
+.gradient5::before { background: linear-gradient(135deg, #ff9a9e, #fad0c4); }
+.gradient6::before { background: linear-gradient(135deg, #a1c4fd, #c2e9fb); }
+.gradient7::before { background: linear-gradient(135deg, #fddb92, #d1fdff); }
+.gradient8::before { background: linear-gradient(135deg, #a18cd1, #fbc2eb); }
+.gradient9::before { background: linear-gradient(135deg, #f6d365, #fda085); }
+
+.card:hover {
+  transform: scale(1.05);
+}

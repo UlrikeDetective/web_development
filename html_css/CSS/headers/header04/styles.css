@@ -1,0 +1,28 @@
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+}
+.sticky-header {
+    position: sticky;
+    top: 0;
+    width: 100%;
+    background-color: #007BFF;
+    color: white;
+    padding: 15px 0;
+    text-align: center;
+    z-index: 1000;
+}
+@media (max-width: 768px) {
+    .sticky-header {
+        padding: 10px 0;
+    }
+}
+@media (max-width: 480px) {
+    .sticky-header {
+        font-size: 14px;
+    }
+}
+main {
+    padding: 20px;
+    line-height: 1.6;
+}

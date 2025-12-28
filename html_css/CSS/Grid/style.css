@@ -1,0 +1,187 @@
+body {
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+    margin: 0;
+    background-color: #f9f9f9;
+    color: #333;
+}
+
+header,
+section {
+    padding: 2rem;
+    margin: 1rem auto;
+    max-width: 1200px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.05);
+}
+
+h1,
+h2 {
+    color: #333;
+    border-bottom: 2px solid #eee;
+    padding-bottom: 0.5rem;
+}
+
+h3 {
+    margin-top: 2rem;
+}
+
+.item-style {
+    background-color: #e0f7fa;
+    border: 1px solid #b2ebf2;
+    padding: 1rem;
+    border-radius: 4px;
+    text-align: center;
+}
+
+code {
+    background-color: #eee;
+    padding: 0.2em 0.4em;
+    border-radius: 3px;
+    color: #333;
+}
+
+pre {
+    background-color: #2d2d2d;
+    color: #f8f8f2;
+    padding: 1rem;
+    border-radius: 5px;
+    overflow-x: auto;
+}
+
+/* The Modern Standard: repeat(auto-fit, minmax()) */
+
+/* This single line has replaced 90% of Bootstrap grid usage in modern projects: */
+
+.grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fit, minmax(min(20rem, 100%), 1fr));
+}
+
+/* Even Better: Content-Aware Minimums with min() */
+
+.grid {
+    grid-template-columns: repeat(auto-fit, minmax(min(250px, 100%), 1fr));
+}
+
+/* Asymmetric & Intentional Layouts with Explicit Tracks */
+
+/* When you want deliberate asymmetry (the hallmark of sophisticated design): */
+
+.article-grid {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: 2fr 1fr 1fr;
+    /* Hero + two side columns */
+}
+
+.feature-grid {
+    grid-template-columns: 3fr 2fr 1fr;
+    /* Intentional hierarchy */
+}
+
+/* Card Layouts That Actually Work */
+
+.cards {
+    display: grid;
+    gap: 2rem;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    align-items: stretch;
+    /* All cards same height */
+}
+
+/* 2. Subgrid (The Game-Changer, Now Widely Supported — 2025) */
+
+.card-grid {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    /* Parent defines the rails */
+    gap: 1.5rem;
+}
+
+.card {
+    display: grid;
+    grid-column: span 4;
+    grid-template-columns: subgrid;
+    /* Child inherits parent's columns */
+    gap: 1rem;
+}
+
+.card-image {
+    grid-column: 1 / -1;
+    /* Full width */
+}
+
+.card-content {
+    grid-column: 2 / -2;
+    /* Inset from edges */
+}
+
+/* 3. Container Queries (The Responsive Revolution) */
+.card-container {
+    container-type: inline-size;
+}
+
+@container (min-width: 400px) {
+    .card {
+        grid-template-columns: 1fr 2fr;
+        gap: 1.5rem;
+    }
+}
+
+@container (min-width: 600px) {
+    .card {
+        grid-template-columns: 1fr 3fr 1fr;
+    }
+}
+
+/* 4. Flexbox for When Grid Is Overkill */
+.flex-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+    margin: -1rem;
+    /* Negative margin trick for equal spacing */
+}
+
+.flex-item {
+    flex: 1 1 300px;
+    /* Grow, shrink, ideal size 300px */
+    margin: 1rem;
+}
+
+/* 5. CSS Grid for When Flexbox Is Overkill */
+.modern-flex {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.item {
+    flex: 1 1 clamp(250px, 30vw, 400px);
+}
+
+
+/* 6. Fluid Typography + Fluid Spacing = Truly Flexible Layouts*/
+
+.grid {
+    display: grid;
+    gap: clamp(1rem, 4vw, 4rem);
+    padding: clamp(1.5rem, 5vw, 6rem);
+    grid-template-columns: repeat(auto-fit, minmax(min(18rem, 100%), 1fr));
+}
+
+/* 7. Masonry Layouts (Finally Native) */
+
+.masonry {
+    display: grid;
+    grid-template-rows: masonry;
+    /* Firefox */
+    masonry-auto-flow: pack;
+
+    /* Chrome experimental */
+    grid-template-columns: masonry;
+    align-tracks: stretch;
+}

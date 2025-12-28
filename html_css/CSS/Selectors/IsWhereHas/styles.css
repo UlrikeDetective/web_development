@@ -1,0 +1,30 @@
+:is(h1, h3) {
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: "blue";
+  }
+
+  :is(h2, h4, p) {
+    font-family:monospace;
+    color:darkorchid;
+  }
+
+  :where(header, footer, nav) {
+    padding: 20px;
+    background-color: #edd926;
+  }
+
+  .article:has(img) {
+    border: 2px solid #ddd;
+    padding: 10px;
+    background-color: aliceblue;
+
+  }
+
+  .form:has(.error-message) {
+    background-color: #ffe6e6;
+  }
+
+  input:not([type="submit"]) {
+    background-color: #f4a5a5;
+    border: 1px solid #ccc;
+  }

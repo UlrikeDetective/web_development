@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Color Change Animation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #282c34;
+        }
+        h2 {
+            font-size: 2.5rem;
+            animation: colorChange 15s infinite; /* Looping animation */
+        }@keyframes colorChange {
+            0% {
+                color: #f118a9; /* Tomato */
+                font-size: 2em;
+            }
+            25% {
+                color:ghostwhite;
+                font-size: 3em;
+            }
+            50% {
+                color: #06b7f2;
+                font-size: 1.5em;
+            }
+            75% {
+                color: palegreen;
+            }
+            100% {
+                color: #f1f102;
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+<h2>Watch the Color Change!</h2>
+</body>
+</html>

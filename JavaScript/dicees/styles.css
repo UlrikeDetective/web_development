@@ -1,0 +1,35 @@
+/* styles.css */
+body {
+  text-align: center;
+  font-family: "Helvetica", "Arial", sans-serif;
+  background-color: #f7f7f7;
+}
+
+.container {
+  margin-top: 50px;
+}
+
+h1 {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.dice {
+  display: inline-block;
+  margin: 20px;
+}
+
+.dice p {
+  font-size: 2rem;
+  margin-bottom: 10px;
+}
+
+img {
+  width: 100px;
+  height: 100px;
+}
+
+.result {
+  font-size: 2.5rem;
+  margin-top: 30px;
+}

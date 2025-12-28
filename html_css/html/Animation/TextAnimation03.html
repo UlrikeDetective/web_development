@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Slide-In Text Animation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #fafafa;
+        }
+        h2 {
+            transform: translateX(-100%); /* Start off-screen */
+            animation: slideIn 1s forwards; /* Slide in animation */
+        }@keyframes slideIn {
+            from {
+                transform: translateX(-100%); /* Start from left */
+            }
+            to {
+                transform: translateX(0); /* End at original position */
+            }
+        }
+    </style>
+</head>
+<body>
+<h2>Sliding Text Animation!</h2>
+</body>
+</html>

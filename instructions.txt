@@ -1,0 +1,6 @@
+python3 -m venv code_env
+source code_env/bin/activate
+
+pip install ...
+
+python ....py

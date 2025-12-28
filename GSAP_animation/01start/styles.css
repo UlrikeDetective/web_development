@@ -1,0 +1,37 @@
+/* Global styles come from external css https://codepen.io/GreenSock/pen/gOWxmWG */
+
+body {
+  display: flex;
+  flex-direction: column; /* Change layout to column */
+  align-items: center; /* Center items horizontally */
+  justify-content: center; /* Center items vertically */
+  min-height: 70vh;
+  margin: 0;
+  overflow: hidden;
+  background-color: black;
+  color: white;
+}
+
+.box {
+  width: 200px;
+  height: 200px;
+  margin: 1rem;
+}
+
+.green {
+  background-color: rgb(25, 245, 25);
+}
+.yellow{
+  background-color: rgb(213, 251, 0);
+}
+
+.circle {
+  width: 150px;
+  height: 150px;
+  margin: 2rem;
+}
+
+.pink {
+  background-color: rgb(234, 25, 245);
+}
+

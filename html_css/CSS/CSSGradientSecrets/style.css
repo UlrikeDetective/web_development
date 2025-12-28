@@ -1,0 +1,178 @@
+/* --- Basic Setup and Typography --- */
+body {
+    font-family: 'Roboto', sans-serif;
+    line-height: 1.6;
+    background-color: #f4f7f6;
+    color: #333;
+    margin: 0;
+    padding: 2rem;
+}
+
+header {
+    text-align: center;
+    margin-bottom: 3rem;
+    border-bottom: 2px solid #ddd;
+    padding-bottom: 1rem;
+}
+
+header h1 {
+    font-family: 'Roboto Mono', monospace;
+    font-size: 2.5rem;
+    color: #2c3e50;
+    margin-bottom: 0.5rem;
+}
+
+main {
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.gradient-example {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.gradient-example h2 {
+    font-family: 'Roboto Mono', monospace;
+    color: #34495e;
+    border-bottom: 2px solid #ecf0f1;
+    padding-bottom: 0.5rem;
+    margin-top: 0;
+}
+
+.example-container {
+    background-color: #ecf0f1;
+    border-radius: 5px;
+    padding: 2rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 150px;
+    margin: 1.5rem 0;
+}
+
+pre {
+    background-color: #2c3e50;
+    color: #e0e0e0;
+    padding: 1.5rem;
+    border-radius: 5px;
+    overflow-x: auto;
+    font-family: 'Roboto Mono', monospace;
+}
+
+code {
+    font-size: 0.9rem;
+}
+
+/* --- 1. Multi-Stop Linear Gradient Button --- */
+.multi-btn {
+    /*
+     * A linear gradient flowing from left ('to right').
+     * It starts with #ff7e5f, transitions to #feb47b at 30% of the width,
+     * holds that color until 70%, then transitions back to #ff7e5f.
+     * This creates a button with colored edges and a solid center band.
+    */
+    background: linear-gradient(to right, #ff7e5f, #feb47b 30%, #feb47b 70%, #ff7e5f);
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s ease;
+}
+
+.multi-btn:hover {
+    transform: scale(1.05);
+}
+
+
+/* --- 2. Conic Gradient Spinner --- */
+.spinner {
+    width: 100px;
+    height: 100px;
+    /*
+     * A conic gradient radiates from a central point.
+     * Starts with red at 0 degrees, transitions to yellow by 90 degrees,
+     * green by 180, blue by 270, and back to red at 360/0 degrees.
+     * This creates a full color wheel effect.
+    */
+    background: conic-gradient(from 0deg, #ff0000, #ffff00 90deg, #00ff00 180deg, #0000ff 270deg, #ff0000);
+    border-radius: 50%;
+}
+
+
+/* --- 3. Repeating Linear Gradient Background --- */
+.repeating-bg {
+    width: 100%;
+    height: 200px;
+    /*
+     * Creates a repeating pattern of diagonal stripes.
+     * The gradient is angled at 45 degrees.
+     * The pattern consists of a solid light gray line (#f0f0f0) for 10px,
+     * followed by a solid red line (#e74c3c) for the next 10px. This 20px segment then repeats.
+    */
+    background: repeating-linear-gradient(45deg, #f0f0f0, #f0f0f0 10px, #e74c3c 10px, #e74c3c 20px);
+}
+
+
+/* --- 4. Smooth Diagonal Gradient Card --- */
+.card {
+    width: 80%;
+    /*
+     * A classic linear gradient creating a smooth diagonal wash of color.
+     * The gradient flows at a 135-degree angle, starting with a light purple-blue
+     * (#667eea) and ending with a darker violet (#764ba2).
+    */
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem;
+    color: white;
+    border-radius: 10px;
+    text-align: center;
+}
+
+.card h3 {
+    margin-top: 0;
+    font-size: 1.5rem;
+}
+
+
+/* --- 5. Animated Gradient Pulse Button --- */
+@keyframes grad-shift {
+    0% {
+        background-position: 0% 50%;
+    }
+    50% {
+        background-position: 100% 50%;
+    }
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
+.pulse-btn {
+    /*
+     * The magic starts with a large gradient background, 4 times the button's size.
+     * This allows us to move the background around to create an animation.
+    */
+    background: linear-gradient(-45deg, #ee7752, #e73c7e, #23a6d5, #23d5ab);
+    background-size: 400% 400%;
+    
+    /*
+     * The 'grad-shift' animation continuously moves the background-position
+     * from left to right and back again, creating a shimmering, pulsing effect.
+    */
+    animation: grad-shift 15s ease infinite;
+
+    color: white;
+    font-weight: bold;
+    font-size: 1rem;
+    padding: 1rem 2rem;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}

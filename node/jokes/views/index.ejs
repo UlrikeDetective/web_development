@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>UV Checker</title>
+    <link rel="stylesheet" href="/styles.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda+SC:ital,opsz,wght@0,6..96,400..900;1,6..96,400..900&family=Nanum+Gothic&family=Platypi:ital,wght@0,300..800;1,300..800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+  <h1>Random Joke</h1>
+  <h2>Base Layer: <%= joke.base_layer.name %></h2>
+  <p><%= joke.base_layer.random %></p>
+  <h2>Mixin: <%= joke.mixin.name %></h2>
+  <p><%= joke.mixin.random %></p>
+  <button onclick="location.reload();">Get Another Joke</button>
+</body>
+</html>
