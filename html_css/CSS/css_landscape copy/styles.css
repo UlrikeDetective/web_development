@@ -18,7 +18,7 @@ body {
   width: 800px;
   height: 600px;
   background: radial-gradient(ellipse at 75% 20%, rgba(255, 230, 200, 0.4), transparent 50%),
-    linear-gradient(to bottom, #B8860B 0%, #E6CDB7 15%, #FAEBD7 35%, #FFDAB9 50%, #0047AB 65%, #40E0D0 100%);
+    linear-gradient(to bottom, #B8860B 0%, #E6CDB7 15%, #FAEBD7 35%, #FFDAB9 50%, #40E0D0 65%, #0047AB 100%);
   transform-origin: center center;
   transform: scale(1.5);
   margin: 0 auto;
