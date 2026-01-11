@@ -1,0 +1,175 @@
+html,
+body {
+    width: 100%;
+    height: 100%;
+    padding: 0px;
+    margin: 0px;
+}
+
+body {
+    height: 100vh;
+    background: #000000;
+    background: linear-gradient(0deg, hsl(0, 0%, 0%) 0%, hsl(0, 0%, 0%) 45vh, hsl(0, 0%, 19%) 100%);
+    background: linear-gradient(0deg, hsl(0, 0%, 0%) 0%, hsl(0, 0%, 0%) calc(50% - 200px), hsl(0, 0%, 19%) 100%);
+    overflow: hidden;
+}
+
+#gsapWrapper {
+    visibility: hidden;
+    overflow: visible;
+}
+
+.gooBoxWrapper {
+    display: block;
+    position: relative;
+    overflow: visible;
+    height: 100vh;
+
+    &::before {
+        content: "";
+        display: block;
+        position: absolute;
+        left: 0px;
+        top: 60vh;
+        top: calc(50vh + 140px);
+        right: 0px;
+        bottom: 0px;
+        z-index: 2000;
+        background-color: #000000;
+    }
+
+    .gooBox {
+
+        display: block;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        position: relative;
+        width: 110vw;
+        width: calc(100vw + 20px);
+        transform: translateX(-10px);
+        height: 100vh;
+        filter: url(#goo) url(#outline);
+        overflow: visible;
+
+        #boat {
+            display: block;
+            width: 200px;
+            height: 300px;
+            overflow: visible;
+            background-color: #000;
+            will-change: contents;
+
+            @media (height <=500px) {
+                transform: scale(0.9, 0.9);
+            }
+
+            @media (height <=450px) {
+                transform: scale(0.8, 0.8);
+            }
+
+            @media (height <=400px) {
+                transform: scale(0.7, 0.7);
+            }
+
+            @supports (clip-path: shape(from 0% 0%, close)) {
+                clip-path: shape(from 29.38% 0%, curve to 0% 67.35% with 23.73% 34.7%/3.95% 63.57%, hline by 27.12%, vline by 6.87%, hline to 0%, vline by 7.56%, curve by 5.08% 13.4% with 0.56% 4.81%/4.52% -0.69%, curve by 60.45% 2.06% with 0% 5.84%/49.72% 6.18%, curve by 34.46% -23.02% with 16.38% -6.18%/32.2% -18.21%, hline to 37.29%, vline to 67.35%, hline to 100%, curve to 32.2% 0% with 97.74% 46.73%/46.33% 5.5%, close);
+            }
+
+            @supports not (clip-path: shape(from 0% 0%, close)) {
+                clip-path: path("M 71,8 C 61,109 26,193 19,204 h 48 v 20 H 19 v 22 c 1,14 8,-2 9,39 0,17 88,18 107,6 29,-18 57,-53 61,-67 H 85 V 204 H 196 C 192,144 101,24 76,8 Z");
+            }
+        }
+
+        #tank {
+            display: block;
+            position: absolute;
+            width: 110vw;
+            width: calc(100vw + 20px);
+            height: 50vh;
+            bottom: 0px;
+            background-color: #000;
+            will-change: contents;
+
+            @supports (clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%)) {
+                clip-path: polygon(50% 0, 100% 50%, 50% 100%, 0 50%);
+            }
+
+        }
+
+    }
+
+    .pathBox {
+
+        display: block;
+        position: absolute;
+        left: 0px;
+        bottom: 0px;
+        z-index: 2000;
+        width: 120vw;
+        width: calc(100vw + 20px);
+        height: 50vh;
+
+        #svgBoxPath {
+            width: 120vw;
+            width: calc(100vw + 20px);
+            height: 50vh;
+            z-index: 100;
+            overflow: visible;
+        }
+
+    }
+
+
+
+}
+
+
+
+
+
+
+
+
+
+#rainWrapper {
+    display: block;
+    position: fixed;
+    top: 0;
+    left: -50vw;
+    z-index: -1;
+    width: 200vw;
+    height: 90vh;
+    height: calc(50vh + 150px);
+
+    #rain {
+        display: block;
+        position: relative;
+        overflow: hidden;
+        width: 200vw;
+        height: 90vh;
+        height: calc(50vh + 150px);
+
+        i {
+            position: absolute;
+            display: block;
+            height: 100px;
+            width: 60px !important;
+            border-radius: 30px;
+            background-color: #ffffff;
+            animation: animate 0s linear infinite;
+            /* filter: blur(0px); */
+        }
+
+    }
+}
+
+@keyframes animate {
+    0% {
+        transform: translateY(-50vh) translateX(0) rotate(-25deg);
+    }
+
+    100% {
+        transform: translateY(150vh) translateX(100vh) rotate(-25deg);
+    }
+}

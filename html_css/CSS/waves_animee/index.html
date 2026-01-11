@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Document</title>
+</head>
+
+<body>
+    <div id="gsapWrapper">
+
+        <div class="gooBoxWrapper">
+
+            <div class="gooBox">
+                <div id="boat"></div>
+                <div id="tank"></div>
+            </div>
+            <div class="pathBox">
+                <svg id="svgBoxPath" xmlns="http://www.w3.org/2000/svg">
+                    <path id="mPath" fill="none" fill-opacity="0" stroke="none" stroke-opacity="1" d="" />
+                </svg>
+            </div>
+
+        </div>
+
+
+    </div>
+    <div id="rainWrapper">
+        <div id="rain"></div>
+    </div>
+
+
+
+
+
+    <!-- SVG paths and filters -->
+    <svg width="0" height="0" style="position:absolute" role="none" xmlns="http://www.w3.org/2000/svg">
+
+        <defs>
+
+            <filter id="goo">
+                <feGaussianBlur in="SourceGraphic" stdDeviation="8" result="blur" />
+                <feColorMatrix in="blur" mode="matrix" values="1 0 0 0 0  0 1 0 0 0  0 0 1 0 0  0 0 0 19 -9"
+                    result="goo" />
+                <feComposite in="SourceGraphic" in2="goo" operator="atop" />
+            </filter>
+
+            <filter id="outline" x="-10%" y="-10%" height="120%" width="120%">
+                <feColorMatrix in="SourceAlpha" values="1 1 1 1 1  1 1 1 1 1  1 1 1 1 1  0 0 0 1 0" result="mx" />
+                <feMorphology in="mx" operator="dilate" radius="3" result="mor1" />
+                <feComposite in="mor1" in2="SourceGraphic" operator="out" result="com1" />
+                <feOffset in="com1" dx="0" dy="0" result="offset1" />
+                <feMerge>
+                    <feMergeNode in="offset1" />
+                    <feMergeNode in="SourceAlpha" />
+                </feMerge>
+            </filter>
+
+            <path id="boxPath" d="" />
+
+        </defs>
+    </svg>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/MotionPathPlugin.min.js"></script>
+    <script src="index.js"></script>
+</body>
+
+</html>
