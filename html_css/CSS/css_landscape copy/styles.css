@@ -1,0 +1,123 @@
+* {
+  box-sizing: border-box;
+}
+
+html {
+  background: #556677;
+  display: grid;
+  place-items: center;
+  min-height: 100vh;
+}
+
+body {
+  margin: 0;
+}
+
+.container {
+  position: relative;
+  width: 800px;
+  height: 600px;
+  background: radial-gradient(ellipse at 75% 20%, rgba(255, 230, 200, 0.4), transparent 50%),
+    linear-gradient(to bottom, #B8860B 0%, #E6CDB7 15%, #FAEBD7 35%, #FFDAB9 50%, #0047AB 65%, #40E0D0 100%);
+  transform-origin: center center;
+  transform: scale(1.5);
+  margin: 0 auto;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.4);
+  border: 1px solid white;
+  overflow: hidden;
+}
+
+.container div {
+  position: absolute;
+  box-sizing: border-box;
+}
+
+.sun {
+  width: 85px;
+  height: 85px;
+  background: radial-gradient(circle, #FDF5E6);
+  border-radius: 50%;
+  top: 10%;
+  left: 12%;
+}
+
+.sun:before {
+  content: '';
+  width: 48px;
+  height: 48px;
+  background: radial-gradient(circle, #FDF5E6);
+  border-radius: 50%;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.far_mountains {
+  width: 100%;
+  height: 160px;
+  background: linear-gradient(to bottom, transparent 0%, #E2725B 40%, #FFDAB9 100%);
+  bottom: 40%;
+  left: 0;
+  clip-path: polygon(0% 100%, 0% 72%, 5% 66%, 10% 62%, 15% 62%, 20% 56%, 25% 60%, 30% 52%, 35% 56%, 40% 48%, 45% 52%, 50% 45%, 55% 50%, 60% 42%, 65% 48%, 70% 52%, 75% 48%, 80% 52%, 85% 48%, 90% 52%, 95% 50%, 100% 52%, 100% 100%);
+  opacity: 0.5;
+}
+
+.far_mountains.two {
+  background: linear-gradient(to bottom, transparent 0%, #E2725B 35%, #556B2F 100%);
+  bottom: 38.5%;
+  opacity: 0.6;
+  clip-path: polygon(0% 100%, 0% 85%, 8% 79%, 15% 62%, 22% 58%, 28% 62%, 35% 52%, 42% 58%, 48% 50%, 55% 45%, 62% 50%, 68% 55%, 75% 50%, 82% 55%, 88% 52%, 95% 56%, 100% 54%, 100% 100%);
+}
+
+.far_mountains.three {
+  background: linear-gradient(to bottom, transparent 0%, #FFDAB9 30%, #A9A9A9 100%);
+  bottom: 37%;
+  opacity: 0.75;
+  clip-path: polygon(0% 100%, 0% 81%, 10% 75%, 18% 65%, 25% 62%, 32% 58%, 40% 52%, 48% 58%, 55% 50%, 62% 55%, 70% 48%, 78% 54%, 85% 58%, 92% 55%, 100% 58%, 100% 100%);
+}
+
+.mid_hill {
+  width: 100%;
+  height: 110px;
+  background: linear-gradient(to bottom, #FDF5E6 0%, #808000 50%, #0047AB 100%);
+  bottom: 33%;
+  clip-path: polygon(0% 100%, 0% 28%, 8% 31%, 15% 38%, 22% 51%, 30% 55%, 38% 40%, 45% 32%, 52% 38%, 60% 28%, 68% 35%, 75% 30%, 82% 36%, 90% 32%, 100% 36%, 100% 100%);
+}
+
+.mid_hill.second {
+  background: linear-gradient(to bottom, #808000 0%, #A9A9A9 100%);
+  bottom: 31%;
+  height: 95px;
+  clip-path: polygon(0% 100%, 0% 25%, 12% 28%, 20% 32%, 28% 45%, 38% 75%, 48% 51%, 58% 48%, 68% 40%, 78% 46%, 88% 42%, 100% 45%, 100% 100%);
+}
+
+.front_hill {
+  width: 100%;
+  height: 95px;
+  background: linear-gradient(to bottom, #556B2F 0%, #808000 50%, #A9A9A9 100%);
+  bottom: 0;
+  clip-path: polygon(0% 52%, 8% 46%, 15% 42%, 22% 44%, 30% 40%, 38% 42%, 45% 38%, 52% 40%, 60% 36%, 68% 40%, 75% 38%, 82% 42%, 90% 40%, 100% 44%, 100% 100%, 0% 100%);
+}
+
+.front_hill:before {
+  content: '';
+  width: 100%;
+  height: 40%;
+  background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.05) 100%);
+  position: absolute;
+  bottom: 0;
+  left: 0;
+}
+
+.front_hill.second {
+  background: linear-gradient(to bottom, #808000 0%, #A9A9A9 100%);
+  height: 78px;
+  clip-path: polygon(0% 62%, 12% 56%, 22% 52%, 32% 54%, 42% 50%, 52% 52%, 62% 48%, 72% 52%, 82% 50%, 92% 54%, 100% 52%, 100% 100%, 0% 100%);
+}
+
+.front_hill.third {
+  background: linear-gradient(to bottom, #A9A9A9 0%, #A9A9A9 100%);
+  height: 62px;
+  clip-path: polygon(0% 72%, 15% 66%, 28% 62%, 42% 64%, 55% 60%, 68% 62%, 82% 60%, 95% 64%, 100% 62%, 100% 100%, 0% 100%);
+}
