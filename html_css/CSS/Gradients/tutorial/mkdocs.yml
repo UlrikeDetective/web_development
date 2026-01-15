@@ -1,0 +1,8 @@
+site_name: CSS Gradients Guide
+nav:
+  - Home: index.md
+  - Getting Started: getting-started.md
+  - Your First Tutorial: first-steps-tutorial.md
+  - Key Features: key-features.md
+  - FAQ: faq.md
+theme: readthedocs
