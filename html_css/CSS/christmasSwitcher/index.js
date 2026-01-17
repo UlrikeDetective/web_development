@@ -1,6 +1,6 @@
 // Inspiration https://pin.it/54OtjL2BT
 
-const COLORS = ["#c0392b", "#f8f9fa", "#d68910", "#0e6655", "#27ae60"];
+const COLORS = ["#CD6155", "#95A5A6", "#1F618D", "#F4ECDB", "#7DCEA0"];
 const TOGGLE_CIRCLE_SIZE = 30;
 const ANIMATION_INTERVAL = 1000;
 
