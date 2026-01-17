@@ -1,0 +1,73 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#container {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+#container {
+  background-color: #1a1d2e;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.star {
+  width: 50px;
+  aspect-ratio: 1;
+  background: #d68910;
+  clip-path: polygon(50% 0, 79% 90%, 2% 35%, 98% 35%, 21% 90%);
+}
+
+.level {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.circle {
+  width: 30px;
+  height: 30px;
+  background-color: aliceblue;
+  border-radius: 50%;
+  margin: 5px;
+  transition: background-color 0.3s ease;
+}
+
+.toggle-switch {
+  position: relative;
+  height: 30px;
+  border-radius: 30px;
+  transition: background-color 0.3s ease;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.toggle-circle {
+  position: absolute;
+  width: 30px;
+  height: 30px;
+  background: #ff6b35;
+  border-radius: 50%;
+  transition: transform 0.3s ease, background-color 0.3s ease;
+}
+
+.toggle-switch-s {
+  width: 70px;
+}
+
+.toggle-switch-m {
+  width: 95px;
+}
+
+.toggle-switch-l {
+  width: 110px;
+}
