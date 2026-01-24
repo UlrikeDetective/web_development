@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<article class="chapter-content">
+    <header>
+        <small><a href="{{ story.get_absolute_url }}">{{ story.title }}</a></small>
+        <h1>Chapter {{ chapter.number }}: {{ chapter.title }}</h1>
+    </header>
+    
+    <div class="text-body">
+        {{ chapter.content|linebreaks }}
+    </div>
+
+    <hr>
+    
+    <nav class="chapter-nav">
+        <!-- Logic to find Next/Prev would go here -->
+        <a href="{{ story.get_absolute_url }}">Back to Index</a>
+    </nav>
+</article>
+{% endblock %}

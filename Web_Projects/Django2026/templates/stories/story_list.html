@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h1>My Serialized Stories</h1>
+    
+    {% if stories %}
+        <div class="story-grid">
+        {% for story in stories %}
+            <div class="story-card">
+                <h2><a href="{{ story.get_absolute_url }}">{{ story.title }}</a></h2>
+                <p>{{ story.summary|truncatewords:30 }}</p>
+                <a href="{{ story.get_absolute_url }}">Read Now &rarr;</a>
+            </div>
+        {% endfor %}
+        </div>
+    {% else %}
+        <p>No stories published yet. Check back soon!</p>
+    {% endif %}
+</div>
+{% endblock %}

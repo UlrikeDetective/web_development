@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="story-header">
+    <h1>{{ story.title }}</h1>
+    <p class="lead">{{ story.summary }}</p>
+</div>
+
+<div class="chapter-list">
+    <h3>Table of Contents</h3>
+    <ul>
+        {% for chapter in chapters %}
+            <li>
+                <a href="{{ chapter.get_absolute_url }}">
+                    Chapter {{ chapter.number }}: {{ chapter.title }}
+                </a>
+                <small class="text-muted">({{ chapter.publish_date|date:"M d, Y" }})</small>
+            </li>
+        {% empty %}
+            <li>No chapters available yet.</li>
+        {% endfor %}
+    </ul>
+</div>
+<br>
+<a href="{% url 'stories:story_list' %}">&larr; Back to all stories</a>
+{% endblock %}
