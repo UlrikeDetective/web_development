@@ -4,14 +4,57 @@
 
 Build a platform to publish short stories chapter-by-chapter. You will learn to manage related data (Stories vs. Chapters) and control _when_ content appears.
 
+---
+
+## ⚡ Quick Reference: Common Commands
+
+_Run these in your terminal while in the project folder:_
+
+### 1. Local Development & Testing
+
+- **Start the Server**: `python3 manage.py runserver` (View at http://127.0.0.1:8000/)
+- **Create Admin User**: `python3 manage.py createsuperuser`
+- **Apply Database Changes**: `python3 manage.py makemigrations` then `python3 manage.py migrate`
+- **Run Automated Tests**: `python3 manage.py test stories`
+
+### 2. Managing Code Changes (Git)
+
+Every time you finish a feature or fix:
+
+1. **Check Status**: `git status`
+2. **Stage Changes**: `git add .`
+3. **Save (Commit)**: `git commit -m "Describe what you did"`
+4. **Push to GitHub**: `git push origin main`
+
+---
+
+## 🛠 Testing Your Changes Locally
+
+To see your changes as you work, follow this workflow:
+
+1. **Update the Database**: If you changed any fields in `models.py`, run:
+   ```bash
+   python3 manage.py makemigrations
+   python3 manage.py migrate
+   ```
+2. **Start the Server**:
+   ```bash
+   python3 manage.py runserver
+   ```
+3. **View the Site**: Open your browser to `http://127.0.0.1:8000/`.
+4. **Manage Content**: Go to `http://127.0.0.1:8000/admin/` to add or edit stories and chapters. (Use the account you created with `createsuperuser`).
+5. **Verify Logic**: Run `python3 manage.py test stories` to ensure your navigation links and publishing logic are still working correctly.
+
+---
+
 ## Step 1: Setup
 
-1.  Start a new project (or use your main one) and create an app called `stories`.
-2.  Add `stories` to `INSTALLED_APPS` in `settings.py`.
+1.  **Environment**: Ensure Django is installed.
+2.  **App**: Create an app called `stories`.
+3.  **Config**: Add `stories` to `INSTALLED_APPS` and configure `ROOT_URLCONF`.
+4.  **Secrets**: Use a `.env` file for `SECRET_KEY` and email credentials.
 
 ## Step 2: The Models (`stories/models.py`)
-
-We need two models. A `Chapter` belongs to a `Story`.
 
 ```python
 from django.db import models
@@ -19,8 +62,11 @@ from django.utils import timezone
 
 class Story(models.Model):
     title = models.CharField(max_length=200)
-    slug = models.SlugField(unique=True) # For URLs like /story/the-hobbit/
+    slug = models.SlugField(unique=True)
     summary = models.TextField()
+
+    class Meta:
+        verbose_name_plural = "Stories"
 
     def __str__(self):
         return self.title
@@ -28,133 +74,75 @@ class Story(models.Model):
 class Chapter(models.Model):
     story = models.ForeignKey(Story, on_delete=models.CASCADE, related_name='chapters')
     title = models.CharField(max_length=200)
-    number = models.IntegerField() # To order them: Chapter 1, 2, 3...
+    number = models.IntegerField()
     content = models.TextField()
     publish_date = models.DateTimeField(default=timezone.now)
 
+    objects = PublishedManager() # Custom Manager
+
     class Meta:
-        ordering = ['number'] # Default ordering
+        ordering = ['number']
+        unique_together = ['story', 'number']
 
     def __str__(self):
-        return f"{self.story.title} - Ch {self.number}: {self.title}"
+        return f"{self.story.title} - Ch {self.number}"
 ```
 
-## Step 3: The "Manager" (Advanced)
+## Step 3: The "Manager"
 
-We don't want users to see chapters scheduled for next week.
-Add this `Manager` to your `models.py` (above the Chapter class) and attach it to `Chapter`.
+Hide future chapters from readers.
 
 ```python
 class PublishedManager(models.Manager):
     def published(self):
         return self.get_queryset().filter(publish_date__lte=timezone.now())
-
-# Update Chapter model:
-class Chapter(models.Model):
-    # ... fields ...
-    objects = PublishedManager() # Replaces the default objects
 ```
 
-_Usage:_ `Chapter.objects.published()` will now only return released chapters.
+## Step 4: Styling (Modern Hacker Aesthetic)
 
-## Step 4: URL Routing (`stories/urls.py`)
+- **Primary**: Black & White.
+- **Highlight**: Bright Yellow (`#ffe600`).
+- **Feature**: A blinking cursor logo and E-reader reading mode.
 
-Use the slugs!
+## Step 5: Navigation Challenge (Solution)
+
+In the `chapter_detail` view, find the next chapter by filtering the published chapters of the same story:
 
 ```python
-path('<slug:story_slug>/', views.story_detail, name='story_detail'),
-path('<slug:story_slug>/<int:chapter_number>/', views.chapter_detail, name='chapter_detail'),
+next_chapter = Chapter.objects.published().filter(
+    story=story,
+    number=chapter.number + 1
+).first()
 ```
-
-## Step 5: The Views
-
-1.  `story_detail`: Fetch the `Story`. Pass `story.chapters.published()` to the template so users only see available links.
-2.  `chapter_detail`: Fetch the specific chapter using both `story_slug` and `chapter_number`.
-
-## Challenge
-
-Create a "Next Chapter" link in your template.
-_Hint:_ In your view or model, try to find the chapter with `number = current_number + 1`.
-
-## Admin
-
-Create a superuser to start adding stories via the admin panel:
-
-```python
-   python3 manage.py createsuperuser
-```
-
-And start the development server:
-
-```python
-python3 manage.py runserver
-```
-
-### Step 1: Push your code to GitHub
-
-You need to get your code into a GitHub repository. Open your terminal and run:
-
-1.  Stage all changes:
-
-1 git add .
-2 git commit -m "Prepare for deployment: Added requirements, WhiteNoise, and production settings" 2. Create a new repo on GitHub.com (name it Serialized). 3. Link and Push:
-
-1 git remote add origin https://github.com/YOUR_USERNAME/Serialized.git
-2 git branch -M main
-3 git push -u origin main
 
 ---
 
-### Step 2: Set up PythonAnywhere
+## 🌐 The Live Project (GitHub & PythonAnywhere)
 
-Now, log in to your PythonAnywhere account and follow these steps:
+**Repository Link:** [https://github.com/UlrikeDetective/Serialized](https://github.com/UlrikeDetective/Serialized)
 
-A. Clone the Repository
-Open a Bash Console on PythonAnywhere and run:
-1 git clone https://github.com/YOUR_USERNAME/Serialized.git
-2 cd Serialized
+### Deployment to PythonAnywhere (Summary)
 
-B. Create a Virtual Environment
+1.  **Clone** your repo into the PythonAnywhere Bash Console:
+    `git clone https://github.com/UlrikeDetective/Serialized.git`
+2.  **Virtualenv**: Create one and install requirements:
+    `mkvirtualenv --python=/usr/bin/python3.10 serialized-venv`
+    `pip install -r requirements.txt`
+3.  **Static Files**: Run `python manage.py collectstatic` on the server.
+4.  **Web Tab**: Configure your source code path and WSGI file.
+5.  **Secrets**: Create a `.env` file manually in the server's file manager.
 
-1 mkvirtualenv --python=/usr/bin/python3.10 serialized-venv
-2 pip install -r requirements.txt
+### Keeping the Live Site Updated
 
-C. Setup the Database & Static Files
-1 python manage.py migrate
-2 python manage.py collectstatic
+When you make changes locally:
 
-D. Configure the Web Tab
-
-1.  Go to the Web Tab in the PythonAnywhere dashboard.
-2.  Click Add a new web app.
-3.  Choose Manual Configuration (do NOT choose the Django option).
-4.  Choose your Python version (e.g., 3.10).
-5.  Virtualenv: Enter the path to your venv: /home/YOUR_USERNAME/.virtualenvs/serialized-venv.
-6.  Code Section: Set "Source code" to /home/YOUR_USERNAME/Serialized.
-7.  WSGI Configuration: Click the link to the WSGI configuration file and replace everything with this:
-
-
-    1 import os
-    2 import sys
-    3
-    4 path = '/home/YOUR_USERNAME/Serialized'
-    5 if path not in sys.path:
-    6     sys.path.append(path)
-    7
-    8 os.environ['DJANGO_SETTINGS_MODULE'] = 'stories.settings'
-    9
-
-10 from django.core.wsgi import get_wsgi_application
-11 application = get_wsgi_application()
+1. **Commit & Push** locally (see "Managing Code Changes" above).
+2. **On PythonAnywhere**: Open a Bash console, navigate to the folder, and run:
+   ```bash
+   git pull origin main
+   ```
+3. **Reload**: Go to the Web Tab and click the big green **Reload** button.
 
 ---
 
-### Step 3: Add your .env file to PythonAnywhere
-
-Since .env is ignored by git, you must create it manually on the server:
-
-1.  In the PythonAnywhere Files Tab, go to /home/YOUR_USERNAME/Serialized.
-2.  Create a new file named .env.
-3.  Paste your secrets into it (the same ones you have locally).
-
-Finally, go back to the Web Tab and click Reload. Your site should be live at YOUR_USERNAME.pythonanywhere.com!
+**Project Complete.**
