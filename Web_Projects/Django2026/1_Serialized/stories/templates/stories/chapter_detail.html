@@ -1,24 +1,56 @@
 {% extends "base.html" %}
 
+{% block title %}{{ story.title }} - Ch. {{ chapter.number }} - Serialized{% endblock %}
+
 {% block content %}
-<div class="chapter-navigation">
-    <a href="{% url 'stories:story_detail' story.slug %}">&larr; Back to {{ story.title }}</a>
-</div>
+<div class="reader-container">
+    
+    <!-- Header: Story Context -->
+    <header class="reader-header">
+        <span class="reader-story-title">
+            <a href="{% url 'stories:story_detail' story.slug %}" style="text-decoration:none; color:inherit;">
+                {{ story.title }}
+            </a>
+        </span>
+        <h1 class="reader-chapter-title">Chapter {{ chapter.number }}: {{ chapter.title }}</h1>
+        <div class="progress-container">
+            <!-- Simulating "current chapter" progress relative to total could be cool later -->
+            <div class="progress-bar" style="width: 100%;"></div> 
+        </div>
+    </header>
 
-<article>
-    <h1>Chapter {{ chapter.number }}: {{ chapter.title }}</h1>
-    <div class="chapter-content">
+    <!-- Main Content -->
+    <article class="reader-content">
         {{ chapter.content|linebreaks }}
-    </div>
-</article>
+    </article>
 
-<div class="chapter-footer">
-    {% if next_chapter %}
-        <a href="{% url 'stories:chapter_detail' story.slug next_chapter.number %}" class="btn btn-primary">
-            Next Chapter &rarr;
-        </a>
-    {% else %}
-        <p><em>To be continued...</em></p>
-    {% endif %}
+    <!-- Footer Navigation -->
+    <div class="reader-footer">
+        
+        <!-- Previous Chapter (Logic needed if we want "Prev", for now just Back to Story) -->
+        <div class="nav-group">
+            <a href="{% url 'stories:story_detail' story.slug %}" class="nav-link-card">
+                <span class="nav-label">&larr; Return</span>
+                <span class="nav-title">Index</span>
+            </a>
+        </div>
+
+        <!-- Next Chapter -->
+        <div class="nav-group" style="text-align: right;">
+            {% if next_chapter %}
+                <a href="{% url 'stories:chapter_detail' story.slug next_chapter.number %}" class="nav-link-card">
+                    <span class="nav-label">Continue &rarr;</span>
+                    <span class="nav-title">Chapter {{ next_chapter.number }}</span>
+                </a>
+            {% else %}
+                <div class="nav-link-card" style="opacity: 0.5; cursor: default;">
+                    <span class="nav-label">End</span>
+                    <span class="nav-title">To Be Continued...</span>
+                </div>
+            {% endif %}
+        </div>
+
+    </div>
+
 </div>
 {% endblock %}

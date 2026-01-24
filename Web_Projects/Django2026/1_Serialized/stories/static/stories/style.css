@@ -4,7 +4,7 @@
     --accent-color: #000000;
     --secondary-color: #666666;
     --code-bg: #f4f4f4;
-    --highlight-color: #FFF700; /* Bright Yellow */
+    --highlight-color: #ffe600; /* Bright Yellow */
     --font-stack: 'JetBrains Mono', 'Fira Code', 'Courier New', monospace;
 }
 
@@ -207,4 +207,116 @@ footer {
     font-size: 0.8rem;
     color: var(--secondary-color);
     font-family: var(--font-stack);
+}
+
+/* --- E-Reader / Reading Mode Styles --- */
+
+.reader-container {
+    max-width: 68ch; /* Optimal reading width (approx 68 chars) */
+    margin: 0 auto;
+}
+
+.reader-header {
+    text-align: center;
+    margin-bottom: 4rem;
+    padding-bottom: 2rem;
+    border-bottom: 2px dashed var(--secondary-color);
+}
+
+.reader-story-title {
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--secondary-color);
+    margin-bottom: 1rem;
+    display: block;
+}
+
+.reader-chapter-title {
+    font-size: 2.2rem;
+    line-height: 1.2;
+    margin-bottom: 0.5rem;
+}
+
+/* The Content Area */
+.reader-content {
+    font-size: 1.15rem;
+    line-height: 1.8;
+    margin-bottom: 5rem;
+}
+
+.reader-content p {
+    margin-bottom: 1.5rem;
+}
+
+/* "Drop Cap" Effect for the first paragraph's first letter */
+.reader-content p:first-of-type::first-letter {
+    float: left;
+    font-size: 3.5rem;
+    line-height: 0.8;
+    margin-right: 0.75rem;
+    font-weight: 700;
+    color: var(--highlight-color); 
+    background: var(--text-color);
+    padding: 0.1rem 0.3rem;
+    margin-top: 0.2rem;
+}
+
+/* Navigation Footer */
+.reader-footer {
+    border-top: 2px dashed var(--secondary-color);
+    padding-top: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 4rem;
+}
+
+.nav-group {
+    display: flex;
+    gap: 1rem;
+}
+
+.nav-link-card {
+    display: inline-block;
+    padding: 1rem;
+    border: 1px solid var(--secondary-color);
+    text-decoration: none;
+    min-width: 140px;
+    transition: all 0.2s;
+}
+
+.nav-link-card:hover {
+    border-color: var(--highlight-color);
+    background-color: var(--code-bg);
+    transform: translateY(-2px);
+    box-shadow: 4px 4px 0 var(--secondary-color);
+}
+
+.nav-label {
+    display: block;
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    color: var(--secondary-color);
+    margin-bottom: 0.3rem;
+}
+
+.nav-title {
+    display: block;
+    font-weight: bold;
+    font-size: 0.9rem;
+}
+
+/* Progress Bar (Simple Visual) */
+.progress-container {
+    height: 4px;
+    background: var(--code-bg);
+    width: 100%;
+    margin-top: 2rem;
+    border-radius: 2px;
+}
+.progress-bar {
+    height: 100%;
+    background: var(--highlight-color);
+    width: 0%; /* Dynamic if using JS, static for now */
 }

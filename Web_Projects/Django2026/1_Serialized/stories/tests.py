@@ -31,15 +31,19 @@ class ChapterNavigationTest(TestCase):
         """Chapter 1 should link to Chapter 2."""
         url = reverse('stories:chapter_detail', args=[self.story.slug, self.ch1.number])
         response = self.client.get(url)
-        self.assertContains(response, 'Next Chapter')
-        self.assertContains(response, reverse('stories:chapter_detail', args=[self.story.slug, self.ch2.number]))
+        # Check for the actual URL of the next chapter
+        next_url = reverse('stories:chapter_detail', args=[self.story.slug, self.ch2.number])
+        self.assertContains(response, next_url)
 
     def test_no_next_chapter_link_on_last_chapter(self):
         """Chapter 2 should NOT have a next link (it's the last one)."""
         url = reverse('stories:chapter_detail', args=[self.story.slug, self.ch2.number])
         response = self.client.get(url)
-        self.assertNotContains(response, 'Next Chapter')
-        self.assertContains(response, 'To be continued')
+        # Should NOT contain a link to a hypothetical chapter 3
+        # But easier: check for "To Be Continued" text which is unique to the end state
+        self.assertContains(response, 'To Be Continued')
+        # And ensure it doesn't have the "Continue" label associated with a link
+        self.assertNotContains(response, 'Continue &rarr;')
 
     def test_next_chapter_hidden_if_unpublished(self):
         """Chapter 1 should NOT link to Chapter 2 if Chapter 2 is unpublished."""
@@ -49,7 +53,10 @@ class ChapterNavigationTest(TestCase):
         
         url = reverse('stories:chapter_detail', args=[self.story.slug, self.ch1.number])
         response = self.client.get(url)
-        self.assertNotContains(response, 'Next Chapter')
+        
+        # The URL for chapter 2 should NOT be in the response
+        next_url = reverse('stories:chapter_detail', args=[self.story.slug, self.ch2.number])
+        self.assertNotContains(response, next_url)
 
 class StoryViewTests(TestCase):
     def setUp(self):
