@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="chapter-navigation">
+    <a href="{% url 'stories:story_detail' story.slug %}">&larr; Back to {{ story.title }}</a>
+</div>
+
+<article>
+    <h1>Chapter {{ chapter.number }}: {{ chapter.title }}</h1>
+    <div class="chapter-content">
+        {{ chapter.content|linebreaks }}
+    </div>
+</article>
+
+<div class="chapter-footer">
+    {% if next_chapter %}
+        <a href="{% url 'stories:chapter_detail' story.slug next_chapter.number %}" class="btn btn-primary">
+            Next Chapter &rarr;
+        </a>
+    {% else %}
+        <p><em>To be continued...</em></p>
+    {% endif %}
+</div>
+{% endblock %}

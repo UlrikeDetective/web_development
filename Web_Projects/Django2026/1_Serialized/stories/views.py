@@ -26,7 +26,14 @@ def chapter_detail(request, story_slug, chapter_number):
     # if chapter.publish_date > timezone.now() and not request.user.is_staff:
     #     raise Http404("Chapter not released yet")
 
+    # Find the next chapter
+    next_chapter = Chapter.objects.published().filter(
+        story=story, 
+        number=chapter.number + 1
+    ).first()
+
     return render(request, 'stories/chapter_detail.html', {
         'story': story,
-        'chapter': chapter
+        'chapter': chapter,
+        'next_chapter': next_chapter,
     })
