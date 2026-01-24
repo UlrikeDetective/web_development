@@ -1,17 +1,26 @@
 {% extends "base.html" %}
 
-{% block title %}All Stories - Serialized{% endblock %}
+{% block title %}Index - Serialized{% endblock %}
 
 {% block content %}
-<h1>All Stories</h1>
-<ul class="story-list">
-    {% for story in stories %}
-        <li>
-            <h2><a href="{{ story.get_absolute_url }}">{{ story.title }}</a></h2>
-            <p>{{ story.summary|truncatewords:30 }}</p>
-        </li>
-    {% empty %}
-        <li>No stories yet.</li>
-    {% endfor %}
-</ul>
+<section>
+    <h2>Available Stories</h2>
+    
+    <div class="grid">
+        {% for story in stories %}
+            <div class="card">
+                <div>
+                    <h2><a href="{{ story.get_absolute_url }}">{{ story.title }}</a></h2>
+                    <p>{{ story.summary|truncatewords:20 }}</p>
+                </div>
+                <div class="tags">
+                    <!-- Placeholder tags if we had them -->
+                    <span style="font-size: 0.75rem; background: var(--code-bg); padding: 2px 6px;">#fiction</span>
+                </div>
+            </div>
+        {% empty %}
+            <p>No data found.</p>
+        {% endfor %}
+    </div>
+</section>
 {% endblock %}
