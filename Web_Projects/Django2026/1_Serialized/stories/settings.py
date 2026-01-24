@@ -14,7 +14,7 @@ if env_path.exists():
                 continue
             if '=' in line:
                 key, value = line.split('=', 1)
-                os.environ.setdefault(key.strip(), value.strip().strip("'"'))
+                os.environ.setdefault(key.strip(), value.strip().strip("'\""))
 
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET', 'django-insecure-default-dev-key')
