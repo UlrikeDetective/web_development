@@ -50,3 +50,27 @@ class ChapterNavigationTest(TestCase):
         url = reverse('stories:chapter_detail', args=[self.story.slug, self.ch1.number])
         response = self.client.get(url)
         self.assertNotContains(response, 'Next Chapter')
+
+class StoryViewTests(TestCase):
+    def setUp(self):
+        self.client = Client()
+        self.story = Story.objects.create(
+            title="The Hobbit", 
+            slug="the-hobbit", 
+            summary="A journey."
+        )
+
+    def test_story_list_view(self):
+        url = reverse('stories:story_list')
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'stories/story_list.html')
+        self.assertContains(response, "The Hobbit")
+
+    def test_story_detail_view(self):
+        url = reverse('stories:story_detail', args=[self.story.slug])
+        response = self.client.get(url)
+        self.assertEqual(response.status_code, 200)
+        self.assertTemplateUsed(response, 'stories/story_detail.html')
+        self.assertContains(response, "The Hobbit")
+        self.assertContains(response, "A journey.")

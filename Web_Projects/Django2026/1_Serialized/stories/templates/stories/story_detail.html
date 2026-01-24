@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+
+{% block title %}{{ story.title }} - Serialized{% endblock %}
+
+{% block content %}
+<article class="story-detail">
+    <h1>{{ story.title }}</h1>
+    <p class="summary">{{ story.summary }}</p>
+
+    <hr>
+
+    <h3>Chapters</h3>
+    <ol class="chapter-list">
+        {% for chapter in chapters %}
+            <li>
+                <a href="{{ chapter.get_absolute_url }}">
+                    {{ chapter.title }}
+                </a>
+                <small>(Published: {{ chapter.publish_date|date:"M d, Y" }})</small>
+            </li>
+        {% empty %}
+            <li>No chapters available yet.</li>
+        {% endfor %}
+    </ol>
+</article>
+{% endblock %}

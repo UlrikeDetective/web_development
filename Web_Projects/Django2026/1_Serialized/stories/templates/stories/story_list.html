@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}All Stories - Serialized{% endblock %}
+
+{% block content %}
+<h1>All Stories</h1>
+<ul class="story-list">
+    {% for story in stories %}
+        <li>
+            <h2><a href="{{ story.get_absolute_url }}">{{ story.title }}</a></h2>
+            <p>{{ story.summary|truncatewords:30 }}</p>
+        </li>
+    {% empty %}
+        <li>No stories yet.</li>
+    {% endfor %}
+</ul>
+{% endblock %}
