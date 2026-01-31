@@ -1,10 +1,10 @@
 const teamMembers = [
-	{ name: "Emily Kim", role: "Founder" },
-	{ name: "Michael Steward", role: "Creative Director" },
-	{ name: "Emma Rodriguez", role: "Lead Developer" },
-	{ name: "Julia Gimmel", role: "UX Designer" },
-	{ name: "Lisa Anderson", role: "Marketing Manager" },
-	{ name: "James Wilson", role: "Product Manager" }
+	{ name: "Helsinki", role: "Finland" },
+	{ name: "Oulu", role: "Finland" },
+	{ name: "Ibiza Town", role: "Spain" },
+	{ name: "Rotterdam", role: "Netherlands" },
+	{ name: "Prague", role: "Czech Republic" },
+	{ name: "Osaka", role: "Japan" }
 ];
 
 const cards = document.querySelectorAll(".card");
