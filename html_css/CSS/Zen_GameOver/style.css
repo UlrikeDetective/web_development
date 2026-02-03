@@ -85,6 +85,26 @@ body {
     font-weight: 300;
 }
 
+/* Zen Styled Typography for End Screen */
+.zen-title {
+    font-weight: 300; /* Lighter, more elegant */
+    font-size: 3rem;
+    letter-spacing: 0.3em; /* Airy spacing */
+    color: var(--c-basalt-stone);
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+    opacity: 0.9;
+}
+
+.zen-subtitle {
+    font-family: 'Zen Maru Gothic', sans-serif; /* Reinforce the font */
+    font-size: 1.5rem;
+    font-style: italic;
+    color: var(--c-river-stone);
+    letter-spacing: 0.05em;
+    margin-bottom: 4rem;
+}
+
 /* Buttons (Zen Stones) */
 .options-container {
     display: flex;
@@ -114,6 +134,20 @@ body {
     height: 12rem;
     aspect-ratio: 1/1;
     border-radius: 50%; /* Start as circle */
+}
+
+/* Home Stone Specifics */
+.home-stone {
+    width: 10rem;
+    height: 10rem;
+    border-radius: 45% 55% 40% 60% / 55% 45% 60% 40%; /* Distinct organic shape */
+    background-color: var(--c-lotus-flower); /* Softer, inviting color */
+    color: var(--c-basalt-stone);
+}
+
+.home-stone:hover {
+    transform: translateY(-0.5rem) scale(1.05);
+    background-color: #eadddf; /* Slightly lighter on hover */
 }
 
 /* Organic shapes for stones */
