@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Zen Game Over</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+    <div class="app-container">
+        <!-- Screen 1: Menu -->
+        <section id="menu-screen" class="screen active">
+            <h1 class="title">Zen Game Over</h1>
+            <p class="subtitle">Choose your breathing rhythm</p>
+            
+            <div class="options-container">
+                <button class="option-btn" onclick="startGame(0)">
+                    <span class="btn-title">Box Breathing</span>
+                    <span class="btn-desc">In 4s • Hold 4s • Out 4s • Hold 4s</span>
+                </button>
+                
+                <button class="option-btn" onclick="startGame(1)">
+                    <span class="btn-title">Deep Calm</span>
+                    <span class="btn-desc">In 6s • Hold 4s • Out 6s</span>
+                </button>
+                
+                <button class="option-btn" onclick="startGame(2)">
+                    <span class="btn-title">Energize</span>
+                    <span class="btn-desc">In 7s • Out 3s</span>
+                </button>
+            </div>
+        </section>
+
+        <!-- Screen 2: Game -->
+        <section id="game-screen" class="screen">
+            <div class="zen-circle-container">
+                <div id="zen-circle" class="zen-circle"></div>
+                <div id="instruction-text" class="instruction-text">Prepare...</div>
+            </div>
+            <div class="progress-indicator">
+                Cycle <span id="current-cycle">1</span> / 5
+            </div>
+            <button class="secondary-btn" onclick="resetGame()">Stop</button>
+        </section>
+
+        <!-- Screen 3: Game Over -->
+        <section id="end-screen" class="screen">
+            <h1 class="title">GAME OVER</h1>
+            <p class="subtitle">Have a wonderful day</p>
+            <button class="primary-btn" onclick="resetGame()">Home</button>
+        </section>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

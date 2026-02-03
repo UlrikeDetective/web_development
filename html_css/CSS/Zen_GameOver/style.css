@@ -1,0 +1,208 @@
+:root {
+    /* Color Palette */
+    --c-white-dove: #f7f7f5;     /* Background */
+    --c-lotus-flower: #e8d3d5;   /* Soft pink/purple */
+    --c-river-stone: #8c9fa0;    /* Muted teal/grey */
+    --c-bamboo-wood: #d9c8a8;    /* Beige/Tan */
+    --c-basalt-stone: #363636;   /* Dark Grey - Text */
+    --c-himalayan-salt: #e8b4a3; /* Pinkish Orange */
+    
+    /* Functional Colors */
+    --bg-color: var(--c-white-dove);
+    --text-color: var(--c-basalt-stone);
+    --circle-idle: var(--c-river-stone);
+    --circle-active: var(--c-himalayan-salt);
+    
+    /* Spacing & Sizes */
+    --circle-size: 250px;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    font-family: 'Zen Maru Gothic', sans-serif;
+    background-color: var(--bg-color);
+    color: var(--text-color);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    transition: background-color 1s ease;
+}
+
+.app-container {
+    width: 100%;
+    max-width: 600px;
+    padding: 2rem;
+    text-align: center;
+    position: relative;
+    height: 100vh; /* Full height to center content vertically */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+/* Screen Management */
+.screen {
+    display: none;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    position: absolute; /* Stack screens */
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.screen.active {
+    display: flex;
+    opacity: 1;
+    z-index: 10;
+}
+
+/* Typography */
+.title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.1em;
+    color: var(--c-basalt-stone);
+}
+
+.subtitle {
+    font-size: 1.2rem;
+    color: var(--c-river-stone);
+    margin-bottom: 3rem;
+    font-weight: 300;
+}
+
+/* Buttons */
+.options-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    width: 100%;
+    max-width: 400px;
+}
+
+.option-btn {
+    background-color: white;
+    border: 1px solid var(--c-bamboo-wood);
+    border-radius: 15px;
+    padding: 1.5rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+}
+
+.option-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 15px rgba(0,0,0,0.05);
+    background-color: #fffbf5;
+    border-color: var(--c-himalayan-salt);
+}
+
+.btn-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: var(--c-basalt-stone);
+}
+
+.btn-desc {
+    font-size: 0.9rem;
+    color: var(--c-river-stone);
+}
+
+.primary-btn, .secondary-btn {
+    padding: 0.8rem 2rem;
+    border-radius: 50px;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 1rem;
+    margin-top: 2rem;
+    transition: opacity 0.3s;
+}
+
+.primary-btn {
+    background-color: var(--c-basalt-stone);
+    color: white;
+}
+
+.secondary-btn {
+    background-color: transparent;
+    color: var(--c-river-stone);
+    border: 1px solid transparent;
+}
+.secondary-btn:hover {
+    color: var(--c-basalt-stone);
+}
+
+/* Game Elements */
+.zen-circle-container {
+    position: relative;
+    width: var(--circle-size);
+    height: var(--circle-size);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 3rem;
+}
+
+.zen-circle {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    background-color: var(--c-lotus-flower);
+    opacity: 0.8;
+    transform: scale(0.3); /* Default start state: contracted */
+    transition: transform ease-in-out, background-color 1s ease;
+    box-shadow: 0 0 40px rgba(232, 211, 213, 0.4);
+}
+
+.instruction-text {
+    position: absolute;
+    font-size: 1.5rem;
+    font-weight: 400;
+    color: var(--c-basalt-stone);
+    pointer-events: none;
+    text-align: center;
+    width: 200%; /* Wider than container to avoid wrapping */
+}
+
+.progress-indicator {
+    font-size: 1rem;
+    color: var(--c-river-stone);
+    margin-bottom: 1rem;
+}
+
+/* State Classes for Animation */
+/* Note: The duration will be set dynamically via JS inline styles */
+.breathing-in {
+    transform: scale(1);
+    background-color: var(--c-himalayan-salt);
+}
+
+.holding {
+    /* Scale remains whatever it was (1 or 0.3) - controlled by JS keeping class or adding specific hold class? 
+       Actually, standard CSS transition will animate to the new state. 
+       If I want to HOLD at the current scale, I just don't change the scale.
+    */
+}
+
+.breathing-out {
+    transform: scale(0.3);
+    background-color: var(--c-lotus-flower);
+}
