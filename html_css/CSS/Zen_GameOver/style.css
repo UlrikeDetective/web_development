@@ -13,8 +13,8 @@
     --circle-idle: var(--c-river-stone);
     --circle-active: var(--c-himalayan-salt);
     
-    /* Spacing & Sizes */
-    --circle-size: 250px;
+    /* Spacing & Sizes (using rem for scalability) */
+    --circle-base-size: 32rem; /* Large enough so 0.3 scale still fits text */
 }
 
 * {
@@ -33,15 +33,16 @@ body {
     align-items: center;
     overflow: hidden;
     transition: background-color 1s ease;
+    font-size: 16px; /* Base for rem calculation */
 }
 
 .app-container {
     width: 100%;
-    max-width: 600px;
+    max-width: 50rem;
     padding: 2rem;
     text-align: center;
     position: relative;
-    height: 100vh; /* Full height to center content vertically */
+    height: 100vh;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -56,7 +57,7 @@ body {
     align-items: center;
     justify-content: center;
     width: 100%;
-    position: absolute; /* Stack screens */
+    position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -84,50 +85,84 @@ body {
     font-weight: 300;
 }
 
-/* Buttons */
+/* Buttons (Zen Stones) */
 .options-container {
     display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 2rem;
     width: 100%;
-    max-width: 400px;
+    flex-wrap: wrap;
+    margin-top: 2rem;
 }
 
 .option-btn {
-    background-color: white;
-    border: 1px solid var(--c-bamboo-wood);
-    border-radius: 15px;
-    padding: 1.5rem;
+    background-color: var(--c-river-stone);
+    border: none;
+    padding: 2rem;
     cursor: pointer;
-    transition: all 0.3s ease;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     display: flex;
     flex-direction: column;
     align-items: center;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.02);
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 0.625rem 1.25rem rgba(0,0,0,0.1), inset 0 -0.3125rem 0.9375rem rgba(0,0,0,0.1);
+    color: white;
+    width: 12rem;
+    height: 12rem;
+    aspect-ratio: 1/1;
+    border-radius: 50%; /* Start as circle */
 }
 
-.option-btn:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 15px rgba(0,0,0,0.05);
-    background-color: #fffbf5;
-    border-color: var(--c-himalayan-salt);
+/* Organic shapes for stones */
+.option-btn:nth-child(1) {
+    border-radius: 48% 52% 56% 44% / 40% 45% 55% 60%;
+    background-color: var(--c-river-stone);
 }
 
-.btn-title {
-    font-size: 1.2rem;
-    font-weight: 700;
-    margin-bottom: 0.5rem;
+.option-btn:nth-child(2) {
+    border-radius: 55% 45% 42% 58% / 55% 60% 40% 45%;
+    background-color: var(--c-basalt-stone);
+    transform: scale(1.1);
+}
+
+.option-btn:nth-child(3) {
+    border-radius: 42% 58% 51% 49% / 61% 42% 58% 39%;
+    background-color: var(--c-bamboo-wood);
     color: var(--c-basalt-stone);
 }
 
+.option-btn:hover {
+    transform: translateY(-0.9375rem) scale(1.05);
+    box-shadow: 0 1.25rem 1.875rem rgba(0,0,0,0.15), inset 0 -0.3125rem 0.9375rem rgba(0,0,0,0.05);
+    filter: brightness(1.1);
+}
+
+.option-btn:nth-child(2):hover {
+    transform: translateY(-0.9375rem) scale(1.15);
+}
+
+.btn-title {
+    font-size: 1.1rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+    color: inherit;
+    pointer-events: none;
+    white-space: nowrap;
+}
+
 .btn-desc {
-    font-size: 0.9rem;
-    color: var(--c-river-stone);
+    font-size: 0.75rem;
+    color: inherit;
+    opacity: 0.8;
+    pointer-events: none;
 }
 
 .primary-btn, .secondary-btn {
     padding: 0.8rem 2rem;
-    border-radius: 50px;
+    border-radius: 3.125rem;
     border: none;
     cursor: pointer;
     font-family: inherit;
@@ -144,21 +179,17 @@ body {
 .secondary-btn {
     background-color: transparent;
     color: var(--c-river-stone);
-    border: 1px solid transparent;
-}
-.secondary-btn:hover {
-    color: var(--c-basalt-stone);
 }
 
 /* Game Elements */
 .zen-circle-container {
-    position: relative;
-    width: var(--circle-size);
-    height: var(--circle-size);
+    width: var(--circle-base-size);
+    height: var(--circle-base-size);
     display: flex;
     justify-content: center;
     align-items: center;
     margin-bottom: 3rem;
+    position: relative;
 }
 
 .zen-circle {
@@ -167,19 +198,23 @@ body {
     border-radius: 50%;
     background-color: var(--c-lotus-flower);
     opacity: 0.8;
-    transform: scale(0.3); /* Default start state: contracted */
+    transform: scale(0.3);
     transition: transform ease-in-out, background-color 1s ease;
-    box-shadow: 0 0 40px rgba(232, 211, 213, 0.4);
+    box-shadow: 0 0 2.5rem rgba(232, 211, 213, 0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 0.3125rem; /* 5px padding around text */
 }
 
 .instruction-text {
-    position: absolute;
     font-size: 1.5rem;
     font-weight: 400;
     color: var(--c-basalt-stone);
-    pointer-events: none;
     text-align: center;
-    width: 200%; /* Wider than container to avoid wrapping */
+    white-space: nowrap;
+    /* We don't scale the text back up so it remains readable, 
+       but we ensure the circle container is large enough at 0.3 scale. */
 }
 
 .progress-indicator {
