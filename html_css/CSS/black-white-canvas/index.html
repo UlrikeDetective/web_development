@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <title>⚫ BLACK &amp; WHITE CANVAS ⚪</title>
+    <link rel="stylesheet" href="./style.css">
+
+  </head>
+    
+  <body>
+  <div class="container">
+	<h3>⚫ BLACK & WHITE CANVAS ⚪</h3>
+
+	<div class="canvas-wrapper">
+		<canvas id="brushCanvas"></canvas>
+	</div>
+
+	<div class="controls">
+		<div class="bw-indicator">
+			<span class="bw-dot"></span>
+			<span>B&W Canvas</span>
+		</div>
+
+		<div class="colors" id="colorPalette"></div>
+
+		<div class="size-control">
+			<span style="font-size: 18px;">🖌️</span>
+			<input type="range" id="sizeSlider" min="5" max="50" value="20">
+			<span class="size-value" id="sizeDisplay">20px</span>
+		</div>
+
+		<button id="clearBtn">Reset to B&W</button>
+		<span class="stats" id="dotCounter">0 colored dots</span>
+	</div>
+
+	<div style="display: flex; justify-content: space-between; margin-top: 8px; color: #a5b4fc; font-size: 12px;">
+		<span>✦ Canvas starts black & white ✦</span>
+		<span>✦ Your brush adds color ✦</span>
+	</div>
+</div>
+    <script  src="./script.js"></script>
+
+  </body>
+  
+</html>
