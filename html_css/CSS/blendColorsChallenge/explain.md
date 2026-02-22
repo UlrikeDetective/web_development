@@ -1,41 +1,33 @@
-# Technical Deep Dive: San Francisco 360
+# San Francisco Winter Journey: Technical Summary
 
-This project explores the intersection of CSS's modern color-mixing capabilities and sophisticated blending techniques to create a dynamic atmospheric experience.
+This project implements a sophisticated atmospheric day cycle centered on the Golden Gate Bridge, with a specific focus on the low-angle winter sun of San Francisco.
 
-## 1. Using `color-mix()` for Seamless Time Transitions
+## 1. Accurate Celestial Path (Winter Angle)
+The sun follows a mathematically defined arc that adheres strictly to the user's "Top 1/3" requirement:
+- **Sunrise (0.25 progress)**: Positioned at `x=10vw, y=33vh`.
+- **Zenith (0.5 progress)**: Peaks at `x=50vw, y=10vh`.
+- **Sunset (0.75 progress)**: Ends at `x=90vw, y=33vh`.
+The path uses a `sin()` function to ensure a smooth, predictable, and continuous arc across the top of the frame.
 
-The core of the sky's color transition is the `color-mix()` function. Instead of static color stops, we use JS to update the percentage of one color relative to another based on the slider's progress.
+## 2. Realistic Lighting & Diffuse Bloom
+To achieve natural lighting intensity:
+- **Glare & Glow**: A `.glare` element and `.sun-glow` radial gradient follow the sun, using `mix-blend-mode: screen` to create a realistic atmospheric bloom.
+- **Dynamic Intensity**: The `box-shadow` and `filter: brightness()` of the panorama background are synchronized with the sun's altitude, peaking at midday.
 
-### How it works:
-- **Sunrise to Midday**: `color-mix(in srgb, var(--sunrise-sky), var(--midday-sky) ${p * 100}%)`
-- **Midday to Sunset**: `color-mix(in srgb, var(--midday-sky), var(--sunset-sky) ${p * 100}%)`
-- **Sunset to Night**: `color-mix(in srgb, var(--sunset-sky), var(--night-sky) ${p * 100}%)`
+## 3. Natural Color Spectrum
+Using the CSS `color-mix()` function, the sun's hue transitions smoothly through:
+- **Dawn**: `color-mix(in srgb, var(--gg-orange), #fff 40%)`
+- **Midday**: `color-mix(in srgb, var(--vic-yellow), #fff 80%)`
+- **Dusk**: `color-mix(in srgb, #C70039, var(--gg-orange) 60%)`
 
-By using `in srgb`, we ensure a smooth interpolation that preserves the vibrancy of San Francisco's "International Orange" and the cool mist of "Karl the Fog."
+## 4. Atmospheric Interaction (Dual-Layer Fog)
+The iconic "Karl the Fog" is simulated using two distinct layers:
+- **Sky Fog**: Behind the sun to diffuse the sky colors.
+- **Ground Fog**: In front of the sun (using `mix-blend-mode: screen`) to make the sun appear truly embedded within the San Francisco mist.
 
-## 2. Atmospheric Depth with Blend Modes
+## 5. Night Visualization
+- **Pitch Dark**: At `progress < 0.2` and `progress > 0.8`, the sky fades to a deep `#050a10` black.
+- **Sparse Stars**: A few light, realistic stars appear using subtle `radial-gradients`, fading out automatically as dawn approaches.
 
-To simulate the thick, diffused light of the San Francisco fog, we used a combination of layers and blend modes:
-
-### The Fog Layer (`mix-blend-mode: screen`)
-- The `screen` mode is perfect for fog because it lightens the underlying layers while preserving highlights. It effectively "hides" the sun and stars behind the mist, making them appear blurred and diffused.
-- The opacity of this layer is dynamically adjusted: it peaks at dawn and sunset when the "marine layer" is typically thickest.
-
-### The Panorama Background (`mix-blend-mode: multiply`)
-- The background image is blended with the sky color using `multiply`. This technique allows the sky's hue (from the `color-mix` function) to "tint" the entire cityscape, giving the bridge and the bay a realistic glow based on the time of day.
-
-## 3. Celestial Mechanics
-
-The sun and moon are positioned using CSS `transform` and `rotate`. By rotating a container and then counter-rotating the child element, we create a perfect 360-degree orbit that follows the slider's progress.
-
-## 4. The Liquid Slider
-
-The "liquid" style slider uses a custom `clip-path` for the arrow head and CSS animations to give it a pulsing, fluid feel as it travels across the timeline.
-
-## 5. San Francisco Color Palette
-
-The project uses a curated palette:
-- **The Icon**: International Orange (`#D35400`) and Deep Brick (`#C0392B`).
-- **Karl the Fog**: Cool Grey (`#ABB2B9`) and Mist (`#D5D8DC`).
-- **Bay & Ocean**: Pacific Blue (`#2E86C1`) and Pale Horizon (`#AED6F1`).
-- **Painted Ladies**: Victorian Yellow (`#F7DC6F`) and Muted Lavender (`#D7BDE2`).
+## 6. Panorama 360 Simulation
+The bridge image (`landscape-360-bridge-golden-gate-bridge-mist-wallpaper-preview.jpg`) uses `background-position` shifting synchronized with the slider, creating a parallax-style 360-degree journey across the landscape.

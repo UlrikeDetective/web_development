@@ -3,38 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>San Francisco 360: A Day in the Fog</title>
+    <title>SF 360: Winter Sun Journey</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <div class="container">
-        <!-- The 360 Panorama Background -->
         <div class="panorama-viewport">
-            <div class="panorama-bg"></div>
-            
-            <!-- Atmospheric Layers -->
             <div class="sky-overlay"></div>
-            <div class="fog-layer"></div>
+            <div class="sky-fog"></div>
+            <div class="panorama-bg"></div>
+            <div class="lighting-overlay"></div>
+            <div class="ground-fog"></div>
             
-            <!-- Celestial Bodies -->
             <div class="celestial-container">
+                <div class="sun-glow"></div>
                 <div class="sun"></div>
-                <div class="stars"></div>
+                <div class="glare"></div>
             </div>
+            
+            <div class="stars"></div>
         </div>
 
-        <!-- UI Controls -->
         <div class="controls">
             <div class="time-slider-wrapper">
-                <input type="range" id="timeSlider" min="0" max="1000" value="250">
+                <input type="range" id="timeSlider" min="0" max="1000" value="500">
                 <div class="liquid-arrow" id="liquidArrow">
                     <div class="arrow-head"></div>
                 </div>
-                <div class="time-display" id="timeDisplay">Sunrise</div>
+                <div class="time-display" id="timeDisplay">Midday</div>
             </div>
         </div>
     </div>
-
     <script src="index.js"></script>
 </body>
 </html>
