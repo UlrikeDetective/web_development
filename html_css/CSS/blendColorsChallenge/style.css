@@ -58,103 +58,95 @@ body, html {
     flex: 1;
     position: relative;
     overflow: hidden;
-    background: var(--night-sky); /* Initial fallback */
+    background: var(--night-sky);
     transition: background 0.5s ease;
 }
 
 .panorama-bg {
     position: absolute;
     top: 0;
-    left: 0;
-    width: 200%; /* Wider to allow some scrolling if needed */
+    left: -50%; /* Center the wide image */
+    width: 200%;
     height: 100%;
     background-image: url('landscape-360-bridge-golden-gate-bridge-mist-wallpaper-preview.jpg');
     background-size: cover;
-    background-position: center;
+    background-position: center 60%; /* Align horizon slightly below center */
     filter: brightness(0.8) contrast(1.1);
-    mix-blend-mode: multiply; /* Blends with sky color */
+    mix-blend-mode: multiply;
     z-index: 1;
 }
 
-/* Sky Overlay */
+/* Sky Overlay - Now a gradient from horizon */
 .sky-overlay {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    background: linear-gradient(to bottom, transparent 0%, transparent 60%, rgba(0,0,0,0.2) 100%);
     z-index: 2;
-    transition: background 0.5s ease;
 }
 
-/* Fog Layer */
+/* Fog Layer - Thicker at the bottom/horizon */
 .fog-layer {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
-    background: radial-gradient(circle at center, var(--fog-mist), var(--fog-cool));
+    background: linear-gradient(to top, 
+        color-mix(in srgb, var(--fog-mist), transparent 20%) 0%, 
+        color-mix(in srgb, var(--fog-cool), transparent 40%) 40%,
+        transparent 100%);
     opacity: var(--fog-opacity);
-    mix-blend-mode: screen; /* "Hiding" sun and stars behind fog */
+    mix-blend-mode: screen;
     z-index: 4;
     pointer-events: none;
     transition: opacity 0.5s ease;
 }
 
-/* Celestial Bodies */
+/* Celestial Bodies - Offset center for ground-level orbit */
 .celestial-container {
     position: absolute;
-    width: 100%;
-    height: 100%;
+    top: 60%; /* The Horizon Line */
+    left: 50%;
+    width: 0;
+    height: 0;
     z-index: 3;
     pointer-events: none;
 }
 
 .sun {
     position: absolute;
-    width: 80px;
-    height: 80px;
-    background: radial-gradient(circle, #fff 0%, #ffd700 40%, transparent 70%);
-    border-radius: 50%;
-    filter: blur(5px);
-    box-shadow: 0 0 50px rgba(255, 215, 0, 0.6);
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(0deg) translateY(-40vh);
-    transition: transform 0.1s linear, opacity 0.5s ease;
-    opacity: 0;
-}
-
-.moon {
-    position: absolute;
     width: 60px;
     height: 60px;
-    background: radial-gradient(circle, #f4f4f4 0%, #cbd5e0 50%, transparent 80%);
+    background: radial-gradient(circle, #fff 0%, #ffd700 30%, transparent 80%);
     border-radius: 50%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) rotate(180deg) translateY(-40vh);
-    transition: transform 0.1s linear, opacity 0.5s ease;
+    filter: blur(3px);
+    box-shadow: 0 0 30px rgba(255, 215, 0, 0.4);
+    top: 0;
+    left: 0;
+    transition: opacity 0.5s ease;
     opacity: 0;
+    z-index: 3;
 }
 
 .stars {
     position: absolute;
-    width: 200%;
-    height: 200%;
-    top: -50%;
-    left: -50%;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
     background-image: 
-        radial-gradient(1px 1px at 20px 30px, white, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 40px 70px, white, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 50px 160px, white, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 90px 40px, white, rgba(0,0,0,0)),
-        radial-gradient(1px 1px at 130px 80px, white, rgba(0,0,0,0)),
-        radial-gradient(2px 2px at 160px 120px, white, rgba(0,0,0,0));
-    background-repeat: repeat;
-    background-size: 200px 200px;
-    opacity: 0.3;
+        radial-gradient(1.5px 1.5px at 15% 20%, rgba(255,255,255,0.8), transparent),
+        radial-gradient(1px 1px at 45% 15%, rgba(255,255,255,0.6), transparent),
+        radial-gradient(1.2px 1.2px at 80% 35%, rgba(255,255,255,0.7), transparent),
+        radial-gradient(1px 1px at 25% 65%, rgba(255,255,255,0.5), transparent),
+        radial-gradient(1.4px 1.4px at 70% 85%, rgba(255,255,255,0.6), transparent);
+    background-repeat: no-repeat;
+    opacity: 0;
+    transition: opacity 1s ease;
+    z-index: 2;
 }
 
 /* UI Controls */
