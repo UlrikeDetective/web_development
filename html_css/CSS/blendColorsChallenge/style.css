@@ -67,7 +67,7 @@ body, html { height: 100%; overflow: hidden; background: #000; font-family: 'Seg
     left: 0;
     width: 100%;
     height: 100%;
-    background-image: url('landscape-360-bridge-golden-gate-bridge-mist-wallpaper-preview.jpg');
+    background-image: url('https://raw.githubusercontent.com/UlrikeDetective/web_development/main/html_css/CSS/blendColorsChallenge/landscape-360-bridge-golden-gate-bridge-mist-wallpaper-preview.jpg');
     background-size: cover;
     background-position: center 60%;
     mix-blend-mode: multiply;
