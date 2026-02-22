@@ -13,9 +13,10 @@ const infoText = document.getElementById('infoText');
 const root = document.documentElement;
 
 let timeValue = 0; // 0 to 1000
+let scrollInterval = null;
+let isLongPress = false;
 
 // Narrative Sections with Palette Blending (color-mix)
-// Transparent but vibrant backgrounds (using pure palette colors)
 const sections = [
     {
         threshold: 150,
@@ -74,19 +75,19 @@ function updateTime(value) {
     // Determine current section
     const currentSection = sections.find(s => value < s.threshold) || sections[sections.length - 1];
     
-    // Update Info Box Content
+    // Update Info Box Content (with smooth fade)
     if (infoTitle.innerText !== currentSection.title) {
-        infoBox.style.opacity = 0; // Fade out
+        infoBox.style.opacity = 0;
         setTimeout(() => {
             infoTitle.innerText = currentSection.title;
             infoText.innerText = currentSection.text;
             root.style.setProperty('--glow', currentSection.glow);
             root.style.setProperty('--box-bg', currentSection.bg);
-            infoBox.style.opacity = 1; // Fade in
+            infoBox.style.opacity = 1;
         }, 150);
     }
 
-    // Arch movement for the box: Start at 20%, move to 90%
+    // Arch movement for the box
     const boxX = 20 + (progress * 70);
     const arcHeight = Math.sin(progress * Math.PI) * 40;
     const boxY = 10 + arcHeight;
@@ -144,25 +145,55 @@ function updateTime(value) {
     sunGlow.style.opacity = isDay ? intensity : 0;
 }
 
-// Navigation Logic
-const step = 20;
-
-prevBtn.addEventListener('click', () => {
-    timeValue = Math.max(0, timeValue - step);
+// Continuous Scroll Logic
+function startScrolling(direction) {
+    if (scrollInterval) return;
+    
+    // Initial step
+    timeValue = Math.max(0, Math.min(1000, timeValue + (direction * 5)));
     updateTime(timeValue);
-});
 
-nextBtn.addEventListener('click', () => {
-    timeValue = Math.min(1000, timeValue + step);
-    updateTime(timeValue);
-});
+    // Continuous scroll after short delay (long press)
+    scrollInterval = setInterval(() => {
+        timeValue = Math.max(0, Math.min(1000, timeValue + (direction * 4))); // Continuous speed
+        updateTime(timeValue);
+        if (timeValue <= 0 || timeValue >= 1000) stopScrolling();
+    }, 16); // ~60fps smooth movement
+}
 
+function stopScrolling() {
+    if (scrollInterval) {
+        clearInterval(scrollInterval);
+        scrollInterval = null;
+    }
+}
+
+// Navigation Listeners
+prevBtn.addEventListener('mousedown', () => startScrolling(-1));
+nextBtn.addEventListener('mousedown', () => startScrolling(1));
+
+window.addEventListener('mouseup', stopScrolling);
+prevBtn.addEventListener('mouseleave', stopScrolling);
+nextBtn.addEventListener('mouseleave', stopScrolling);
+
+// Touch support
+prevBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    startScrolling(-1);
+});
+nextBtn.addEventListener('touchstart', (e) => {
+    e.preventDefault();
+    startScrolling(1);
+});
+window.addEventListener('touchend', stopScrolling);
+
+// Keyboard navigation
 window.addEventListener('keydown', (e) => {
     if (e.key === 'ArrowLeft') {
-        timeValue = Math.max(0, timeValue - step);
+        timeValue = Math.max(0, timeValue - 20);
         updateTime(timeValue);
     } else if (e.key === 'ArrowRight') {
-        timeValue = Math.min(1000, timeValue + step);
+        timeValue = Math.min(1000, timeValue + 20);
         updateTime(timeValue);
     }
 });
