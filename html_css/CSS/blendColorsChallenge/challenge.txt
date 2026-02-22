@@ -1,0 +1,29 @@
+mix or blend colors
+
+- template uses color-mix()
+- Try out blend modes! Blend modes let you mix and blend an element with the colors of the element behind it with Photoshop-like effects.
+- Combine mixing and blending and you get gradients, where one color gradually morphs into another along a path of color stops. 
+
+Must use:
+- use only html, css and optional js
+- use color-mix()
+- optional blend modes
+
+Idea for project:
+- 360 degree view / journey from sunrise to midday to sunset to night and sunsrise again.
+- for the journey use an arrow in liqued style to scroll through the day
+- color theme: 
+    1. San Francisco (USA)
+Theme: Fog, Victorians, and the Golden Gate.
+This palette captures the cool, diffused light of the "marine layer" (fog), the vibrant "International Orange" of the bridge, and the pastel variety of the Painted Ladies.
+Tone	Hex Codes
+The Icon	#D35400 (Golden Gate Orange), #E67E22 (Rust), #C0392B (Deep Brick)
+Karl the Fog	#ABB2B9 (Cool Grey), #D5D8DC (Mist), #85929E (Overcast Sky)
+Bay & Ocean	#2E86C1 (Pacific Blue), #5499C7 (Bay Water), #AED6F1 (Pale Horizon)
+Painted Ladies	#F7DC6F (Victorian Yellow), #76D7C4 (Dusty Teal), #D7BDE2 (Muted Lavender)
+- there is a slight fog - the sun and the stars at night are hidding behind the fog
+- 360 degree of skyline of San Francisco or view of Golden Gate Bridget @html_css/CSS/blendColorsChallenge/landscape-360-bridge-golden-gate-bridge-mist-wallpaper-preview.jpg
+
+Others:
+- create an explain.md and README.me
+- create index.html, style.css and optional index.js at @blendColorsChallenge

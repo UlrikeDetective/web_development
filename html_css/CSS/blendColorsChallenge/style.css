@@ -1,0 +1,234 @@
+:root {
+    /* Palette: The Icon (Golden Gate) */
+    --icon-orange: #D35400;
+    --icon-rust: #E67E22;
+    --icon-brick: #C0392B;
+
+    /* Palette: Karl the Fog */
+    --fog-cool: #ABB2B9;
+    --fog-mist: #D5D8DC;
+    --fog-sky: #85929E;
+
+    /* Palette: Bay & Ocean */
+    --bay-blue: #2E86C1;
+    --bay-water: #5499C7;
+    --bay-pale: #AED6F1;
+
+    /* Palette: Painted Ladies */
+    --victorian-yellow: #F7DC6F;
+    --dusty-teal: #76D7C4;
+    --muted-lavender: #D7BDE2;
+
+    /* Dynamic Variables (controlled via JS) */
+    --time-progress: 0.25; /* 0 to 1 */
+    --fog-opacity: 0.4;
+    
+    /* Sunrise Sky (color-mix) */
+    --sunrise-sky: color-mix(in srgb, var(--icon-orange), var(--muted-lavender) 40%);
+    /* Midday Sky */
+    --midday-sky: color-mix(in srgb, var(--bay-blue), var(--bay-pale) 30%);
+    /* Sunset Sky */
+    --sunset-sky: color-mix(in srgb, var(--icon-brick), var(--muted-lavender) 60%);
+    /* Night Sky */
+    --night-sky: color-mix(in srgb, #0a0e14, var(--bay-blue) 15%);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+body, html {
+    height: 100%;
+    overflow: hidden;
+    background: #000;
+}
+
+.container {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+/* Panorama Viewport */
+.panorama-viewport {
+    flex: 1;
+    position: relative;
+    overflow: hidden;
+    background: var(--night-sky); /* Initial fallback */
+    transition: background 0.5s ease;
+}
+
+.panorama-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 200%; /* Wider to allow some scrolling if needed */
+    height: 100%;
+    background-image: url('landscape-360-bridge-golden-gate-bridge-mist-wallpaper-preview.jpg');
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.8) contrast(1.1);
+    mix-blend-mode: multiply; /* Blends with sky color */
+    z-index: 1;
+}
+
+/* Sky Overlay */
+.sky-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    transition: background 0.5s ease;
+}
+
+/* Fog Layer */
+.fog-layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, var(--fog-mist), var(--fog-cool));
+    opacity: var(--fog-opacity);
+    mix-blend-mode: screen; /* "Hiding" sun and stars behind fog */
+    z-index: 4;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+/* Celestial Bodies */
+.celestial-container {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    pointer-events: none;
+}
+
+.sun {
+    position: absolute;
+    width: 80px;
+    height: 80px;
+    background: radial-gradient(circle, #fff 0%, #ffd700 40%, transparent 70%);
+    border-radius: 50%;
+    filter: blur(5px);
+    box-shadow: 0 0 50px rgba(255, 215, 0, 0.6);
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(0deg) translateY(-40vh);
+    transition: transform 0.1s linear, opacity 0.5s ease;
+    opacity: 0;
+}
+
+.moon {
+    position: absolute;
+    width: 60px;
+    height: 60px;
+    background: radial-gradient(circle, #f4f4f4 0%, #cbd5e0 50%, transparent 80%);
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) rotate(180deg) translateY(-40vh);
+    transition: transform 0.1s linear, opacity 0.5s ease;
+    opacity: 0;
+}
+
+.stars {
+    position: absolute;
+    width: 200%;
+    height: 200%;
+    top: -50%;
+    left: -50%;
+    background-image: 
+        radial-gradient(1px 1px at 20px 30px, white, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 40px 70px, white, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 50px 160px, white, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 90px 40px, white, rgba(0,0,0,0)),
+        radial-gradient(1px 1px at 130px 80px, white, rgba(0,0,0,0)),
+        radial-gradient(2px 2px at 160px 120px, white, rgba(0,0,0,0));
+    background-repeat: repeat;
+    background-size: 200px 200px;
+    opacity: 0.3;
+}
+
+/* UI Controls */
+.controls {
+    height: 120px;
+    background: #111;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 10;
+}
+
+.time-slider-wrapper {
+    position: relative;
+    width: 80%;
+    max-width: 800px;
+}
+
+#timeSlider {
+    width: 100%;
+    -webkit-appearance: none;
+    height: 10px;
+    background: #333;
+    border-radius: 5px;
+    outline: none;
+    cursor: pointer;
+}
+
+#timeSlider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 30px;
+    height: 30px;
+    background: var(--icon-orange);
+    border: 3px solid #fff;
+    border-radius: 50%;
+    cursor: grab;
+    transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+#timeSlider::-webkit-slider-thumb:active {
+    transform: scale(1.2);
+    cursor: grabbing;
+}
+
+/* Liquid Arrow */
+.liquid-arrow {
+    position: absolute;
+    top: -40px;
+    left: 0;
+    pointer-events: none;
+    transition: left 0.1s linear;
+}
+
+.arrow-head {
+    width: 40px;
+    height: 40px;
+    background: var(--icon-orange);
+    clip-path: polygon(0 0, 100% 50%, 0 100%);
+    filter: drop-shadow(0 0 10px rgba(211, 84, 0, 0.8));
+    animation: pulse 2s infinite ease-in-out;
+}
+
+.time-display {
+    position: absolute;
+    bottom: -35px;
+    width: 100%;
+    text-align: center;
+    color: #fff;
+    font-weight: bold;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1) translateX(0); }
+    50% { transform: scale(1.1) translateX(5px); }
+}
