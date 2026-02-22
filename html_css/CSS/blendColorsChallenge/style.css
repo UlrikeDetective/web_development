@@ -22,16 +22,36 @@
     --sun-color: #fff;
     --sun-intensity: 1;
     --sky-brightness: 1;
-    --glow: var(--icon-orange);
+    --glow: var(--bay-blue);
     --box-x: 20%;
     --box-y: 10%;
-    --box-bg: color-mix(in srgb, var(--icon-orange), transparent 40%);
+    --box-bg: transparent;
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
-body, html { height: 100%; overflow: hidden; background: #000; font-family: sans-serif; }
+body, html { height: 100%; overflow: hidden; background: #000; font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; }
 
-.container { width: 100vw; height: 100vh; display: flex; flex-direction: column; }
+.container { width: 100vw; height: 100vh; display: flex; flex-direction: column; position: relative; }
+
+/* Dynamic Page Title */
+.page-header {
+    position: absolute;
+    top: 30px;
+    width: 100%;
+    text-align: center;
+    z-index: 100;
+    pointer-events: none;
+}
+
+#pageTitle {
+    color: var(--glow);
+    font-size: 2rem;
+    font-weight: 900;
+    text-transform: uppercase;
+    letter-spacing: 8px;
+    text-shadow: 0 0 15px rgba(0,0,0,0.9), 0 0 30px color-mix(in srgb, var(--glow), transparent 40%);
+    transition: color 0.8s ease, text-shadow 0.8s ease;
+}
 
 .panorama-viewport {
     flex: 1;
@@ -160,18 +180,15 @@ body, html { height: 100%; overflow: hidden; background: #000; font-family: sans
     left: var(--box-x);
     width: 360px;
     padding: 2em;
-    /* BACKGROUND COLOR REMOVED COMPLETELY */
-    background-color: transparent; 
-    background-image: none; /* Removed texture to avoid any grey tint */
+    background-color: transparent;
     color: #fff;
     border-radius: 1.2em;
-    backdrop-filter: none; /* Removed blur to eliminate greyish/milky tones */
     z-index: 20;
     border: 3px solid color-mix(in srgb, var(--glow), transparent 10%);
     box-shadow: 
         0 20px 50px rgba(0,0,0,0.5), 
         inset 0 0 30px color-mix(in srgb, var(--glow), transparent 30%);
-    transition: left 0.1s linear, bottom 0.1s linear, opacity 0.5s ease;
+    transition: left 0.1s linear, bottom 0.1s linear, opacity 0.5s ease, border-color 0.8s ease, box-shadow 0.8s ease;
     pointer-events: none;
     display: flex;
     flex-direction: column;
@@ -182,22 +199,22 @@ body, html { height: 100%; overflow: hidden; background: #000; font-family: sans
 .info-box h2 {
     font-size: 1.4rem;
     color: #fff; 
-    /* BACKGROUND COLOR REMOVED COMPLETELY */
     background-color: transparent;
     padding: 0;
     display: inline-block;
     width: fit-content;
-    text-shadow: 0 0 15px var(--glow), 0 0 30px var(--glow); /* Stronger glow for title visibility */
+    text-shadow: 0 0 15px var(--glow), 0 0 30px var(--glow);
     text-transform: uppercase;
     letter-spacing: 4px;
     font-weight: 900;
+    transition: text-shadow 0.8s ease;
 }
 
 .info-box p {
     font-size: 1rem;
     line-height: 1.6;
     font-weight: 500;
-    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+    text-shadow: 0 1px 3px rgba(0,0,0,0.9);
 }
 
 /* Nav Arrows */
@@ -220,7 +237,8 @@ body, html { height: 100%; overflow: hidden; background: #000; font-family: sans
 
 .nav-arrow:hover {
     background: rgba(255, 255, 255, 0.1);
-    border-color: var(--icon-orange);
+    border-color: var(--glow);
+    box-shadow: 0 0 20px color-mix(in srgb, var(--glow), transparent 50%);
 }
 
 .nav-arrow.left { left: 20px; border-radius: 0 50px 50px 0; }
@@ -231,6 +249,7 @@ body, html { height: 100%; overflow: hidden; background: #000; font-family: sans
     height: 20px;
     border-top: 4px solid #fff;
     border-right: 4px solid #fff;
+    transition: border-color 0.3s ease;
 }
 
 .left .arrow-shape { transform: rotate(-135deg); }
@@ -248,4 +267,4 @@ body, html { height: 100%; overflow: hidden; background: #000; font-family: sans
 }
 
 .time-display-wrapper { position: relative; width: 100%; text-align: center; }
-.time-display { color: var(--icon-orange); font-size: 16px; font-weight: 900; letter-spacing: 6px; text-transform: uppercase; }
+.time-display { color: var(--glow); font-size: 16px; font-weight: 900; letter-spacing: 6px; text-transform: uppercase; transition: color 0.8s ease; }
