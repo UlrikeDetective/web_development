@@ -55,11 +55,11 @@ function updateTime(value) {
             timeLabel = "Golden Dusk";
         }
     } else {
-        // Night phase
+        // Night phase: Brighter Pacific Night
         intensity = 0;
-        brightness = 0.15;
+        brightness = 0.25; // Increased from 0.15 for better visibility
         sunYPercent = 80; // Hidden below horizon
-        starOpacity = progress < 0.2 || progress > 0.8 ? 0.5 : 0;
+        starOpacity = progress < 0.22 || progress > 0.78 ? 0.8 : 0; // Much clearer stars
         timeLabel = "Pacific Night";
     }
 
