@@ -23,47 +23,9 @@
     --sun-intensity: 1;
     --sky-brightness: 1;
     --glow: var(--icon-orange);
-    --box-x: 10%;
+    --box-x: 20%;
     --box-y: 10%;
-    --box-bg: rgba(10, 10, 15, 0.4);
-}
-
-/* Info Box - Arch Movement & Bioluminescent Look */
-.info-box {
-    position: absolute;
-    bottom: var(--box-y);
-    left: var(--box-x);
-    width: 320px;
-    padding: 1.5em;
-    background-color: var(--box-bg);
-    background-image: var(--texture-noise);
-    color: #e0e0e0;
-    border-radius: 0.8em;
-    backdrop-filter: blur(20px);
-    z-index: 20;
-    border: 1.5px solid color-mix(in srgb, var(--glow), transparent 40%);
-    box-shadow: 0 0 15px rgba(0,0,0,0.5), inset 0 0 12px var(--glow);
-    transition: left 0.1s linear, bottom 0.1s linear, border-color 0.5s ease;
-    pointer-events: none;
-    display: flex;
-    flex-direction: column;
-    gap: 0.8em;
-    transform: translateX(-50%); /* Center on the left/right point */
-}
-
-.info-box h2 {
-    font-size: 1.2rem;
-    color: var(--glow);
-    text-transform: uppercase;
-    letter-spacing: 2px;
-    font-weight: 800;
-}
-
-.info-box p {
-    font-size: 0.85rem;
-    line-height: 1.5;
-    font-weight: 400;
-    opacity: 0.9;
+    --box-bg: color-mix(in srgb, var(--icon-orange), transparent 40%);
 }
 
 * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -88,7 +50,7 @@ body, html { height: 100%; overflow: hidden; background: #000; font-family: sans
     background-image: url('landscape-360-bridge-golden-gate-bridge-mist-wallpaper-preview.jpg');
     background-size: cover;
     background-position: center 60%;
-    mix-blend-mode: multiply; /* Allows sun behind to shine through light areas */
+    mix-blend-mode: multiply;
     z-index: 3;
     filter: brightness(var(--sky-brightness)) saturate(var(--sky-brightness));
 }
@@ -119,7 +81,7 @@ body, html { height: 100%; overflow: hidden; background: #000; font-family: sans
     mix-blend-mode: overlay;
 }
 
-/* Celestial Container - Now Behind the Panorama */
+/* Celestial Container */
 .celestial-container {
     position: absolute;
     width: 100%;
@@ -135,7 +97,6 @@ body, html { height: 100%; overflow: hidden; background: #000; font-family: sans
     top: var(--sun-y);
     left: var(--sun-x);
     transform: translate(-50%, -50%);
-    /* Increased transparency: 0.7 opacity base */
     background: color-mix(in srgb, var(--sun-color), transparent 30%);
     border-radius: 50%;
     box-shadow: 
@@ -152,7 +113,6 @@ body, html { height: 100%; overflow: hidden; background: #000; font-family: sans
     top: var(--sun-y);
     left: var(--sun-x);
     transform: translate(-50%, -50%);
-    /* Very transparent glow */
     background: radial-gradient(circle, color-mix(in srgb, var(--sun-color), transparent 85%) 0%, transparent 70%);
     z-index: 2;
 }
@@ -166,17 +126,17 @@ body, html { height: 100%; overflow: hidden; background: #000; font-family: sans
     background: radial-gradient(circle at var(--sun-x) var(--sun-y), 
         rgba(255,255,255, calc(0.1 * var(--sun-intensity))) 0%, 
         transparent 40%);
-    z-index: 10; /* Stays on top for bloom effect */
+    z-index: 10;
     pointer-events: none;
     mix-blend-mode: screen;
 }
 
-/* Stars: Larger, Brighter & on Top with Screen Blend */
+/* Stars */
 .stars {
     position: absolute;
     width: 100%;
     height: 100%;
-    z-index: 8; /* On top of panorama-bg to ensure visibility */
+    z-index: 8;
     background-image: 
         radial-gradient(circle at 12% 12%, #fff 2px, transparent 4px),
         radial-gradient(circle at 28% 22%, #fff 1.5px, transparent 3px),
@@ -189,16 +149,103 @@ body, html { height: 100%; overflow: hidden; background: #000; font-family: sans
     background-repeat: no-repeat;
     opacity: 0;
     transition: opacity 1.5s ease;
-    mix-blend-mode: screen; /* Makes them glow and shine through everything */
+    mix-blend-mode: screen;
     pointer-events: none;
 }
 
-/* UI Controls */
-.controls { height: 120px; background: #0a0a0a; display: flex; justify-content: center; align-items: center; z-index: 100; border-top: 1px solid #222; }
-.time-slider-wrapper { position: relative; width: 80%; max-width: 800px; }
-#timeSlider { width: 100%; -webkit-appearance: none; height: 6px; background: #222; border-radius: 3px; outline: none; cursor: pointer; }
-#timeSlider::-webkit-slider-thumb { -webkit-appearance: none; width: 24px; height: 24px; background: var(--gg-orange); border: 2px solid #fff; border-radius: 50%; cursor: pointer; }
+/* Info Box - Arch Movement & Bioluminescent Look */
+.info-box {
+    position: absolute;
+    bottom: var(--box-y);
+    left: var(--box-x);
+    width: 360px;
+    padding: 2em;
+    /* BACKGROUND COLOR REMOVED COMPLETELY */
+    background-color: transparent; 
+    background-image: none; /* Removed texture to avoid any grey tint */
+    color: #fff;
+    border-radius: 1.2em;
+    backdrop-filter: none; /* Removed blur to eliminate greyish/milky tones */
+    z-index: 20;
+    border: 3px solid color-mix(in srgb, var(--glow), transparent 10%);
+    box-shadow: 
+        0 20px 50px rgba(0,0,0,0.5), 
+        inset 0 0 30px color-mix(in srgb, var(--glow), transparent 30%);
+    transition: left 0.1s linear, bottom 0.1s linear, opacity 0.5s ease;
+    pointer-events: none;
+    display: flex;
+    flex-direction: column;
+    gap: 1.2em;
+    transform: translateX(-50%);
+}
 
-.liquid-arrow { position: absolute; top: -35px; left: 0; pointer-events: none; }
-.arrow-head { width: 30px; height: 30px; background: var(--gg-orange); clip-path: polygon(0 0, 100% 50%, 0 100%); filter: drop-shadow(0 0 8px var(--gg-orange)); }
-.time-display { position: absolute; bottom: -30px; width: 100%; text-align: center; color: #888; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; }
+.info-box h2 {
+    font-size: 1.4rem;
+    color: #fff; 
+    /* BACKGROUND COLOR REMOVED COMPLETELY */
+    background-color: transparent;
+    padding: 0;
+    display: inline-block;
+    width: fit-content;
+    text-shadow: 0 0 15px var(--glow), 0 0 30px var(--glow); /* Stronger glow for title visibility */
+    text-transform: uppercase;
+    letter-spacing: 4px;
+    font-weight: 900;
+}
+
+.info-box p {
+    font-size: 1rem;
+    line-height: 1.6;
+    font-weight: 500;
+    text-shadow: 0 1px 2px rgba(0,0,0,0.8);
+}
+
+/* Nav Arrows */
+.nav-arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 60px;
+    height: 100px;
+    background: rgba(0, 0, 0, 0.4);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    cursor: pointer;
+    z-index: 100;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
+    backdrop-filter: blur(10px);
+}
+
+.nav-arrow:hover {
+    background: rgba(255, 255, 255, 0.1);
+    border-color: var(--icon-orange);
+}
+
+.nav-arrow.left { left: 20px; border-radius: 0 50px 50px 0; }
+.nav-arrow.right { right: 20px; border-radius: 50px 0 0 50px; }
+
+.arrow-shape {
+    width: 20px;
+    height: 20px;
+    border-top: 4px solid #fff;
+    border-right: 4px solid #fff;
+}
+
+.left .arrow-shape { transform: rotate(-135deg); }
+.right .arrow-shape { transform: rotate(45deg); }
+
+/* UI Controls Footer */
+.controls { 
+    height: 80px; 
+    background: #000; 
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+    z-index: 100; 
+    border-top: 1px solid #111;
+}
+
+.time-display-wrapper { position: relative; width: 100%; text-align: center; }
+.time-display { color: var(--icon-orange); font-size: 16px; font-weight: 900; letter-spacing: 6px; text-transform: uppercase; }

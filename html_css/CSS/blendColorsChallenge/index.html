@@ -23,6 +23,14 @@
             
             <div class="stars"></div>
 
+            <!-- Navigation Arrows -->
+            <button class="nav-arrow left" id="prevBtn" aria-label="Move Backwards">
+                <div class="arrow-shape"></div>
+            </button>
+            <button class="nav-arrow right" id="nextBtn" aria-label="Move Forwards">
+                <div class="arrow-shape"></div>
+            </button>
+
             <!-- Bioluminescent Info Box -->
             <div class="info-box" id="infoBox">
                 <h2 id="infoTitle">Pacific Night</h2>
@@ -31,12 +39,8 @@
         </div>
 
         <div class="controls">
-            <div class="time-slider-wrapper">
-                <input type="range" id="timeSlider" min="0" max="1000" value="0">
-                <div class="liquid-arrow" id="liquidArrow">
-                    <div class="arrow-head"></div>
-                </div>
-                <div class="time-display" id="timeDisplay">Midday</div>
+            <div class="time-display-wrapper">
+                <div class="time-display" id="timeDisplay">Pacific Night</div>
             </div>
         </div>
     </div>
