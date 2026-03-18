@@ -1,48 +1,25 @@
 Pacific Night
-  The system is in low-power mode. I’m perched in the dark on a hill, looking at a giant hardware installation suspended over a black void. The Golden
-  Gate is barely seen; it’s a series of status LEDs—International Orange beacons pulsing against a #000000 background. The bay is a silent data
-  lake, its surface tension high, reflecting zero packets of light. I’ve set my own internal dark-mode to high contrast. No ambient noise except the
-  low-frequency hum of the wind, a background process that never hits the kill-switch.
+The system is in low-power mode. I’m perched in the dark on a hill, looking at a giant hardware installation suspended over a black void. The Golden Gate is barely seen; it’s a series of status LEDs—International Orange beacons pulsing against a #000000 background. The bay is a silent data lake, its surface tension high, reflecting zero packets of light. I’ve set my own internal dark-mode to high contrast. No ambient noise except the low-frequency hum of the wind, a background process that never hits the kill-switch.
 
 
-  Pre-dawn Mist
-  A massive rendering error has occurred. The fog has rolled in from the Pacific, a thick layer of unoptimized CSS blur() that has dropped the
-  visibility to near-zero. The bridge towers are partially occluded, their top sections losing connection with the base. It’s a classic case of packet
-  loss—the physical world is failing to resolve. I’m sitting in the Presidio, damp and shivering, watching the grey-scale telemetry of the mist as it
-  attempts to overwrite the horizon. The system is hanging. Latency is high.
+Pre-dawn Mist
+A massive rendering error has occurred. The fog has rolled in from the Pacific, a thick layer of unoptimized CSS blur() that has dropped the visibility to near-zero. The bridge towers are partially occluded, their top sections losing connection with the base. It’s a classic case of packet loss—the physical world is failing to resolve. I’m sitting in the Presidio, damp and shivering, watching the grey-scale telemetry of the mist as it attempts to overwrite the horizon. The system is hanging. Latency is high.
 
 
-  Winter Sunrise
-  The boot sequence begins. It’s not a smooth transition; it’s a sharp hex shift from deep indigo to a cold, brittle violet. The sun—the master
-  process—cracks the horizon near the East Bay hills. The International Orange of the Golden Gate Bridge starts to initialize, flickering into life as the first
-  photons hit the steel. It’s a clean compile. No syntax errors in the sky today, just a high-fidelity rendering of "Steel Meets Sky" at 60fps. The
-  temperature is a bug I can't quite patch out.
+Winter Sunrise The boot sequence begins. It’s not a smooth transition; it’s a sharp hex shift from deep indigo to a cold, brittle violet. The sun—the master process—cracks the horizon near the East Bay hills. The International Orange of the Golden Gate Bridge starts to initialize, flickering into life as the first photons hit the steel. It’s a clean compile. No syntax errors in the sky today, just a high-fidelity rendering of "Steel Meets Sky" at 60fps. The temperature is a bug I can't quite patch out.
 
 
-  Low Winter Sun
-  The sun's elevation is stuck at a suboptimal angle. In winter, the light doesn't hit the "Main" container from above; it attacks from the side,
-  creating long, dramatic box-shadow effects that stretch across the span. The glare is a security vulnerability—it bypasses my sunglasses and floods
-  my visual sensors with raw white light. Every cable on the bridge acts like a fiber-optic line, carrying a blinding data stream of pure reflection.
-  It’s high-contrast, high-stakes UI.
+Low Winter Sun
+The sun's elevation is stuck at a suboptimal angle. In winter, the light doesn't hit the "Main" container from above; it attacks from the side, creating long, dramatic box-shadow effects that stretch across the span. The glare is a security vulnerability—it bypasses my sunglasses and floods my visual sensors with raw white light. Every cable on the bridge acts like a fiber-optic line, carrying a blinding data stream of pure reflection. It’s high-contrast, high-stakes UI.
 
 
-  Winter Daylight
-  Production environment: Live. The sky is a flat, crisp #87CEEB with zero percent opacity on the clouds. The bridge is the only vibrant component in a
-  world of muted winter tones. I’m analyzing the movement of the cars—tiny data packets moving across a two-mile bus. The wind has picked up, a steady
-  bandwidth of cold air coming off the ocean. I’ve optimized my position near Crissy Field, watching the structural integrity of the day. Everything is
-  functional, cold, and perfectly rendered.
+Winter Daylight
+Production environment: Live. The sky is a flat, crisp #87CEEB with zero percent opacity on the clouds. The bridge is the only vibrant component in a world of muted winter tones. I’m analyzing the movement of the cars—tiny data packets moving across a two-mile bus. The wind has picked up, a steady bandwidth of cold air coming off the ocean. I’ve optimized my position near Crissy Field, watching the structural integrity of the day. Everything is functional, cold, and perfectly rendered.
 
 
-  Golden Dusk
-  The shutdown protocol has been initiated. The sun is sinking into the Pacific, triggering a linear-gradient that transitions from burnt amber to a
-  bruised purple. The bridge is catching the last of the "Golden Hour" rays, its steel skin glowing like it’s being overclocked. This is the ultimate
-  color-mix: 80% sunset, 20% ocean spray. The light is deprecated now, fading fast, but the aesthetic value is at its peak. I’m watching the "Night
-  Mode" script prepare to execute.
+Golden Dusk
+The shutdown protocol has been initiated. The sun is sinking into the Pacific, triggering a linear-gradient that transitions from burnt amber to a bruised purple. The bridge is catching the last of the "Golden Hour" rays, its steel skin glowing like it’s being overclocked. This is the ultimate color-mix: 80% sunset, 20% ocean spray. The light is deprecated now, fading fast, but the aesthetic value is at its peak. I’m watching the "Night Mode" script prepare to execute.
 
 
-  Pacific Night II
-  The day’s telemetry is archived. This site is a visual log of the last twelve hours—a study in atmospheric blends. Using color-mix(in srgb,
-  var(--bridge-orange), var(--pacific-blue) 40%), we’ve reconstructed the transition from the mid-day glare to the evening’s deep saturation. The
-  background-blend-mode is set to multiply, layering the memories of the mist over the sharp lines of the towers. We’ve mapped the winter sun’s low
-  trajectory through a series of CSS variables, ensuring that even in the dark, the resonance of that cold, golden light remains cached in the browser.
-  System status: Restored to #000. Session closed.
+Pacific Night II
+The day’s telemetry is archived. This site is a visual log of the last twelve hours—a study in atmospheric blends. Using color-mix(in srgb, var(--bridge-orange), var(--pacific-blue) 40%), we’ve reconstructed the transition from the mid-day glare to the evening’s deep saturation. The background-blend-mode is set to multiply, layering the memories of the mist over the sharp lines of the towers. We’ve mapped the winter sun’s low trajectory through a series of CSS variables, ensuring that even in the dark, the resonance of that cold, golden light remains cached in the browser. System status: Restored to #000. Session closed.
