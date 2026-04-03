@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Flex-Grow Image Gallery</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <h1>Flex-Grow Image Gallery</h1>
+        <p>A full-bleed gallery maintaining aspect ratios using <code>flex-grow</code>.</p>
+    </header>
+
+    <main class="gallery">
+        <!-- Images from Lorem Picsum with varying aspect ratios -->
+        <img src="https://picsum.photos/id/10/800/600" width="800" height="600" alt="Landscape">
+        <img src="https://picsum.photos/id/20/600/800" width="600" height="800" alt="Portrait">
+        <img src="https://picsum.photos/id/30/500/500" width="500" height="500" alt="Square">
+        <img src="https://picsum.photos/id/40/900/450" width="900" height="450" alt="Wide">
+        <img src="https://picsum.photos/id/50/400/800" width="400" height="800" alt="Tall Portrait">
+        <img src="https://picsum.photos/id/60/700/500" width="700" height="500" alt="Landscape">
+        <img src="https://picsum.photos/id/15/800/400" width="800" height="400" alt="Wide">
+        <img src="https://picsum.photos/id/25/500/700" width="500" height="700" alt="Portrait">
+        <img src="https://picsum.photos/id/35/600/600" width="600" height="600" alt="Square">
+        <img src="https://picsum.photos/id/45/800/300" width="800" height="300" alt="Very Wide">
+    </main>
+
+    <script>
+      /* 
+        As suggested in the text, manually set --ar for browsers 
+        that don't support attr(width type(<number>)) yet. 
+      */
+      document.querySelectorAll('img').forEach(img => {
+        const ar = img.getAttribute('width') / img.getAttribute('height');
+        img.style.setProperty('--ar', ar);
+      });
+    </script>
+</body>
+</html>

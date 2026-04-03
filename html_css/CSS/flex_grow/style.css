@@ -1,0 +1,64 @@
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, sans-serif;
+  background-color: #f4f4f4;
+}
+
+header {
+  text-align: center;
+  padding: 2rem;
+}
+
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+  /* "balance" will be better once available (experimental) */
+  /* flex-wrap: balance; */ 
+  gap: 24px;
+  padding: 24px;
+}
+
+/*
+  This assumes the content is of the form <img width=100 height=100>
+*/
+img {
+  /* 
+    Calculate aspect-ratio from width/height attributes.
+    Note: attr(type(<number>)) is currently experimental and primarily works in Chromium.
+  */
+  --ar: attr(width type(<number>)) / attr(height type(<number>));
+  
+  /* 
+    Set width proportional to aspect-ratio. 
+    This ensures all images have the same height initially before growing.
+  */
+  width: calc(20% * var(--ar));
+  height: auto;
+  
+  /* 
+    Grow proportional to aspect-ratio. 
+    Ensures all images on a line maintain the same height while filling the space.
+  */
+  flex-grow: calc(var(--ar));
+
+  /* 
+    Mitigation: prevent single images on a line from growing too large.
+  */
+  max-width: min(100%, calc(50% * var(--ar)));
+  
+  object-fit: cover;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* 
+  Browser Fallback: If attr() is not supported, we can manually set aspect-ratio 
+  or use JS as mentioned in the description. 
+  For this demo to work in more browsers, we could use the aspect-ratio property:
+*/
+@supports not (width: attr(width type(<number>))) {
+  img {
+    /* Manual fallback or simple aspect-ratio logic if needed */
+    aspect-ratio: attr(width) / attr(height);
+  }
+}
