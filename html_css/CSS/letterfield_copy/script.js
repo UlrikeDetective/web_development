@@ -5,7 +5,7 @@ console.clear();
 
 const SETTINGS = {
   fontSize: 150,
-  char: 'a',
+  text: 'Happy Birthday',
   pattern: 'Cycle',
   paletteScale: .5,
   paletteOffset: 1.2,
@@ -76,7 +76,7 @@ function palette(t, p) {
 
 // Ripple character transition, when changing characters
 let transitionTimers = [];
-function updateCharacter(newChar) {
+function updateText(newText) {
   const totalDuration = 600; // ms for the full ripple to propagate
   const flipDuration = 150;  // ms for each cell's shrink-grow
   
@@ -105,9 +105,9 @@ function updateCharacter(newChar) {
     const t1 = setTimeout(() => {
       item.el.style.transform = 'scale(0)';
     }, delay);
-    // Schedule char swap + grow
+    // Schedule text swap + grow
     const t2 = setTimeout(() => {
-      item.el.textContent = newChar;
+      item.el.textContent = newText;
       item.el.style.transition = `transform ${flipDuration}ms ease-out`;
       item.el.style.transform = 'scale(1)';
     }, delay + flipDuration);
@@ -124,7 +124,7 @@ function init() {
   dims.reset(window.innerWidth, window.innerHeight );
   hdims.reset(window.innerWidth / 2, window.innerHeight / 2 );
 
-  WWidth = getTextWidth(SETTINGS.char, `900 ${SETTINGS.fontSize}px Inter`);
+  WWidth = getTextWidth(SETTINGS.text, `900 ${SETTINGS.fontSize}px Inter`);
   gridDim.resetToVector(dims.scaleNew(1/WWidth)).ceil();
 
   letterfield.innerHTML = '';
@@ -135,7 +135,7 @@ function init() {
 
   gridItems = [];
   for (let i = 0; i < gridDim.x * gridDim.y; i++) {
-    const el = htmlToElement(`<div>${SETTINGS.char}</div>`);
+    const el = htmlToElement(`<div>${SETTINGS.text}</div>`);
     letterfield.appendChild(el);
     gridItems.push({
       el,
@@ -252,10 +252,9 @@ window.addEventListener('load', () => {
 
 const pane = new Pane({ title: "Letterfield", expanded: false });
 pane.addBinding(SETTINGS, 'fontSize', { min: 50, max: 300 }).on('change', () => init());
-const charBinding = pane.addBinding(SETTINGS, 'char', { label: "Character" });
-const inputElement = charBinding.controller.valueController.view.inputElement;
-inputElement.addEventListener('keyup', (event) => {
-  updateCharacter(event.key);
+const textBinding = pane.addBinding(SETTINGS, 'text', { label: "Text" });
+textBinding.on('change', (ev) => {
+  updateText(ev.value);
 });
 pane.addBinding(SETTINGS, 'pattern', {
   options: { Cycle: 'Cycle', Ripple: 'Ripple', Gradient: 'Gradient', Mouse: 'Mouse', Wave: 'Wave' }
