@@ -1,5 +1,9 @@
+/**
+ * Loads the flashcard data from a JSON file.
+ * @returns {Promise<Array>} The flashcard sets data.
+ */
 async function loadData() {
-  const response = await fetch("./data/data.json");
+  const response = await fetch("data.json");
 
   if (!response.ok) {
     throw new Error("Could not load data.");
@@ -8,12 +12,18 @@ async function loadData() {
   return response.json();
 }
 
+/**
+ * Creates a card element for a flashcard set.
+ * @param {Object} set The flashcard set data.
+ * @returns {HTMLElement} The created set card element.
+ */
 function createSetCard(set) {
   const card = document.createElement("article");
 
   card.className = "set-card";
   card.innerHTML = `<h3>${set.title}</h3><p>${set.description}</p>`;
 
+  // When a set is clicked, render its individual cards
   card.addEventListener("click", () => {
     renderSetCards(set);
   });
@@ -21,8 +31,13 @@ function createSetCard(set) {
   return card;
 }
 
+// Global variable to store the loaded flashcard data
 let flashcardData = null;
 
+/**
+ * Renders the individual cards within a selected flashcard set.
+ * @param {Object} set The flashcard set to display.
+ */
 function renderSetCards(set) {
   const cardsSection = document.createElement("section");
 
@@ -42,6 +57,7 @@ function renderSetCards(set) {
     inner.className = "card-inner";
     inner.innerHTML = `<p class="card-face card-front">${card.front}</p><p class="card-face card-back">${card.back}</p>`;
 
+    // Click to flip the card
     inner.addEventListener("click", (e) => {
       e.stopPropagation();
       cardContainer.classList.toggle("flipped");
@@ -53,6 +69,7 @@ function renderSetCards(set) {
 
   cardsSection.appendChild(cardsContainer);
 
+  // Button to return to the set selection view
   const backBtn = document.createElement("button");
   backBtn.className = "back-btn";
   backBtn.textContent = "Back to sets";
@@ -66,6 +83,9 @@ function renderSetCards(set) {
   app.appendChild(cardsSection);
 }
 
+/**
+ * Renders the list of all available flashcard sets.
+ */
 function renderAllSets() {
   const app = document.getElementById("app");
   app.innerHTML = "";
@@ -80,6 +100,9 @@ function renderAllSets() {
   app.appendChild(setsSection);
 }
 
+/**
+ * Main function to initialize the application.
+ */
 async function renderContent() {
   try {
     flashcardData = await loadData();
@@ -93,4 +116,5 @@ async function renderContent() {
   }
 }
 
+// Start the application
 renderContent();
