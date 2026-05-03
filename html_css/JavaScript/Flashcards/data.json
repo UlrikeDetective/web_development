@@ -11,6 +11,14 @@
       {
         "front": "What is the purpose of the head element?",
         "back": "Contains meta information, links, and scripts for the document."
+      },
+      {
+        "front": "What does the <a> tag define?",
+        "back": "A hyperlink, used to link from one page to another."
+      },
+      {
+        "front": "What is the purpose of the alt attribute in <img>?",
+        "back": "Provides alternative text if the image cannot be displayed."
       }
     ]
   },
@@ -25,7 +33,38 @@
       },
       {
         "front": "What does the selector .class do?",
-        "back": "Applies styles to elements with the given class attribute."
+        "back": "Applies styles to all elements with that specific class attribute."
+      },
+      {
+        "front": "What is the CSS Box Model?",
+        "back": "A box wrapping every element, consisting of: margins, borders, padding, and content."
+      },
+      {
+        "front": "What does z-index control?",
+        "back": "The stack order of overlapping elements."
+      }
+    ]
+  },
+  {
+    "id": "set3",
+    "title": "JavaScript Essentials",
+    "description": "Foundational JS programming.",
+    "cards": [
+      {
+        "front": "What is a variable?",
+        "back": "A container for storing data values."
+      },
+      {
+        "front": "Difference between 'let' and 'const'?",
+        "back": "'let' allows reassignment; 'const' is for values that stay the same."
+      },
+      {
+        "front": "What is an event listener?",
+        "back": "A function that waits for a specific user action (like a click) to trigger code."
+      },
+      {
+        "front": "What is an Array?",
+        "back": "A single variable used to store a list of multiple values."
       }
     ]
   }
