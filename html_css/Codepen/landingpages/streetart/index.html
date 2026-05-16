@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Streetart Landingpage</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="wall">
+	<main>
+		<div class="tape top-left"></div>
+		<div class="tape top-right"></div>
+		<div class="tape bottom"></div>
+		<span>Coming Summer 2026</span>
+		<h1>The Thing You Want</h1>
+		<p>
+			That thing you want to buy? We have it. And it's almost here.
+		</p>
+		<form class="signup">
+			<input type="email" placeholder="Enter your email address" required>
+			<button type="submit">Notify Me</button>
+		</form>
+		<p style="font-size:11px; opacity:0.8; border-left:3px solid #111; padding-left:10px;">
+			Sign up to get notified when we launch.
+		</p>
+		<div class="hint">Photo by <a href="https://unsplash.com/fr/@reganography?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener nofollow">Samuel Regan-Asante</a> on <a href="https://unsplash.com/fr/photos/homme-en-lunettes-a-monture-noire-et-veste-noire-jd4lOycLtpA?utm_source=unsplash&utm_medium=referral&utm_content=creditCopyText" target="_blank" rel="noopener nofollow">Unsplash</a></div>
+		<div class="ripped-bottom"></div>
+
+	</main>
+</div>
+
+<script>
+	(function() {
+		const expandIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3H5a2 2 0 0 0-2 2v3m18 0V5a2 2 0 0 0-2-2h-3m0 18h3a2 2 0 0 0 2-2v-3M3 16v3a2 2 0 0 0 2 2h3"/></svg>`;
+		const compressIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M8 3v3a2 2 0 0 1-2 2H3m18 0h-3a2 2 0 0 1-2-2V3m0 18v-3a2 2 0 0 1 2-2h3M3 16h3a2 2 0 0 1 2 2v3"/></svg>`;
+
+		function createButton() {
+			const fullscreenBtn = document.createElement('button');
+			fullscreenBtn.setAttribute('aria-label', 'Fullscreen');
+			console.log("&Toc on codepen - https://codepen.io/ol-ivier");
+			Object.assign(fullscreenBtn.style, {
+				all: 'unset',
+				position: 'fixed',
+				bottom: '20px',
+				right: '20px',
+				width: '44px',
+				height: '44px',
+				borderRadius: '50%',
+				background: 'rgba(0, 0, 0, 0.6)',
+				backdropFilter: 'blur(10px)',
+				border: '1px solid rgba(255,255,255,0.2)',
+				color: 'white',
+				cursor: 'pointer',
+				zIndex: '1000',
+				display: 'flex',
+				alignItems: 'center',
+				justifyContent: 'center',
+				transition: 'all 0.3s ease'
+			});
+			fullscreenBtn.innerHTML = expandIcon;
+			fullscreenBtn.addEventListener('mouseenter', () => {
+				fullscreenBtn.style.background = 'rgba(0, 0, 0, 0.2)';
+			});
+			fullscreenBtn.addEventListener('mouseleave', () => {
+				fullscreenBtn.style.background = 'rgba(0, 0, 0, 0.6)';
+			});
+
+			function toggleFullscreen() {
+				if (!document.fullscreenElement) {
+					document.documentElement.requestFullscreen()
+						.then(() => updateIcon(true, fullscreenBtn))
+						.catch(err => console.error(`Fullscreen error: ${err.message}`));
+				} else {
+					document.exitFullscreen()
+						.then(() => updateIcon(false, fullscreenBtn))
+						.catch(err => console.error(`Exit fullscreen error: ${err.message}`));
+				}
+			}
+			fullscreenBtn.addEventListener('click', toggleFullscreen);
+			document.addEventListener('fullscreenchange', () => {
+				updateIcon(!!document.fullscreenElement, fullscreenBtn);
+			});
+			document.body.appendChild(fullscreenBtn);
+		}
+
+		function updateIcon(isFullscreen, btn) {
+			btn.innerHTML = isFullscreen ? compressIcon : expandIcon;
+			btn.setAttribute('aria-label', isFullscreen ? 'Exit fullscreen' : 'Fullscreen');
+		}
+		createButton();
+	})();
+</script>
+    
+</body>
+</html>

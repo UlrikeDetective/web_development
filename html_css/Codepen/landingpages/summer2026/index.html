@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Summer 2026</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div id="heroWrapper">
+    <section id="hero">
+        <a id="heroLink">This<br> Summer<br> 2026</a>
+    </section>
+</div>
+
+<div id="horScrollWrapper1">
+    <section class="horScroll">
+        <div class="animWrap toRight">
+            <div class="item" index="01">Lorem ipsum, dolor sit amet consectetur.</div>
+            <div class="item" index="02">Lorem ipsum, dolor sit amet consectetur.</div>
+            <div class="item" index="03">Lorem ipsum, dolor sit amet consectetur.</div>
+            <div class="item" index="04">Lorem ipsum, dolor sit amet consectetur.</div>
+            <div class="item" index="05">Lorem ipsum, dolor sit amet consectetur.</div>
+        </div>
+    </section>
+</div>
+<div id="horScrollWrapper2">
+	<section class="horScroll" data-wrapper="#horScrollWrapper2">
+		<div class="animWrap toLeft">
+			<div class="item" index="06">Lorem ipsum, dolor sit amet consectetur.</div>
+			<div class="item" index="07">Lorem ipsum, dolor sit amet consectetur.</div>
+			<div class="item" index="08">Lorem ipsum, dolor sit amet consectetur.</div>
+			<div class="item" index="09">Lorem ipsum, dolor sit amet consectetur.</div>
+			<div class="item" index="10">Lorem ipsum, dolor sit amet consectetur.</div>
+		</div>
+	</section>
+</div>
+<div id="horScrollWrapper3">
+	<section class="horScroll" data-horWrapper="#horScrollWrapper3">
+		<div class="animWrap toRight">
+			<div class="item" index="11">Lorem ipsum, dolor sit amet consectetur.</div>
+			<div class="item" index="12">Lorem ipsum, dolor sit amet consectetur.</div>
+			<div class="item" index="13">Lorem ipsum, dolor sit amet consectetur.</div>
+			<div class="item" index="14">Lorem ipsum, dolor sit amet consectetur.</div>
+			<div class="item" index="15">Lorem ipsum, dolor sit amet consectetur.</div>
+		</div>
+	</section>
+</div>
+
+<section id="offer" class="vh100 vp50">
+
+    
+    <div id="h1Wrapper">
+        <h1 class="sText" sRemove="true">The Thing You Want</h1>
+        <h1 class="sText">That thing you want to buy?</h1>
+        <p><span class="sText">We have it.</span> <span class="sText">And it's almost here.</span></p>
+    </div>
+    <main class="cardShape">
+
+        <p class="email-note">Sign up<br> to get notified when we launch.</p>
+        <form class="signup">
+            <input type="email" placeholder="Enter your email address" required>
+            <button type="submit">Notify Me</button>
+        </form>
+
+        <div class="glow cardShape"></div>
+        
+        <span>Coming<br> Summer<br> 2026</span>
+
+    </main>
+
+
+</section>
+
+<section id="footer">
+		a <a href="https://codepen.io/challenges/2026/may" target="_blank">CODEPEN challenge</a> by <a href="https://codepen.io/ikrprojects" target="_blank">ikrProjects</a>
+</section>
+
+<div id="bgDivWrapper">
+	<div class="bgDivRelative">
+		<div class="treyMix"></div>
+	</div>
+	<div class="bgDivRelative">
+		<div class="treyMix"></div>
+	</div>
+</div>
+
+<svg id="noise">
+	<defs>
+		<filter id='noiseFilter'>
+			<feTurbulence type="fractalNoise" baseFrequency="0.6" stitchTiles="stitch" />
+			<feColorMatrix type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  0.3 0 0 0 0" />
+		</filter>
+	</defs>
+	<rect width='100%' height='100%' filter='url(#noiseFilter)' />
+</svg>
+<div id="bgBlur"></div>
+</body>
+</html>
