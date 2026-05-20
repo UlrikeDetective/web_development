@@ -543,8 +543,9 @@ function endGame() {
         speakBreathCue("Mindfulness complete. Have a wonderful day.");
     }, 200);
     
-    // Log this practice session in the local database
-    logPracticeSession();
+    // Log this practice session with the current exercise name
+    const exerciseName = currentPattern ? currentPattern.name : "Unknown Rhythm";
+    logPracticeSession(exerciseName);
     
     showScreen('end');
 }
@@ -877,23 +878,53 @@ requestAnimationFrame(animateCanvas);
 const HISTORY_KEY = 'zen_breathing_history';
 
 /**
- * Logs a new practice session timestamp in localStorage
+ * Logs a new practice session to the SQLite backend database,
+ * with a local fallback to LocalStorage.
+ * @param {string} exerciseName - Name of the breathing exercise used.
  */
-function logPracticeSession() {
+function logPracticeSession(exerciseName) {
+    const timestamp = Date.now();
+    const name = exerciseName || "Unknown Rhythm";
+
+    // 1. Local storage cache write
     try {
         const history = getHistory();
-        history.push(Date.now());
+        history.push(timestamp);
         localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
-        
-        // Update stats UI immediately
-        updateStatsUI();
     } catch (e) {
-        console.error("Failed to log practice session:", e);
+        console.error("Failed to log to LocalStorage:", e);
     }
+
+    // 2. Fetch API POST request to SQLite backend
+    fetch('/api/sessions', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+            timestamp: timestamp,
+            exercise_name: name
+        })
+    })
+    .then(response => {
+        if (!response.ok) throw new Error("HTTP " + response.status);
+        return response.json();
+    })
+    .then(data => {
+        console.log("Logged session to SQLite database successfully:", data);
+        // Load fresh synced data from the SQLite database
+        syncStatsFromDatabase();
+    })
+    .catch(err => {
+        console.warn("Failed to write to SQLite backend database, falling back to LocalStorage:", err);
+        // Fallback: update UI immediately using LocalStorage data
+        updateStatsUI();
+    });
 }
 
 /**
- * Retrieves the history of practice session timestamps
+ * Retrieves the cache history of practice session timestamps from LocalStorage
+ * @returns {Array<number>} An array of timestamp integers
  */
 function getHistory() {
     const data = localStorage.getItem(HISTORY_KEY);
@@ -906,10 +937,34 @@ function getHistory() {
 }
 
 /**
- * Calculates current streak and counts for week, month, and year
+ * Fetches practice history from the SQLite database and syncs the UI stats.
+ * Falls back to LocalStorage if the server database is offline.
  */
-function calculateStats() {
-    const history = getHistory();
+function syncStatsFromDatabase() {
+    fetch('/api/sessions')
+        .then(response => {
+            if (!response.ok) throw new Error("HTTP " + response.status);
+            return response.json();
+        })
+        .then(sessions => {
+            console.log("Synchronized practice logs from database:", sessions);
+            // Map JSON response rows to timestamps array
+            const history = sessions.map(s => s.timestamp);
+            updateStatsUI(history);
+        })
+        .catch(err => {
+            console.warn("Could not sync with backend database. Using offline cache:", err);
+            updateStatsUI();
+        });
+}
+
+/**
+ * Calculates current streak and counts for week, month, and year
+ * @param {Array<number>} [historyOverride] - Optional history array to compute stats from
+ * @returns {Object} An object containing streak, weekCount, monthCount, and yearCount
+ */
+function calculateStats(historyOverride) {
+    const history = historyOverride || getHistory();
     const now = new Date();
     
     // Unique dates in local date format YYYY-MM-DD
@@ -968,6 +1023,8 @@ function calculateStats() {
 
 /**
  * Gets an encouraging message based on streak and totals
+ * @param {Object} stats - The statistics object computed by calculateStats()
+ * @returns {string} An encouraging motivational quote string
  */
 function getEncouragementMessage(stats) {
     const messages = [
@@ -998,9 +1055,10 @@ function getEncouragementMessage(stats) {
 
 /**
  * Updates all stats elements on the main menu and end screen
+ * @param {Array<number>} [historyOverride] - Optional history array to compute stats from
  */
-function updateStatsUI() {
-    const stats = calculateStats();
+function updateStatsUI(historyOverride) {
+    const stats = calculateStats(historyOverride);
     
     // Main Menu Stats
     const streakEl = document.getElementById('stat-streak');
@@ -1048,5 +1106,5 @@ function updateStatsUI() {
 // ==========================================
 loadSavedRhythms();
 updateControlPanelUI();
-updateStatsUI();
+syncStatsFromDatabase();
 showScreen('menu');
