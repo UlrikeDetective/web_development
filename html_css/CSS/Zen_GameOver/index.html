@@ -63,6 +63,33 @@
                     <span class="btn-desc">Shape your own breath</span>
                 </button>
             </div>
+
+            <!-- Stats Dashboard (Glassmorphic) -->
+            <div id="stats-dashboard" class="stats-dashboard" aria-label="Mindfulness Statistics">
+                <div class="stats-header">
+                    <span class="stats-icon">✨</span>
+                    <h2 class="stats-title">Mindfulness Journey</h2>
+                </div>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span id="stat-streak" class="stat-value">0</span>
+                        <span class="stat-label">Daily Streak</span>
+                    </div>
+                    <div class="stat-card">
+                        <span id="stat-week" class="stat-value">0</span>
+                        <span class="stat-label">This Week</span>
+                    </div>
+                    <div class="stat-card">
+                        <span id="stat-month" class="stat-value">0</span>
+                        <span class="stat-label">This Month</span>
+                    </div>
+                    <div class="stat-card">
+                        <span id="stat-year" class="stat-value">0</span>
+                        <span class="stat-label">This Year</span>
+                    </div>
+                </div>
+                <p id="stats-encouragement" class="stats-encouragement">Breathe in. Take a moment for yourself today.</p>
+            </div>
         </section>
 
         <!-- Screen 2: Breathing Practice Screen -->
@@ -94,7 +121,12 @@
         <!-- Screen 3: Practice Completed Screen -->
         <section id="end-screen" class="screen" aria-labelledby="end-title">
             <h1 id="end-title" class="title zen-title">GAME OVER</h1>
-            <p class="subtitle zen-subtitle">Have a wonderful day</p>
+            <p class="subtitle zen-subtitle">Mindfulness Complete</p>
+            
+            <div class="end-stats-card">
+                <p id="end-streak-msg" class="end-streak-msg">Streak: 0 Days! 🔥</p>
+                <p id="end-encouraging-msg" class="end-encouraging-msg">Have a wonderful day</p>
+            </div>
             
             <button class="option-btn home-stone" onclick="resetGame()" aria-label="Return to the main menu">
                 <span class="btn-title">Home</span>

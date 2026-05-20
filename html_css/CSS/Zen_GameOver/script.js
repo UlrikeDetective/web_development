@@ -543,6 +543,9 @@ function endGame() {
         speakBreathCue("Mindfulness complete. Have a wonderful day.");
     }, 200);
     
+    // Log this practice session in the local database
+    logPracticeSession();
+    
     showScreen('end');
 }
 
@@ -868,8 +871,182 @@ function animateCanvas(timestamp) {
 requestAnimationFrame(animateCanvas);
 
 // ==========================================
+// 7. Mindfulness Database & Statistics
+// ==========================================
+
+const HISTORY_KEY = 'zen_breathing_history';
+
+/**
+ * Logs a new practice session timestamp in localStorage
+ */
+function logPracticeSession() {
+    try {
+        const history = getHistory();
+        history.push(Date.now());
+        localStorage.setItem(HISTORY_KEY, JSON.stringify(history));
+        
+        // Update stats UI immediately
+        updateStatsUI();
+    } catch (e) {
+        console.error("Failed to log practice session:", e);
+    }
+}
+
+/**
+ * Retrieves the history of practice session timestamps
+ */
+function getHistory() {
+    const data = localStorage.getItem(HISTORY_KEY);
+    if (!data) return [];
+    try {
+        return JSON.parse(data);
+    } catch (e) {
+        return [];
+    }
+}
+
+/**
+ * Calculates current streak and counts for week, month, and year
+ */
+function calculateStats() {
+    const history = getHistory();
+    const now = new Date();
+    
+    // Unique dates in local date format YYYY-MM-DD
+    const dateStrings = history.map(timestamp => {
+        const d = new Date(timestamp);
+        return `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}-${String(d.getDate()).padStart(2, '0')}`;
+    });
+    
+    // Filter duplicates and sort in descending order (most recent first)
+    const uniqueDates = [...new Set(dateStrings)].sort().reverse();
+    
+    // Calculate streak
+    let streak = 0;
+    const todayStr = `${now.getFullYear()}-${String(now.getMonth() + 1).padStart(2, '0')}-${String(now.getDate()).padStart(2, '0')}`;
+    
+    const yesterday = new Date();
+    yesterday.setDate(now.getDate() - 1);
+    const yesterdayStr = `${yesterday.getFullYear()}-${String(yesterday.getMonth() + 1).padStart(2, '0')}-${String(yesterday.getDate()).padStart(2, '0')}`;
+    
+    let checkDate = new Date();
+    
+    // If today is in uniqueDates, start checking from today.
+    // If today is not in uniqueDates, but yesterday is, start checking from yesterday.
+    // Otherwise, streak is 0.
+    if (uniqueDates.includes(todayStr)) {
+        streak = 1;
+        checkDate.setDate(now.getDate() - 1);
+    } else if (uniqueDates.includes(yesterdayStr)) {
+        streak = 1;
+        checkDate.setDate(now.getDate() - 2);
+    } else {
+        streak = 0;
+    }
+    
+    if (streak > 0) {
+        while (true) {
+            const checkStr = `${checkDate.getFullYear()}-${String(checkDate.getMonth() + 1).padStart(2, '0')}-${String(checkDate.getDate()).padStart(2, '0')}`;
+            if (uniqueDates.includes(checkStr)) {
+                streak++;
+                checkDate.setDate(checkDate.getDate() - 1);
+            } else {
+                break;
+            }
+        }
+    }
+    
+    // Counts for Week (last 7 days), Month (last 30 days), Year (last 365 days)
+    const msInDay = 24 * 60 * 60 * 1000;
+    
+    const weekCount = history.filter(timestamp => (now - timestamp) <= 7 * msInDay).length;
+    const monthCount = history.filter(timestamp => (now - timestamp) <= 30 * msInDay).length;
+    const yearCount = history.filter(timestamp => (now - timestamp) <= 365 * msInDay).length;
+    
+    return { streak, weekCount, monthCount, yearCount };
+}
+
+/**
+ * Gets an encouraging message based on streak and totals
+ */
+function getEncouragementMessage(stats) {
+    const messages = [
+        "Every breath is a fresh start. Take a moment to center yourself.",
+        "Quiet the mind, and the soul will speak. Practice daily for inner calm.",
+        "Deep breathing is our love letter to our body. Keep breathing.",
+        "Feel the breath, quiet the thoughts. Balance is within your reach."
+    ];
+    
+    if (stats.streak === 0) {
+        return messages[Math.floor(Math.random() * messages.length)];
+    }
+    
+    if (stats.streak === 1) {
+        return "Daily streak started! Consistency is the path to mindfulness. ✨";
+    }
+    
+    if (stats.streak >= 3 && stats.streak < 7) {
+        return `Awesome progress! ${stats.streak} days of mindful breathing in a row! 🧘‍♂️`;
+    }
+    
+    if (stats.streak >= 7) {
+        return `Incredible! A ${stats.streak}-day streak! You are deeply rooted in zen. 🌸`;
+    }
+    
+    return `You've completed ${stats.weekCount} exercises this week! Keep prioritizing your peace.`;
+}
+
+/**
+ * Updates all stats elements on the main menu and end screen
+ */
+function updateStatsUI() {
+    const stats = calculateStats();
+    
+    // Main Menu Stats
+    const streakEl = document.getElementById('stat-streak');
+    const weekEl = document.getElementById('stat-week');
+    const monthEl = document.getElementById('stat-month');
+    const yearEl = document.getElementById('stat-year');
+    const encouragementEl = document.getElementById('stats-encouragement');
+    
+    if (streakEl) streakEl.innerText = stats.streak;
+    if (weekEl) weekEl.innerText = stats.weekCount;
+    if (monthEl) monthEl.innerText = stats.monthCount;
+    if (yearEl) yearEl.innerText = stats.yearCount;
+    if (encouragementEl) encouragementEl.innerText = getEncouragementMessage(stats);
+    
+    // End Screen Stats
+    const endStreakEl = document.getElementById('end-streak-msg');
+    const endEncouragementEl = document.getElementById('end-encouraging-msg');
+    
+    if (endStreakEl) {
+        if (stats.streak > 0) {
+            endStreakEl.innerHTML = `Streak: <strong>${stats.streak} ${stats.streak === 1 ? 'Day' : 'Days'}</strong>! 🔥`;
+        } else {
+            endStreakEl.innerHTML = `Welcome to your journey! ✨`;
+        }
+    }
+    
+    if (endEncouragementEl) {
+        const endEncouragements = [
+            "A calm mind brings inner strength and self-confidence. Brilliant job!",
+            "You took time for your well-being today. Celebrate this moment of peace.",
+            "One conscious breath at a time, you are cultivating presence and calm.",
+            "Exhale the past, inhale the present. Feel the tranquility settle in."
+        ];
+        
+        if (stats.streak >= 3) {
+            endEncouragementEl.innerText = `Sensational! A consecutive run of ${stats.streak} days. Keep this beautiful wave going!`;
+        } else {
+            endEncouragementEl.innerText = endEncouragements[Math.floor(Math.random() * endEncouragements.length)];
+        }
+    }
+}
+
+// ==========================================
 // 8. Initialization
 // ==========================================
 loadSavedRhythms();
 updateControlPanelUI();
+updateStatsUI();
 showScreen('menu');
