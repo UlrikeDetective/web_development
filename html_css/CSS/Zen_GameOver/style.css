@@ -14,7 +14,7 @@
     --circle-active: var(--c-himalayan-salt);
     
     /* Spacing & Sizes (using rem for scalability) */
-    --circle-base-size: 32rem; /* Large enough so 0.3 scale still fits text */
+    --circle-base-size: 24rem; /* Large enough so 0.3 scale still fits text */
 }
 
 * {
@@ -32,13 +32,24 @@ body {
     justify-content: center;
     align-items: center;
     overflow: hidden;
-    transition: background-color 1s ease;
+    transition: background-color 1.5s ease-in-out;
     font-size: 16px; /* Base for rem calculation */
+}
+
+/* Full-screen Canvas for floating petals & ripples */
+#zen-canvas {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    z-index: 1;
+    pointer-events: none; /* Let clicks pass through, click handled in JS window listener */
 }
 
 .app-container {
     width: 100%;
-    max-width: 50rem;
+    max-width: 55rem;
     padding: 2rem;
     text-align: center;
     position: relative;
@@ -46,13 +57,14 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
+    z-index: 2; /* Sits above the canvas */
 }
 
 /* Screen Management */
 .screen {
     display: none;
     opacity: 0;
-    transition: opacity 0.5s ease;
+    transition: opacity 0.6s ease-in-out;
     flex-direction: column;
     align-items: center;
     justify-content: center;
@@ -69,27 +81,33 @@ body {
     z-index: 10;
 }
 
+/* Screen-specific transitions */
+.screen:not(.active) {
+    pointer-events: none;
+}
+
 /* Typography */
 .title {
-    font-size: 2.5rem;
+    font-size: 2.8rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.15em;
     color: var(--c-basalt-stone);
 }
 
 .subtitle {
-    font-size: 1.2rem;
+    font-size: 1.25rem;
     color: var(--c-river-stone);
-    margin-bottom: 3rem;
+    margin-bottom: 2.5rem;
     font-weight: 300;
+    letter-spacing: 0.05em;
 }
 
-/* Zen Styled Typography for End Screen */
+/* Screen Title Customizations */
 .zen-title {
-    font-weight: 300; /* Lighter, more elegant */
-    font-size: 3rem;
-    letter-spacing: 0.3em; /* Airy spacing */
+    font-weight: 300;
+    font-size: 3.5rem;
+    letter-spacing: 0.35em;
     color: var(--c-basalt-stone);
     margin-bottom: 1rem;
     text-transform: uppercase;
@@ -97,89 +115,183 @@ body {
 }
 
 .zen-subtitle {
-    font-family: 'Zen Maru Gothic', sans-serif; /* Reinforce the font */
-    font-size: 1.5rem;
+    font-size: 1.6rem;
     font-style: italic;
     color: var(--c-river-stone);
-    letter-spacing: 0.05em;
+    letter-spacing: 0.08em;
     margin-bottom: 4rem;
 }
 
-/* Buttons (Zen Stones) */
+/* Screen Reader Only Utility */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Floating Audio Control Panel (Glassmorphism) */
+.control-panel {
+    position: absolute;
+    top: 2rem;
+    right: 2rem;
+    display: flex;
+    gap: 0.8rem;
+    z-index: 30;
+}
+
+.control-btn {
+    background: rgba(255, 255, 255, 0.45);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 0.55rem 1.1rem;
+    font-family: inherit;
+    font-size: 0.85rem;
+    color: var(--c-basalt-stone);
+    cursor: pointer;
+    border-radius: 1.8rem;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.control-btn:hover {
+    background: rgba(255, 255, 255, 0.7);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.06);
+}
+
+.control-btn.active {
+    background: rgba(140, 159, 160, 0.2);
+    border-color: var(--c-river-stone);
+    color: var(--c-basalt-stone);
+}
+
+.control-btn.active .btn-icon {
+    transform: scale(1.1);
+}
+
+/* Buttons (Zen Stones Grid) */
 .options-container {
     display: flex;
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 2rem;
+    gap: 2.2rem;
     width: 100%;
     flex-wrap: wrap;
-    margin-top: 2rem;
+    margin-top: 1rem;
+}
+
+/* Organic Floating Stones Animation */
+@keyframes float-stone {
+    0%, 100% {
+        transform: translateY(0) rotate(0deg);
+    }
+    50% {
+        transform: translateY(-8px) rotate(1deg);
+    }
 }
 
 .option-btn {
     background-color: var(--c-river-stone);
     border: none;
-    padding: 2rem;
+    padding: 1.8rem;
     cursor: pointer;
-    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    transition: all 0.45s cubic-bezier(0.175, 0.885, 0.32, 1.2);
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
     position: relative;
-    box-shadow: 0 0.625rem 1.25rem rgba(0,0,0,0.1), inset 0 -0.3125rem 0.9375rem rgba(0,0,0,0.1);
+    box-shadow: 0 0.8rem 1.8rem rgba(0,0,0,0.08), inset 0 -0.4rem 1rem rgba(0,0,0,0.06), inset 0 0.2rem 0.6rem rgba(255,255,255,0.15);
     color: white;
-    width: 12rem;
-    height: 12rem;
+    width: 12.5rem;
+    height: 12.5rem;
     aspect-ratio: 1/1;
-    border-radius: 50%; /* Start as circle */
+    border-radius: 50%; /* Default circular fallback */
+    animation: float-stone 8s ease-in-out infinite;
+}
+
+/* Varying shapes and animations for natural stone look */
+.option-btn:nth-child(4n+1) {
+    border-radius: 48% 52% 56% 44% / 40% 45% 55% 60%;
+    background-color: var(--c-river-stone);
+    animation-duration: 7s;
+    animation-delay: 0.1s;
+}
+
+.option-btn:nth-child(4n+2) {
+    border-radius: 55% 45% 42% 58% / 55% 60% 40% 45%;
+    background-color: var(--c-basalt-stone);
+    animation-duration: 8.5s;
+    animation-delay: 0.8s;
+}
+
+.option-btn:nth-child(4n+3) {
+    border-radius: 42% 58% 51% 49% / 61% 42% 58% 39%;
+    background-color: var(--c-bamboo-wood);
+    color: var(--c-basalt-stone);
+    animation-duration: 7.5s;
+    animation-delay: 0.4s;
+}
+
+.option-btn:nth-child(4n) {
+    border-radius: 52% 48% 60% 40% / 45% 55% 45% 55%;
+    background-color: var(--c-lotus-flower);
+    color: var(--c-basalt-stone);
+    animation-duration: 9.5s;
+    animation-delay: 0.3s;
+}
+
+/* Custom Add button stone */
+.add-custom-btn {
+    border-radius: 46% 54% 48% 52% / 50% 48% 52% 50%;
+    background-color: rgba(217, 200, 168, 0.25);
+    border: 1.5px dashed var(--c-bamboo-wood);
+    color: var(--c-basalt-stone);
+    box-shadow: 0 0.5rem 1.2rem rgba(0,0,0,0.03), inset 0 -0.2rem 0.5rem rgba(0,0,0,0.03);
+    animation-duration: 9s;
+    animation-delay: 1.2s;
+}
+
+.add-custom-btn:hover {
+    background-color: var(--c-bamboo-wood) !important;
+    border-style: solid;
 }
 
 /* Home Stone Specifics */
 .home-stone {
-    width: 10rem;
-    height: 10rem;
-    border-radius: 45% 55% 40% 60% / 55% 45% 60% 40%; /* Distinct organic shape */
-    background-color: var(--c-lotus-flower); /* Softer, inviting color */
+    width: 10.5rem;
+    height: 10.5rem;
+    border-radius: 45% 55% 40% 60% / 55% 45% 60% 40%;
+    background-color: var(--c-lotus-flower);
     color: var(--c-basalt-stone);
+    animation-duration: 8s;
 }
 
 .home-stone:hover {
-    transform: translateY(-0.5rem) scale(1.05);
-    background-color: #eadddf; /* Slightly lighter on hover */
+    background-color: #ebd7d9 !important;
 }
 
-/* Organic shapes for stones */
-.option-btn:nth-child(1) {
-    border-radius: 48% 52% 56% 44% / 40% 45% 55% 60%;
-    background-color: var(--c-river-stone);
-}
-
-.option-btn:nth-child(2) {
-    border-radius: 55% 45% 42% 58% / 55% 60% 40% 45%;
-    background-color: var(--c-basalt-stone);
-    transform: scale(1.1);
-}
-
-.option-btn:nth-child(3) {
-    border-radius: 42% 58% 51% 49% / 61% 42% 58% 39%;
-    background-color: var(--c-bamboo-wood);
-    color: var(--c-basalt-stone);
-}
-
+/* General button hover states: stop floating, lift & scale */
 .option-btn:hover {
-    transform: translateY(-0.9375rem) scale(1.05);
-    box-shadow: 0 1.25rem 1.875rem rgba(0,0,0,0.15), inset 0 -0.3125rem 0.9375rem rgba(0,0,0,0.05);
-    filter: brightness(1.1);
-}
-
-.option-btn:nth-child(2):hover {
-    transform: translateY(-0.9375rem) scale(1.15);
+    animation-play-state: paused;
+    transform: translateY(-14px) scale(1.05) !important;
+    box-shadow: 0 1.5rem 2.2rem rgba(0,0,0,0.12), inset 0 -0.2rem 0.8rem rgba(0,0,0,0.04);
+    filter: brightness(1.03);
 }
 
 .btn-title {
-    font-size: 1.1rem;
+    font-size: 1.15rem;
     font-weight: 700;
     margin-bottom: 0.5rem;
     color: inherit;
@@ -188,31 +300,36 @@ body {
 }
 
 .btn-desc {
-    font-size: 0.75rem;
+    font-size: 0.78rem;
     color: inherit;
     opacity: 0.8;
     pointer-events: none;
+    line-height: 1.3;
+    max-width: 90%;
 }
 
-.primary-btn, .secondary-btn {
-    padding: 0.8rem 2rem;
-    border-radius: 3.125rem;
+.secondary-btn {
+    padding: 0.8rem 2.2rem;
+    border-radius: 3rem;
     border: none;
     cursor: pointer;
     font-family: inherit;
     font-size: 1rem;
     margin-top: 2rem;
-    transition: opacity 0.3s;
-}
-
-.primary-btn {
-    background-color: var(--c-basalt-stone);
-    color: white;
-}
-
-.secondary-btn {
-    background-color: transparent;
+    transition: all 0.3s ease;
+    background-color: rgba(255, 255, 255, 0.4);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
     color: var(--c-river-stone);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.02);
+}
+
+.secondary-btn:hover {
+    background-color: rgba(255, 255, 255, 0.6);
+    color: var(--c-basalt-stone);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.05);
 }
 
 /* Game Elements */
@@ -222,8 +339,31 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 3rem;
+    margin-bottom: 3.5rem;
     position: relative;
+}
+
+/* SVG Progress Ring surrounding the circle */
+.progress-ring {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    transform: rotate(-90deg); /* Rotate to start at the top */
+    pointer-events: none;
+    z-index: 5;
+}
+
+.progress-ring-track {
+    stroke: var(--c-lotus-flower);
+    opacity: 0.18;
+}
+
+.progress-ring-indicator {
+    stroke: var(--c-river-stone);
+    /* Injected dynamic transitions in JS will dictate duration */
+    transition: stroke-dashoffset 0s linear, stroke 1.5s ease;
 }
 
 .zen-circle {
@@ -231,47 +371,238 @@ body {
     height: 100%;
     border-radius: 50%;
     background-color: var(--c-lotus-flower);
-    opacity: 0.8;
-    transform: scale(0.3);
-    transition: transform ease-in-out, background-color 1s ease;
-    box-shadow: 0 0 2.5rem rgba(232, 211, 213, 0.4);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 0.3125rem; /* 5px padding around text */
+    opacity: 0.9;
+    transform: scale(0.5);
+    transition: transform ease-in-out, background-color 1.5s ease;
+    box-shadow: 0 10px 30px rgba(232, 211, 213, 0.3);
+    position: relative;
+    z-index: 3;
 }
 
 .instruction-text {
-    font-size: 1.5rem;
+    position: absolute;
+    z-index: 15;
+    font-size: 1.8rem;
     font-weight: 400;
     color: var(--c-basalt-stone);
     text-align: center;
     white-space: nowrap;
-    /* We don't scale the text back up so it remains readable, 
-       but we ensure the circle container is large enough at 0.3 scale. */
+    letter-spacing: 0.05em;
+    user-select: none;
+    pointer-events: none;
 }
 
 .progress-indicator {
-    font-size: 1rem;
+    font-size: 1.1rem;
     color: var(--c-river-stone);
-    margin-bottom: 1rem;
+    margin-bottom: 0.5rem;
+    letter-spacing: 0.05em;
 }
 
-/* State Classes for Animation */
-/* Note: The duration will be set dynamically via JS inline styles */
+/* Dynamic Ambient Shifting Backgrounds (Triggered on body class) */
+body.inhaling {
+    background-color: #fcf2ed; /* Himalayan Salt Tint */
+}
+
+body.exhaling {
+    background-color: #f5ebeb; /* Lotus Flower Tint */
+}
+
+body.holding {
+    background-color: #f7f7f5; /* White Dove */
+}
+
+/* Dialog Modal Style (Glassmorphism & Sliders) */
+dialog {
+    border: none;
+    border-radius: 2.2rem;
+    background: rgba(247, 247, 245, 0.72);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    box-shadow: 0 24px 60px rgba(0, 0, 0, 0.12), inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+    padding: 2.5rem;
+    max-width: 32rem;
+    width: 90%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    position: fixed;
+    z-index: 100;
+    box-sizing: border-box;
+    font-family: inherit;
+    color: var(--c-basalt-stone);
+    opacity: 0;
+    transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+dialog[open] {
+    opacity: 1;
+}
+
+dialog::backdrop {
+    background-color: rgba(54, 54, 54, 0.15);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+dialog[open]::backdrop {
+    opacity: 1;
+}
+
+.dialog-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.dialog-form h2 {
+    font-size: 1.8rem;
+    font-weight: 400;
+    letter-spacing: 0.08em;
+    margin-bottom: 1.8rem;
+    text-align: center;
+    color: var(--c-basalt-stone);
+}
+
+.input-group {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin-bottom: 1.6rem;
+    text-align: left;
+}
+
+.input-group label {
+    font-size: 0.9rem;
+    color: var(--c-river-stone);
+    font-weight: 700;
+    letter-spacing: 0.05em;
+}
+
+.input-group input[type="text"] {
+    padding: 0.75rem 1.2rem;
+    border-radius: 1.2rem;
+    border: 1px solid rgba(140, 159, 160, 0.3);
+    background: rgba(255, 255, 255, 0.55);
+    font-family: inherit;
+    font-size: 1rem;
+    outline: none;
+    color: var(--c-basalt-stone);
+    transition: border-color 0.3s, box-shadow 0.3s;
+}
+
+.input-group input[type="text"]:focus {
+    border-color: var(--c-river-stone);
+    box-shadow: 0 0 0 3px rgba(140, 159, 160, 0.15);
+}
+
+.sliders-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.4rem;
+    margin-bottom: 2.2rem;
+    text-align: left;
+}
+
+.slider-control {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.slider-control.full-width {
+    grid-column: span 2;
+}
+
+.slider-control label {
+    font-size: 0.88rem;
+    color: var(--c-basalt-stone);
+    display: flex;
+    justify-content: space-between;
+    font-weight: 400;
+}
+
+.slider-control label span {
+    font-weight: 700;
+    color: var(--c-river-stone);
+}
+
+/* Custom Range Input */
+.slider-control input[type="range"] {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 6px;
+    background: rgba(232, 211, 213, 0.6);
+    border-radius: 3px;
+    outline: none;
+}
+
+.slider-control input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--c-river-stone);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.12);
+    transition: transform 0.15s, background-color 0.2s;
+}
+
+.slider-control input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.25);
+    background-color: var(--c-basalt-stone);
+}
+
+.dialog-buttons {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+}
+
+.dialog-btn {
+    padding: 0.75rem 2rem;
+    border-radius: 2rem;
+    border: none;
+    cursor: pointer;
+    font-family: inherit;
+    font-size: 0.95rem;
+    font-weight: 700;
+    transition: all 0.3s ease;
+}
+
+.dialog-btn.primary {
+    background: var(--c-basalt-stone);
+    color: white;
+    box-shadow: 0 4px 10px rgba(54, 54, 54, 0.15);
+}
+
+.dialog-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 6px 15px rgba(54, 54, 54, 0.25);
+    opacity: 0.95;
+}
+
+.dialog-btn.secondary {
+    background: transparent;
+    color: var(--c-river-stone);
+    border: 1px solid rgba(140, 159, 160, 0.4);
+}
+
+.dialog-btn.secondary:hover {
+    background: rgba(140, 159, 160, 0.08);
+    color: var(--c-basalt-stone);
+}
+
+/* Keyframes for breathing transitions in the circle */
 .breathing-in {
     transform: scale(1);
     background-color: var(--c-himalayan-salt);
-}
-
-.holding {
-    /* Scale remains whatever it was (1 or 0.3) - controlled by JS keeping class or adding specific hold class? 
-       Actually, standard CSS transition will animate to the new state. 
-       If I want to HOLD at the current scale, I just don't change the scale.
-    */
+    box-shadow: 0 15px 40px rgba(232, 180, 163, 0.45);
 }
 
 .breathing-out {
-    transform: scale(0.3);
+    transform: scale(0.5);
     background-color: var(--c-lotus-flower);
+    box-shadow: 0 10px 30px rgba(232, 211, 213, 0.3);
 }

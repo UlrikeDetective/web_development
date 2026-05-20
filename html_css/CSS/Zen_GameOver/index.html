@@ -3,60 +3,144 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Zen Game Over</title>
+    <title>Zen Game Over - Mindful Breathing Exercise</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="A tranquil Zen-inspired breathing app featuring box breathing, deep calm, custom rhythms, synthesized Tibetan bowl chimes, nature sounds, and voice prompts.">
+    <meta name="keywords" content="breathing, zen, box breathing, meditation, calm, game over, relaxation, mindfulness">
+    
     <link rel="stylesheet" href="style.css">
+    
+    <!-- Google Fonts for Elegant Zen Typography -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Zen+Maru+Gothic:wght@300;400;700&display=swap" rel="stylesheet">
 </head>
 <body>
 
+    <!-- Full-screen Canvas for floating lotus petals & mouse ripple effects -->
+    <canvas id="zen-canvas"></canvas>
+
     <div class="app-container">
-        <!-- Screen 1: Menu -->
-        <section id="menu-screen" class="screen active">
-            <h1 class="title">Zen Breathing</h1>
+        
+        <!-- Top Sound Control Panel (Styled as floating river pebbles) -->
+        <div class="control-panel" aria-label="Audio Controls">
+            <button id="toggle-ambient-btn" class="control-btn" aria-label="Toggle Ambient Nature Sound">
+                <span class="btn-icon">🌊</span>
+                <span class="btn-label">Ambient Off</span>
+            </button>
+            <button id="toggle-voice-btn" class="control-btn" aria-label="Toggle Voice Breathing Guidance">
+                <span class="btn-icon">🗣️</span>
+                <span class="btn-label">Voice Off</span>
+            </button>
+        </div>
+
+        <!-- Screen 1: Main Menu -->
+        <section id="menu-screen" class="screen active" aria-labelledby="menu-title">
+            <h1 id="menu-title" class="title">Zen Breathing</h1>
             <p class="subtitle">Choose your breathing rhythm</p>
             
-            <div class="options-container">
-                <button class="option-btn" onclick="startGame(0)">
+            <!-- Grid of Breathing Rhythm Options (Stones) -->
+            <div id="options-container" class="options-container">
+                <!-- Buttons are dynamically assigned shapes in CSS -->
+                <button class="option-btn" onclick="startGame(0)" aria-label="Select Box Breathing rhythm: In 4 seconds, Hold 4 seconds, Out 4 seconds, Hold 4 seconds">
                     <span class="btn-title">Box Breathing</span>
                     <span class="btn-desc">In 4s • Hold 4s • Out 4s • Hold 4s</span>
                 </button>
                 
-                <button class="option-btn" onclick="startGame(1)">
+                <button class="option-btn" onclick="startGame(1)" aria-label="Select Deep Calm rhythm: In 6 seconds, Hold 4 seconds, Out 6 seconds">
                     <span class="btn-title">Deep Calm</span>
                     <span class="btn-desc">In 6s • Hold 4s • Out 6s</span>
                 </button>
                 
-                <button class="option-btn" onclick="startGame(2)">
+                <button class="option-btn" onclick="startGame(2)" aria-label="Select Energize rhythm: In 7 seconds, Out 3 seconds">
                     <span class="btn-title">Energize</span>
                     <span class="btn-desc">In 7s • Out 3s</span>
+                </button>
+                
+                <!-- Dynamic Add Custom Rhythm Stone -->
+                <button class="option-btn add-custom-btn" onclick="openCustomDialog()" aria-label="Create a custom breathing rhythm">
+                    <span class="btn-title">+ Custom</span>
+                    <span class="btn-desc">Shape your own breath</span>
                 </button>
             </div>
         </section>
 
-        <!-- Screen 2: Game -->
-        <section id="game-screen" class="screen">
+        <!-- Screen 2: Breathing Practice Screen -->
+        <section id="game-screen" class="screen" aria-labelledby="game-instruction-title">
+            <h2 id="game-instruction-title" class="sr-only">Breathing Practice in Progress</h2>
+            
             <div class="zen-circle-container">
-                <div id="zen-circle" class="zen-circle">
-                    <div id="instruction-text" class="instruction-text">Prepare...</div>
-                </div>
+                <!-- SVG Progress Ring wrapping the central circle -->
+                <svg class="progress-ring" viewBox="0 0 100 100">
+                    <!-- Base Track Circle -->
+                    <circle class="progress-ring-track" cx="50" cy="50" r="48.5" fill="none" stroke-width="1.5" />
+                    <!-- Filling/Draining Indicator Circle -->
+                    <circle id="progress-ring-indicator" class="progress-ring-indicator" cx="50" cy="50" r="48.5" fill="none" stroke-width="2.5" stroke-dasharray="305" stroke-dashoffset="305" stroke-linecap="round" />
+                </svg>
+                
+                <!-- Core Breathing Circle -->
+                <div id="zen-circle" class="zen-circle"></div>
+                <div id="instruction-text" class="instruction-text" aria-live="polite">Prepare...</div>
             </div>
-            <div class="progress-indicator">
-                Cycle <span id="current-cycle">1</span> / 5
+            
+            <!-- Practice Information -->
+            <div class="progress-indicator" aria-live="polite">
+                Cycle <span id="current-cycle">1</span> / <span id="total-cycles">5</span>
             </div>
-            <button class="secondary-btn" onclick="resetGame()">Stop</button>
+            
+            <button class="secondary-btn stop-btn" onclick="resetGame()" aria-label="Stop breathing exercise and return to menu">Stop</button>
         </section>
 
-        <!-- Screen 3: Game Over -->
-        <section id="end-screen" class="screen">
-            <h1 class="title zen-title">GAME OVER</h1>
+        <!-- Screen 3: Practice Completed Screen -->
+        <section id="end-screen" class="screen" aria-labelledby="end-title">
+            <h1 id="end-title" class="title zen-title">GAME OVER</h1>
             <p class="subtitle zen-subtitle">Have a wonderful day</p>
-            <button class="option-btn home-stone" onclick="resetGame()">
+            
+            <button class="option-btn home-stone" onclick="resetGame()" aria-label="Return to the main menu">
                 <span class="btn-title">Home</span>
             </button>
         </section>
     </div>
+
+    <!-- Custom Breathing Rhythm Dialog Modal -->
+    <dialog id="custom-dialog" closedby="any" aria-labelledby="dialog-title">
+        <form method="dialog" class="dialog-form" onsubmit="saveCustomPattern(event)">
+            <h2 id="dialog-title">Custom Rhythm</h2>
+            
+            <div class="input-group">
+                <label for="custom-name">Rhythm Name</label>
+                <input type="text" id="custom-name" placeholder="e.g. Morning Zen" required maxlength="15" />
+            </div>
+            
+            <div class="sliders-grid">
+                <div class="slider-control">
+                    <label for="slide-inhale">Inhale: <span id="val-inhale">4</span>s</label>
+                    <input type="range" id="slide-inhale" min="2" max="12" value="4" oninput="document.getElementById('val-inhale').innerText=this.value" />
+                </div>
+                <div class="slider-control">
+                    <label for="slide-hold-in">Hold (In): <span id="val-hold-in">4</span>s</label>
+                    <input type="range" id="slide-hold-in" min="0" max="12" value="4" oninput="document.getElementById('val-hold-in').innerText=this.value" />
+                </div>
+                <div class="slider-control">
+                    <label for="slide-exhale">Exhale: <span id="val-exhale">4</span>s</label>
+                    <input type="range" id="slide-exhale" min="2" max="12" value="4" oninput="document.getElementById('val-exhale').innerText=this.value" />
+                </div>
+                <div class="slider-control">
+                    <label for="slide-hold-out">Hold (Out): <span id="val-hold-out">4</span>s</label>
+                    <input type="range" id="slide-hold-out" min="0" max="12" value="4" oninput="document.getElementById('val-hold-out').innerText=this.value" />
+                </div>
+                <div class="slider-control full-width">
+                    <label for="slide-cycles">Cycles: <span id="val-cycles">5</span></label>
+                    <input type="range" id="slide-cycles" min="1" max="20" value="5" oninput="document.getElementById('val-cycles').innerText=this.value" />
+                </div>
+            </div>
+            
+            <div class="dialog-buttons">
+                <button type="button" class="dialog-btn secondary" onclick="closeCustomDialog()">Cancel</button>
+                <button type="submit" class="dialog-btn primary">Create Stone</button>
+            </div>
+        </form>
+    </dialog>
 
     <script src="script.js"></script>
 </body>
