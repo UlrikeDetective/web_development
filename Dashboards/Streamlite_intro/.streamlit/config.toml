@@ -1,6 +1,16 @@
 [theme]
-primaryColor        = "#017369"
-backgroundColor     = "#38A6A5 "
-secondaryBackgroundColor = "#BFB6AF"
-textColor           = "#F2C9B3"
-font                = "sans serif"
+# Ibiza Beach Theme
+# Turquoise blue for buttons and interactive elements
+primaryColor = "#00B2EE"
+
+# White sand background
+backgroundColor = "#F8F9FB"
+
+# Soft sand/light grey for sidebar and cards
+secondaryBackgroundColor = "#F1E9D2"
+
+# Deep ocean blue for text
+textColor = "#1B4965"
+
+# Sans serif for a clean, modern look
+font = "sans serif"
