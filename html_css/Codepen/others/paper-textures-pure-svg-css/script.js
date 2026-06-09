@@ -31,7 +31,8 @@ The application of textures (changing the background) is done without JavaScript
             document.getElementById('tex-' + index).classList.add('active');
 
             document.querySelectorAll('.btn-texture').forEach((btn) => {
-                if(btn.innerText.startsWith(index + '.')) btn.classList.add('active');
+                const btnIndex = btn.innerText.split('.')[0].trim();
+                if(btnIndex === String(index)) btn.classList.add('active');
                 else btn.classList.remove('active');
             });
 
