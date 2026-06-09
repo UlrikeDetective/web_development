@@ -1,0 +1,203 @@
+@import url(https://fonts.bunny.net/css?family=bellefair:400);
+@layer base, scroll-indicator, demo;
+
+@layer demo {
+    @property --progress {
+        syntax: "<number>";
+        inherits: false;
+        initial-value: 0;
+    }
+
+    body {
+        min-height: 1000vh;
+        font-family: "Bellefair", serif;
+        background: rgb(15 23 43);
+        color: rgb(248 250 252);
+
+        @supports not (animation-timeline: scroll()) {
+            &::before {
+                content: "Sorry, your browser doesn't support animation-timeline ";
+                position: fixed;
+                top: 1rem;
+                left: 50%;
+                translate: -50% 0;
+                font-size: 1rem;
+                color: white;
+                background-color: red;
+                padding: 0.5em 1em;
+                font-family: system-ui;
+            }
+        }
+    }
+
+    .wrapper {
+        --progress: 0;
+        anchor-name: --a-wrapper;
+
+        background-color: rgb(2 6 24 / 0.85);
+        position: fixed;
+        width: min(100% - 2rem, 42ch);
+        height: fit-content;
+        inset: 0;
+        margin: auto;
+        padding: 2em;
+        border: 1px solid rgb(255 255 255 / 0.25);
+        display: grid;
+        grid-template-rows: auto 1fr;
+        gap: 1rem;
+        overflow: hidden;
+
+        /* paper background*/
+        &::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background-size: cover;
+            background-repeat: no-repeat;
+            background-position: bottom center;
+            background-image: url("https://raw.githubusercontent.com/cbolson/icodethis-challenges/main/assets/images/bg-paper-2.webp");
+            opacity: 0.1;
+            z-index: -1;
+        }
+    }
+
+    .wrapper header {
+        text-align: center;
+
+        h1 {
+            font-size: clamp(1.4rem, 3.5vw + 0.045rem, 2rem);
+            margin: 0;
+            line-height: 1.2;
+        }
+
+        h2 {
+            margin: 0;
+            font-size: 0.9rem;
+        }
+    }
+
+    svg {
+        position: absolute;
+        inset: auto 0 0;
+        z-index: -1;
+    }
+
+    .wrapper section {
+        animation: scroll-progress 1ms linear both;
+        animation-timeline: scroll(root);
+
+        p {
+            --progress: inherit;
+            --i: calc(sibling-index() - 1);
+            --items: sibling-count();
+
+            /* derived local progress */
+            --p: clamp(0, calc((var(--progress) * var(--items)) - var(--i)), 1);
+
+            /* progress stages */
+            --enter-progress: clamp(0, calc(var(--p) / 0.6), 1);
+            --shrink-progress: clamp(0, calc((var(--p) - 0.8) / 0.75), 1);
+            --exit-progress: clamp(0, calc((var(--p) - 0.8) / 0.2), 1);
+            --all-done: clamp(0, calc((var(--progress) - 0.92) / 0.08), 1);
+            --scale: calc(1.25 - (var(--shrink-progress) * 1));
+            --opacity: calc((var(--enter-progress) * (1 - var(--shrink-progress))) + (var(--shrink-progress) * 0.5));
+            --opacity-final: calc((var(--opacity)) + (var(--all-done) * (1 - var(--opacity))));
+
+            @supports not (animation-timeline: scroll()) {
+                --opacity: 1;
+                --scale: 1;
+            }
+
+            transform-origin: center;
+            margin: 0;
+            font-size: clamp(0.9rem, 2.4vw + 0.045rem, 1.1rem);
+            line-height: 1.4;
+            text-align: center;
+            user-select: none;
+            scale: var(--scale);
+            opacity: var(--opacity-final);
+
+            &.new {
+                margin-top: 0.75em;
+            }
+        }
+    }
+
+    @keyframes scroll-progress {
+        to {
+            --progress: 1;
+        }
+    }
+}
+
+/* mouse scroll icon*/
+@layer scroll-indicator {
+    .scroll-indicator {
+        position: fixed;
+        position-anchor: --a-wrapper;
+        position-area: block-end center;
+        width: 50px;
+        height: 50px;
+        opacity: 1;
+        color: var(--mouse-color);
+        animation-name: --k-scroll-indicator;
+        animation-duration: 1s;
+        animation-timing-function: linear;
+        animation-fill-mode: forwards;
+        animation-timeline: scroll(root);
+
+        @supports (animation-timeline: scroll()) {
+            display: block;
+        }
+    }
+
+    @keyframes --k-scroll-indicator {
+        50% {
+            opacity: 1;
+        }
+
+        100% {
+            opacity: 0;
+        }
+    }
+}
+
+/* general styling not relevant for this demo */
+@layer base {
+    * {
+        box-sizing: border-box;
+    }
+
+    :root {
+        color-scheme: light dark;
+        --bg-dark: rgb(24, 24, 27);
+        --bg-light: rgb(248, 244, 238);
+        --txt-light: rgb(10, 10, 10);
+        --txt-dark: rgb(245, 245, 245);
+        --line-light: rgba(0 0 0 / 0.25);
+        --line-dark: rgba(255 255 255 / 0.25);
+
+        --clr-bg: light-dark(var(--bg-light), var(--bg-dark));
+        --clr-txt: light-dark(var(--txt-light), var(--txt-dark));
+        --clr-lines: light-dark(var(--line-light), var(--line-dark));
+    }
+
+    body {
+        background-color: var(--clr-bg);
+        color: var(--clr-txt);
+        min-height: 100svh;
+        margin: 0;
+        padding: 2rem;
+        font-family: "Jura", sans-serif;
+        font-size: 1rem;
+        line-height: 1.5;
+        display: grid;
+        place-items: center;
+        gap: 2rem;
+    }
+
+    h1 {
+        margin: 0;
+        font-size: 1.2rem;
+    }
+}

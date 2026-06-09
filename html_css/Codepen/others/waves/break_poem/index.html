@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Breaks - a poem</title>
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+    <div class="wrapper">
+        <header>
+            <h1>Break, Break, Break</h1>
+            <h2>Alfred, Lord Tennyson</h2>
+        </header>
+        <section>
+            <p>Break, break, break,</p>
+            <p>On thy cold gray stones, O Sea!</p>
+            <p>And I would that my tongue could utter</p>
+            <p>The thoughts that arise in me.</p>
+
+            <p class="new">O, well for the fisherman's boy,</p>
+            <p>That he shouts with his sister at play!</p>
+            <p>O, well for the sailor lad,</p>
+            <p>That he sings in his boat on the bay!</p>
+
+            <p class="new">And the stately ships go on</p>
+            <p>To their haven under the hill;</p>
+            <p>But O for the touch of a vanish'd hand,</p>
+            <p>And the sound of a voice that is still!</p>
+
+            <p class="new">Break, break, break</p>
+            <p>At the foot of thy crags, O Sea!</p>
+            <p>But the tender grace of a day that is dead</p>
+            <p>Will never come back to me.</p>
+
+            <svg viewBox="0 0 1000 700" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+
+                <defs>
+                    <path id="wave1" d="M 0 2000 0 500 Q 120 420 300 500 t 300 0 300 0 300 0 300 0 300 0  v700 z" />
+                    <path id="wave2" d="M 0 2000 0 510 Q 140 400 300 510 t 300 5 300 0 300 5 300 0 300 5 v700 z" />
+                    <path id="wave3" d="M 0 2000 0 490 Q 100 430 300 490 t 300 -5 300 0 300 -5 300 0 300 -5 v700 z" />
+                    <path id="wave-path" d="M -600 0 0 0" />
+                </defs>
+
+                <g>
+
+                    <use href="#wave1" x="-100" y="-200" fill="rgba(2, 132, 199, 0.5)">
+                        <animateMotion dur="10s" repeatCount="indefinite">
+                            <mpath href="#wave-path" />
+                        </animateMotion>
+                    </use>
+
+                    <use href="#wave2" x="-30" y="-180" fill="rgba(2, 132, 199, 0.4)" opacity="0.5">
+                        <animateMotion dur="6s" repeatCount="indefinite">
+                            <mpath href="#wave-path" />
+                        </animateMotion>
+                    </use>
+
+                    <use href="#wave3" x="0" y="-280" fill="rgba(22, 132, 199, 0.2)">
+                        <animateMotion dur="14s" repeatCount="indefinite">
+                            <mpath href="#wave-path" />
+                        </animateMotion>
+                    </use>
+
+                </g>
+            </svg>
+        </section>
+    </div>
+
+    <div class="scroll-indicator">
+        <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 40" fill="none"
+            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mouse">
+            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+            <path d="M6 3m0 4a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v10a4 4 0 0 1 -4 4h-4a4 4 0 0 1 -4 -4z" />
+            <path d="M12 7l0 4" />
+            <path d="M8 26l4 4l4 -4">
+                <animateTransform attributeType="XML" attributeName="transform" type="translate" values="0 0; 0 4; 0 0"
+                    dur="1s" repeatCount="indefinite" />
+            </path>
+        </svg>
+    </div </body>
+
+</html>
