@@ -1,7 +1,6 @@
 @font-face {
-  font-family: Bricolage Grotesque Variable;
-  src: url("https://assets.codepen.io/8914/BricolageGrotesqueVariable_1.woff2")
-    format("woff2-variations");
+  font-family: "Bricolage Grotesque Variable";
+  src: url("https://assets.codepen.io/8914/BricolageGrotesqueVariable_1.woff2") format("woff2");
   font-style: normal;
   font-stretch: 75% 100%;
   font-weight: 200 800;
@@ -9,10 +8,10 @@
 }
 
 :root {
-  --font-default: system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-    Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji,
-    Segoe UI Emoji, Segoe UI Symbol, Noto Color Emoji;
-  --font-display: Bricolage Grotesque Variable, var(--font-default);
+  --font-default: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
+    "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji",
+    "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+  --font-display: "Bricolage Grotesque Variable", var(--font-default);
 }
 
 body {
@@ -42,21 +41,24 @@ body {
   gap: 1rem;
   background: oklch(91% 0.03 80);
   color: oklch(18% 0.2 80);
-  @media (width >= 768px) {
+
+  @media (width >=768px) {
     grid-template-columns: 1fr max-content;
   }
-  > h1 {
+
+  >h1 {
     align-self: center;
     font-variation-settings: "wght" 800, "wdth" 75;
     font-size: 2.5rem;
     line-height: 1;
     margin-block: unset;
   }
-  > form {
+
+  >form {
     background: oklch(96% 0.02 80);
     border-radius: 1rem;
-    corner-shape: squircle;
     padding: 1rem;
+
     fieldset {
       display: flex;
       flex-direction: column;
@@ -65,10 +67,12 @@ body {
       border: unset;
       margin: unset;
       padding: unset;
-      @media (width >= 768px) {
+
+      @media (width >=768px) {
         flex-direction: row;
       }
     }
+
     legend {
       font-variation-settings: "wght" 600;
       font-size: 1rem;
@@ -76,11 +80,13 @@ body {
       text-transform: uppercase;
       padding-block-end: 0.75rem;
     }
+
     label {
       display: flex;
       align-items: center;
       gap: 0.25rem;
     }
+
     input {
       margin: unset;
     }
@@ -99,21 +105,24 @@ body {
   position: relative;
   background: oklch(91% 0.03 var(--accent-1));
   border: 1rem solid oklch(91% 0.03 var(--accent-1));
-  corner-shape: scoop;
   border-radius: 1rem;
   outline: 0.25rem solid oklch(96% 0.02 var(--hue));
   outline-offset: -1rem;
   overflow: clip;
   isolation: isolate;
+
   &::before {
     content: "";
     position: absolute;
     inset: 0;
     background: oklch(96% 0.02 var(--accent-1));
+    -webkit-mask-image: url("https://assets.codepen.io/8914/dots.svg");
     mask-image: url("https://assets.codepen.io/8914/dots.svg");
+    -webkit-mask-size: cover;
     mask-size: cover;
     opacity: 0.5;
   }
+
   &::after {
     content: "";
     grid-column: 1 / -1;
@@ -122,18 +131,18 @@ body {
     align-self: center;
     z-index: 0;
     mix-blend-mode: multiply;
-    background: linear-gradient(
-      to right,
-      oklch(76% 0.07 var(--accent-2)),
-      oklch(18% 0.2 var(--accent-2)) 15%,
-      oklch(18% 0.2 var(--accent-2)) 85%,
-      oklch(76% 0.07 var(--accent-2))
-    );
+    background: linear-gradient(to right,
+        oklch(76% 0.07 var(--accent-2)),
+        oklch(18% 0.2 var(--accent-2)) 15%,
+        oklch(18% 0.2 var(--accent-2)) 85%,
+        oklch(76% 0.07 var(--accent-2)));
   }
-  > * {
+
+  >* {
     position: relative;
     z-index: 1;
   }
+
   header {
     grid-column: 2/5;
     grid-row: 2;
@@ -141,7 +150,7 @@ body {
     min-width: fit-content;
     text-align: center;
     border-radius: 4rem;
-    corner-shape: squircle;
+
     .common-name,
     .botanical-name {
       margin-block: unset;
@@ -149,8 +158,8 @@ body {
       padding-block: 0.75rem;
       border-color: oklch(18% 0.2 var(--accent-2));
       border-style: solid;
-      corner-shape: squircle;
     }
+
     .common-name {
       position: relative;
       background: oklch(76% 0.07 var(--accent-2));
@@ -160,6 +169,7 @@ body {
       line-height: 1;
       border-width: 0.5rem 0.5rem 0;
       border-radius: 4rem 4rem 0 0;
+
       &::before {
         content: "";
         position: absolute;
@@ -168,11 +178,15 @@ body {
         bottom: 0;
         height: 0.25rem;
         background: oklch(52% 0.12 var(--accent-2));
+        -webkit-mask-image: url("https://assets.codepen.io/8914/wavy.svg");
         mask-image: url("https://assets.codepen.io/8914/wavy.svg");
+        -webkit-mask-repeat: repeat-x;
         mask-repeat: repeat-x;
+        -webkit-mask-size: contain;
         mask-size: contain;
       }
     }
+
     .botanical-name {
       background: oklch(52% 0.12 var(--accent-2));
       color: oklch(96% 0.02 var(--accent-2));
@@ -184,23 +198,28 @@ body {
       border-radius: 0 0 4rem 4rem;
     }
   }
+
   .illustration {
     grid-column: 1/-1;
     grid-row: 1;
     width: 100%;
     height: auto;
+
     path {
       &:nth-of-type(3n + 1) {
         fill: oklch(76% 0.12 var(--hue));
       }
+
       &:nth-of-type(3n + 2) {
         fill: oklch(52% 0.12 var(--accent-1));
       }
+
       &:nth-of-type(3n) {
         fill: oklch(18% 0.12 var(--accent-2));
       }
     }
   }
+
   .type {
     position: absolute;
     top: 0;
@@ -218,40 +237,47 @@ body {
     padding-inline: 1rem;
     border-bottom-left-radius: 1rem;
     border-bottom-right-radius: 1rem;
-    corner-shape: squircle;
   }
+
   footer {
     grid-column: 1/-1;
     grid-row: 3;
     display: grid;
     grid-template-columns: 1fr 1fr;
     align-items: center;
-    gap: 1rem;
-    column-rule: 0.25rem solid oklch(96% 0.02 var(--hue));
     border-top: 0.25rem solid oklch(96% 0.02 var(--hue));
     font-size: 1.25rem;
     font-variation-settings: "wght" 400, "wdth" 80;
-    > * {
+
+    >* {
       padding: 1rem;
       margin-block: unset;
       color: oklch(18% 0.2 var(--accent-1));
     }
-    > p {
+
+    >*:first-child {
+      border-right: 0.25rem solid oklch(96% 0.02 var(--hue));
+    }
+
+    >p {
       text-wrap: balance;
       font-variation-settings: "wght" 600, "wdth" 80;
     }
-    > dl {
+
+    >dl {
       display: grid;
       grid-template-columns: max-content 1fr;
       gap: 0 0.5rem;
       line-height: inherit;
       justify-self: end;
-      > dt {
+
+      >dt {
         text-align: end;
         color: oklch(46% 0.14 var(--accent-1));
         font-variation-settings: "wght" 600, "wdth" 80;
       }
-      > dd {
+
+      >dd {
         margin-inline: unset;
         white-space: nowrap;
       }

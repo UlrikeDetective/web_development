@@ -1,3 +1,4 @@
 {
-    "livePreview.defaultPreviewPath": "/html_css/Codepen/landingpages/streetart/index.html"
+    "livePreview.defaultPreviewPath": "/html_css/Codepen/landingpages/streetart/index.html",
+    "liveServer.settings.port": 5501
 }
