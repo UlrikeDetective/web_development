@@ -8,6 +8,13 @@
 	<link rel="stylesheet" href="style.css">
 	<script src="script.js" defer></script>
 	<script src="https://unpkg.com/@phosphor-icons/web"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link
+		href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Libre+Baskerville:ital@0;1&family=Space+Mono:ital,wght@0,400;0,700;1,400;1,700&display=swap"
+		rel="stylesheet">
 
 </head>
 
@@ -602,12 +609,15 @@
 	<!-- ════════ FOOTER ════════ -->
 	<footer>
 		<div class="foot-logo">Tidal<em>.</em></div>
-		<p>© 2026 Tidal Surf Report · Malibu, CA · #CodePenChallenge</p>
+		<p>© <span id="year"></span> Tidal Surf Report · Malibu, CA · #CodePenChallenge</p>
 		<ul class="foot-links">
 			<li><a href="#">Privacy</a></li>
 			<li><a href="#">API</a></li>
 			<li><a href="#">About</a></li>
 			<li><a href="#">Contact</a></li>
+			<script>
+				document.getElementById("year").textContent = new Date().getFullYear();
+			</script>
 		</ul>
 	</footer>
 
