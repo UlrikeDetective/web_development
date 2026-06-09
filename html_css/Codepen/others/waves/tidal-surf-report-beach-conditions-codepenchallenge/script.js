@@ -4,8 +4,8 @@ const FORECAST = [
 		day: "Mon",
 		date: "Jun 2",
 		icon: "🌊",
-		height: 4.2,
-		wind: "12kn NW",
+		height: 1.3,
+		wind: "22km/h NW",
 		rating: 4,
 		condition: "good"
 	},
@@ -13,8 +13,8 @@ const FORECAST = [
 		day: "Tue",
 		date: "Jun 3",
 		icon: "🌊",
-		height: 5.1,
-		wind: "8kn NW",
+		height: 1.6,
+		wind: "15km/h NW",
 		rating: 5,
 		condition: "epic"
 	},
@@ -22,8 +22,8 @@ const FORECAST = [
 		day: "Wed",
 		date: "Jun 4",
 		icon: "⛅",
-		height: 4.8,
-		wind: "10kn W",
+		height: 1.5,
+		wind: "19km/h W",
 		rating: 4,
 		condition: "good"
 	},
@@ -31,8 +31,8 @@ const FORECAST = [
 		day: "Thu",
 		date: "Jun 5",
 		icon: "🌤",
-		height: 3.2,
-		wind: "15kn SW",
+		height: 1.0,
+		wind: "28km/h SW",
 		rating: 3,
 		condition: "fair"
 	},
@@ -40,8 +40,8 @@ const FORECAST = [
 		day: "Fri",
 		date: "Jun 6",
 		icon: "☀️",
-		height: 2.8,
-		wind: "18kn S",
+		height: 0.9,
+		wind: "33km/h S",
 		rating: 2,
 		condition: "poor"
 	},
@@ -49,8 +49,8 @@ const FORECAST = [
 		day: "Sat",
 		date: "Jun 7",
 		icon: "🌊",
-		height: 3.9,
-		wind: "11kn NW",
+		height: 1.2,
+		wind: "20km/h NW",
 		rating: 4,
 		condition: "good"
 	},
@@ -58,8 +58,8 @@ const FORECAST = [
 		day: "Sun",
 		date: "Jun 8",
 		icon: "🌊",
-		height: 4.5,
-		wind: "9kn NW",
+		height: 1.4,
+		wind: "17km/h NW",
 		rating: 4,
 		condition: "good"
 	}
@@ -73,7 +73,7 @@ const COND_COLORS = {
 };
 
 function miniWaveSVG(height, color) {
-	const amp = (height / 6) * 12;
+	const amp = (height / 2) * 12;
 	const y = 12;
 	return `<svg viewBox="0 0 80 24" fill="none" xmlns="http://www.w3.org/2000/svg">
     <path d="M0,${y} C10,${y - amp} 20,${y - amp * 1.2} 30,${y} C40,${
@@ -102,7 +102,7 @@ function renderForecast() {
 		}" style="transition-delay:${i * 0.06}s">
   <div class="fc-day">${d.day}<br>${d.date}</div>
   <div class="fc-icon">${d.icon}</div>
-  <div class="fc-height">${d.height}<small>ft</small></div>
+  <div class="fc-height">${d.height}<small>m</small></div>
   <div class="fc-wind">${d.wind}</div>
   <div class="fc-wave-bar">${miniWaveSVG(d.height, color)}</div>
   <div class="fc-rating">${stars}</div>
@@ -303,8 +303,8 @@ function animateCounter(el, target, suffix, decimals = 1) {
 		}
 	});
 }
-animateCounter(document.getElementById("chip-wave"), 4.2, "ft");
-animateCounter(document.getElementById("chip-wind"), 12, "kn", 0);
+animateCounter(document.getElementById("chip-wave"), 1.3, "m");
+animateCounter(document.getElementById("chip-wind"), 22, "km/h", 0);
 animateCounter(document.getElementById("chip-period"), 11, "s", 0);
 
 // ── SCROLL REVEALS ────────────────────────────────────────────────
@@ -370,9 +370,9 @@ function handleSignup(e) {
 // ── LIVE DATA TICKER ──────────────────────────────────────────────
 // Simulate slight fluctuations in wave height
 setInterval(() => {
-	const delta = (Math.random() - 0.5) * 0.1;
+	const delta = (Math.random() - 0.5) * 0.03;
 	const current = parseFloat(document.getElementById("chip-wave").textContent);
-	const next = Math.max(3.5, Math.min(5.0, current + delta));
+	const next = Math.max(1.1, Math.min(1.5, current + delta));
 	document.getElementById("chip-wave").innerHTML =
-		next.toFixed(1) + "<span>ft</span>";
+		next.toFixed(1) + "<span>m</span>";
 }, 4000);
