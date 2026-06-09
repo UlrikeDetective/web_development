@@ -1,0 +1,37 @@
+html,
+body {
+	margin: 0;
+	overflow: clip;
+}
+
+body {
+
+	background-color: #dccebd;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	min-height: 100vh;
+	padding: 15px;
+
+	svgWrapper {
+
+		display: block;
+		visibility: hidden;
+
+		@media (orientation: portrait) {
+			max-width: 500px;
+		}
+		@media (orientation: landscape) {
+			max-height: 500px;
+		}
+		overflow: clip;
+		svg {
+			width: 100%;
+			height: 100%;
+			path {
+				will-change: auto;
+			}
+		}
+	}
+
+}
