@@ -1,5 +1,5 @@
 // ─── Config ───────────────────────────────────────────────────────────────────
-const WORD = 'Always'
+const WORD = 'Sometimes'
 const STAGE = document.getElementById('stage')
 
 // ─── Loop & run ───────────────────────────────────────────────────────────────
