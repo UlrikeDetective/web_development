@@ -23,7 +23,7 @@ body {
     --text-size: 100px;
 
     --stroke-width: calc(var(--text-size) * 0.5);
-    --stroke-color: #fff;
+    --stroke-color: #888888;
     --outline-width: 1px;
     --outline-color: var(--text-color);
 
