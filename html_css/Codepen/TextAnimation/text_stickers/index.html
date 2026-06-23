@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Text Stickers</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <script>
+        const stickers = [
+            { class: 'hello', text: 'hello' },
+            { class: 'blueming', text: 'blueming' },
+            { class: 'palette', text: 'palette' },
+            { class: 'lilac', text: 'LILAC' },
+            { class: 'love', text: 'love wins all' },
+            { class: 'ten', text: 'ten' },
+            { class: 'good', text: 'good day' },
+            { class: 'friday', text: 'Friday' },
+        ]
+
+        stickers.forEach(sticker => {
+            const div = document.createElement('div');
+            div.className = 'sticker ' + sticker.class;
+            div.dataset.text = sticker.text;
+            div.textContent = sticker.text;
+            document.body.appendChild(div);
+        });
+    </script>
+
+
+</body>
+
+</html>
