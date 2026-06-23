@@ -23,7 +23,7 @@ body {
     --text-size: 100px;
 
     --stroke-width: calc(var(--text-size) * 0.5);
-    --stroke-color: #888888;
+    --stroke-color: #ffffff;
     --outline-width: 1px;
     --outline-color: var(--text-color);
 
@@ -37,7 +37,7 @@ body {
     color: var(--text-color);
     white-space: nowrap;
 
-    text-wrap-style: var(--stroke-width) var(--stroke-color);
+    -webkit-text-stroke: var(--stroke-width) var(--stroke-color);
     paint-order: stroke fill;
 
     filter:
@@ -57,7 +57,7 @@ body {
 
         background: linear-gradient(40deg, var(--text-color) 30%, color-mix(var(--text-color), #fff 60%) 45% 55%, var(--text-color) 70%);
         background-clip: text;
-        text-wrap-style: initial;
+        -webkit-text-stroke: initial;
 
         display: flex;
         justify-content: center;
