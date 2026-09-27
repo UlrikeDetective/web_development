@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chroma Playground - Color Family Library</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Quicksand:wght@500;700&display=swap" rel="stylesheet">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <style>
+        body {
+            font-family: 'Quicksand', sans-serif;
+            background-color: #faf8ff;
+        }
+        h1, h2, h3, .font-heading {
+            font-family: 'Fredoka', cursive;
+        }
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f1f0f7;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #c5b3e6;
+            border-radius: 9999px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #a084dc;
+        }
+        .color-card {
+            transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+        }
+        .color-card:hover {
+            transform: translateY(-6px) scale(1.02);
+        }
+        .toast {
+            transition: transform 0.3s ease, opacity 0.3s ease;
+        }
+    </style>
+</head>
+<body class="text-slate-800 min-h-screen flex flex-col pb-12">
+
+    <!-- Toast Notification -->
+    <div id="toast" class="fixed bottom-6 right-6 z-50 transform translate-y-20 opacity-0 pointer-events-none transition-all duration-300">
+        <div class="bg-slate-900 text-white px-5 py-3 rounded-2xl shadow-xl flex items-center space-x-3 border border-slate-700">
+            <i data-lucide="check-circle" class="w-5 h-5 text-emerald-400"></i>
+            <span id="toast-message" class="font-semibold text-sm">Copied to clipboard!</span>
+        </div>
+    </div>
+
+    <!-- Header & Hero -->
+    <header class="bg-white border-b border-purple-100 sticky top-0 z-40 shadow-sm backdrop-blur-md bg-opacity-90">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+            <div class="flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+                <div class="flex items-center space-x-3">
+                    <div class="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-500 via-purple-500 to-indigo-500 flex items-center justify-center shadow-lg shadow-purple-200">
+                        <i data-lucide="palette" class="w-7 h-7 text-white"></i>
+                    </div>
+                    <div>
+                        <h1 class="text-2xl sm:text-3xl font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-amber-500 bg-clip-text text-transparent">
+                            Chroma Explorer 🎨
+                        </h1>
+                        <p class="text-xs sm:text-sm text-slate-500 font-medium">Explore standard shade families with Hex, RGB, & CMYK codes</p>
+                    </div>
+                </div>
+
+                <!-- Search Input -->
+                <div class="relative w-full md:w-80">
+                    <i data-lucide="search" class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-slate-400"></i>
+                    <input 
+                        type="text" 
+                        id="search-input" 
+                        placeholder="Search color name or hex..." 
+                        class="w-full pl-10 pr-4 py-2.5 rounded-2xl bg-slate-100/80 border border-slate-200 text-sm focus:outline-none focus:ring-2 focus:ring-purple-400 focus:bg-white transition-all"
+                    >
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 mt-6 flex-grow w-full">
+        <!-- Family Filter Bar -->
+        <section class="mb-8">
+            <div class="flex items-center justify-between mb-3">
+                <h2 class="text-lg font-bold text-slate-700 flex items-center gap-2">
+                    <i data-lucide="filter" class="w-4 h-4 text-purple-500"></i> Filter by Colour Family
+                </h2>
+                <span id="color-count" class="text-xs font-semibold px-3 py-1 bg-purple-100 text-purple-700 rounded-full">
+                    Showing 0 colors
+                </span>
+            </div>
+            
+            <div id="family-filters" class="flex flex-wrap gap-2 pb-2">
+                <!-- Filter Pills dynamically rendered or standard preset -->
+                <button data-family="All" class="filter-btn active px-4 py-2 rounded-xl text-sm font-bold bg-slate-900 text-white shadow-sm transition-all hover:opacity-90">
+                    All Families 🌈
+                </button>
+            </div>
+        </section>
+
+        <!-- Color Cards Grid -->
+        <section id="color-grid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+            <!-- Cards populated dynamically by JS -->
+        </section>
+
+        <!-- Empty Search State -->
+        <div id="no-results" class="hidden text-center py-16">
+            <div class="inline-flex items-center justify-center w-16 h-16 bg-purple-100 rounded-full text-purple-500 mb-4">
+                <i data-lucide="frown" class="w-8 h-8"></i>
+            </div>
+            <h3 class="text-xl font-bold text-slate-700 mb-1">No colors match your search</h3>
+            <p class="text-slate-500 text-sm">Try searching for a different shade or select another family filter!</p>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="mt-12 text-center text-xs text-slate-400 py-6 border-t border-slate-200/60">
+        <p class="font-medium">Chroma Explorer Palette &bull; Tap any code snippet to copy to your clipboard!</p>
+    </footer>
+
+    <script>
+        // Dataset from user request
+        const rawColorData = [
+            { name: "Lilac", family: "Purple", hex: "#C8A2C8", rgb: "200, 162, 200", cmyk: "0, 19, 0, 22" },
+            { name: "Wisteria", family: "Purple", hex: "#C9A0DC", rgb: "201, 160, 220", cmyk: "9, 27, 0, 14" },
+            { name: "Lavender", family: "Purple", hex: "#E6E6FA", rgb: "230, 230, 250", cmyk: "8, 8, 0, 2" },
+            { name: "Lilac", family: "Purple", hex: "#C8A2C8", rgb: "200, 162, 200", cmyk: "0, 19, 0, 22" },
+            { name: "Orchid", family: "Purple", hex: "#DA70D6", rgb: "218, 112, 214", cmyk: "0, 49, 0, 15" },
+            { name: "Mauve", family: "Purple", hex: "#E0B0FF", rgb: "224, 176, 255", cmyk: "12, 31, 0, 0" },
+            { name: "Amethyst", family: "Purple", hex: "#9966CC", rgb: "153, 102, 204", cmyk: "25, 50, 0, 20" },
+            { name: "Plum", family: "Purple", hex: "#8E4585", rgb: "142, 69, 133", cmyk: "0, 51, 6, 44" },
+            { name: "Aubergine", family: "Purple", hex: "#3B0910", rgb: "59, 9, 16", cmyk: "0, 85, 73, 77" },
+            { name: "Violet", family: "Purple", hex: "#8F00FF", rgb: "143, 0, 255", cmyk: "44, 100, 0, 0" },
+            { name: "Midnight Purple", family: "Purple", hex: "#280137", rgb: "40, 1, 55", cmyk: "27, 98, 0, 78" },
+            { name: "Blush", family: "Pink", hex: "#DE5D83", rgb: "222, 93, 131", cmyk: "0, 58, 41, 13" },
+            { name: "Petal", family: "Pink", hex: "#FDC1C5", rgb: "253, 193, 197", cmyk: "0, 24, 22, 1" },
+            { name: "Rose", family: "Pink", hex: "#FF007F", rgb: "255, 0, 127", cmyk: "0, 100, 50, 0" },
+            { name: "Peony", family: "Pink", hex: "#E3A857", rgb: "227, 168, 87", cmyk: "0, 26, 62, 11" },
+            { name: "Pink", family: "Pink", hex: "#FFC0CB", rgb: "255, 192, 203", cmyk: "0, 25, 20, 0" },
+            { name: "Flamingo", family: "Pink", hex: "#FC8EAC", rgb: "252, 142, 172", cmyk: "0, 44, 32, 1" },
+            { name: "Fuchsia", family: "Pink", hex: "#FF00FF", rgb: "255, 0, 255", cmyk: "0, 100, 0, 0" },
+            { name: "Raspberry", family: "Pink", hex: "#E30B5D", rgb: "227, 11, 93", cmyk: "0, 95, 59, 11" },
+            { name: "Magenta", family: "Pink", hex: "#FF00FF", rgb: "255, 0, 255", cmyk: "0, 100, 0, 0" },
+            { name: "Mulberry", family: "Pink", hex: "#C54B8C", rgb: "197, 75, 140", cmyk: "0, 62, 29, 23" },
+            { name: "Salmon", family: "Red", hex: "#FA8072", rgb: "250, 128, 114", cmyk: "0, 49, 54, 2" },
+            { name: "Coral", family: "Red", hex: "#FF7F50", rgb: "255, 127, 80", cmyk: "0, 50, 69, 0" },
+            { name: "Poppy", family: "Red", hex: "#ECC5C0", rgb: "236, 197, 192", cmyk: "0, 17, 19, 7" },
+            { name: "Scarlet", family: "Red", hex: "#FF2400", rgb: "255, 36, 0", cmyk: "0, 86, 100, 0" },
+            { name: "Crimson", family: "Red", hex: "#DC143C", rgb: "220, 20, 60", cmyk: "0, 91, 73, 14" },
+            { name: "Ruby", family: "Red", hex: "#E0115F", rgb: "224, 17, 95", cmyk: "0, 92, 58, 12" },
+            { name: "Carmine", family: "Red", hex: "#960018", rgb: "150, 0, 24", cmyk: "0, 100, 84, 41" },
+            { name: "Garnet", family: "Red", hex: "#733635", rgb: "115, 54, 53", cmyk: "0, 53, 54, 55" },
+            { name: "Merlot", family: "Red", hex: "#7F1734", rgb: "127, 23, 52", cmyk: "0, 82, 59, 50" },
+            { name: "Oxblood", family: "Red", hex: "#4A0E0E", rgb: "74, 14, 14", cmyk: "0, 81, 81, 71" },
+            { name: "Vanilla", family: "Yellow", hex: "#F3E5AB", rgb: "243, 229, 171", cmyk: "0, 6, 30, 5" },
+            { name: "Butter", family: "Yellow", hex: "#FFFD74", rgb: "255, 253, 116", cmyk: "0, 1, 55, 0" },
+            { name: "Lemon", family: "Yellow", hex: "#FFF700", rgb: "255, 247, 0", cmyk: "0, 3, 100, 0" },
+            { name: "Daffodil", family: "Yellow", hex: "#FFFF31", rgb: "255, 255, 49", cmyk: "0, 0, 81, 0" },
+            { name: "Canary", family: "Yellow", hex: "#FFEF00", rgb: "255, 239, 0", cmyk: "0, 6, 100, 0" },
+            { name: "Honey", family: "Yellow", hex: "#EBA832", rgb: "235, 168, 50", cmyk: "0, 29, 79, 8" },
+            { name: "Mustard", family: "Yellow", hex: "#FFDB58", rgb: "255, 219, 88", cmyk: "0, 14, 65, 0" },
+            { name: "Ochre", family: "Yellow", hex: "#CC7722", rgb: "204, 119, 34", cmyk: "0, 42, 83, 20" },
+            { name: "Saffron", family: "Yellow", hex: "#F4C430", rgb: "244, 196, 48", cmyk: "0, 20, 80, 4" },
+            { name: "Gold", family: "Yellow", hex: "#FFD700", rgb: "255, 215, 0", cmyk: "0, 16, 100, 0" },
+            { name: "Ivory", family: "Brown", hex: "#FFFFF0", rgb: "255, 255, 240", cmyk: "0, 0, 6, 0" },
+            { name: "Beige", family: "Brown", hex: "#F5F5DC", rgb: "245, 245, 220", cmyk: "0, 0, 10, 4" },
+            { name: "Sand", family: "Brown", hex: "#C2B280", rgb: "194, 178, 128", cmyk: "0, 8, 34, 24" },
+            { name: "Caramel", family: "Brown", hex: "#FFD59A", rgb: "255, 213, 154", cmyk: "0, 16, 40, 0" },
+            { name: "Camel", family: "Brown", hex: "#C19A6B", rgb: "193, 154, 107", cmyk: "0, 20, 45, 24" },
+            { name: "Chestnut", family: "Brown", hex: "#954535", rgb: "149, 69, 53", cmyk: "0, 54, 64, 42" },
+            { name: "Cognac", family: "Brown", hex: "#9A463D", rgb: "154, 70, 61", cmyk: "0, 55, 60, 40" },
+            { name: "Coffee", family: "Brown", hex: "#6F4E37", rgb: "111, 78, 55", cmyk: "0, 30, 50, 56" },
+            { name: "Chocolate", family: "Brown", hex: "#7B3F00", rgb: "123, 63, 0", cmyk: "0, 49, 100, 52" },
+            { name: "Espresso", family: "Brown", hex: "#4B382A", rgb: "75, 56, 42", cmyk: "0, 25, 44, 71" },
+            { name: "Ice", family: "Blue", hex: "#AAF0D1", rgb: "170, 240, 209", cmyk: "29, 0, 13, 6" },
+            { name: "Powder", family: "Blue", hex: "#B0E0E6", rgb: "176, 224, 230", cmyk: "23, 3, 0, 10" },
+            { name: "Sky", family: "Blue", hex: "#87CEEB", rgb: "135, 206, 235", cmyk: "43, 12, 0, 8" },
+            { name: "Azure", family: "Blue", hex: "#007FFF", rgb: "0, 127, 255", cmyk: "100, 50, 0, 0" },
+            { name: "Cornflower", family: "Blue", hex: "#6495ED", rgb: "100, 149, 237", cmyk: "58, 37, 0, 7" },
+            { name: "Cobalt", family: "Blue", hex: "#0047AB", rgb: "0, 71, 171", cmyk: "100, 58, 0, 33" },
+            { name: "Sapphire", family: "Blue", hex: "#0F52BA", rgb: "15, 82, 186", cmyk: "92, 56, 0, 27" },
+            { name: "Royal", family: "Blue", hex: "#4169E1", rgb: "65, 105, 225", cmyk: "71, 53, 0, 12" },
+            { name: "Navy", family: "Blue", hex: "#000080", rgb: "0, 0, 128", cmyk: "100, 100, 0, 50" },
+            { name: "Midnight", family: "Blue", hex: "#191970", rgb: "25, 25, 112", cmyk: "78, 78, 0, 56" },
+            { name: "Sky", family: "Blue", hex: "#87CEEB", rgb: "135, 206, 235", cmyk: "43, 12, 0, 8" },
+            { name: "Pool", family: "Blue", hex: "#00B2EE", rgb: "0, 178, 238", cmyk: "100, 25, 0, 7" },
+            { name: "Blue", family: "Blue", hex: "#0000FF", rgb: "0, 0, 255", cmyk: "100, 100, 0, 0" },
+            { name: "Oxford Blue", family: "Blue", hex: "#002147", rgb: "0, 33, 71", cmyk: "100, 54, 0, 72" },
+            { name: "Chagall", family: "Blue", hex: "#325A9B", rgb: "50, 90, 155", cmyk: "68, 42, 0, 39" },
+            { name: "Marine", family: "Blue", hex: "#003262", rgb: "0, 50, 98", cmyk: "100, 49, 0, 62" },
+            { name: "Midnight", family: "Blue", hex: "#191970", rgb: "25, 25, 112", cmyk: "78, 78, 0, 56" },
+            { name: "Magpie", family: "Blue", hex: "#273248", rgb: "39, 50, 72", cmyk: "46, 31, 0, 72" },
+            { name: "Cornflower", family: "Blue", hex: "#6495ED", rgb: "100, 149, 237", cmyk: "58, 37, 0, 7" },
+            { name: "Icicle", family: "Blue", hex: "#DADFB7", rgb: "218, 223, 183", cmyk: "2, 0, 18, 13" },
+            { name: "Pearl", family: "Grey", hex: "#EAE0C8", rgb: "234, 224, 200", cmyk: "0, 4, 15, 8" },
+            { name: "Silver", family: "Grey", hex: "#C0C0C0", rgb: "192, 192, 192", cmyk: "0, 0, 0, 25" },
+            { name: "Dove", family: "Grey", hex: "#666666", rgb: "102, 102, 102", cmyk: "0, 0, 0, 60" },
+            { name: "Mist", family: "Grey", hex: "#C4C4C4", rgb: "196, 196, 196", cmyk: "0, 0, 0, 23" },
+            { name: "Ash", family: "Grey", hex: "#B2BEB5", rgb: "178, 190, 181", cmyk: "6, 0, 5, 25" },
+            { name: "Slate", family: "Grey", hex: "#708090", rgb: "112, 128, 144", cmyk: "22, 11, 0, 44" },
+            { name: "Smoke", family: "Grey", hex: "#738276", rgb: "115, 130, 118", cmyk: "12, 0, 9, 49" },
+            { name: "Graphite", family: "Grey", hex: "#383838", rgb: "56, 56, 56", cmyk: "0, 0, 0, 78" },
+            { name: "Charcoal", family: "Grey", hex: "#36454F", rgb: "54, 69, 79", cmyk: "32, 13, 0, 69" },
+            { name: "Onyx", family: "Grey", hex: "#353839", rgb: "53, 56, 57", cmyk: "7, 2, 0, 78" },
+            { name: "Apricot", family: "Orange", hex: "#FFC499", rgb: "255, 196, 153", cmyk: "0, 23, 40, 0" },
+            { name: "Peach", family: "Orange", hex: "#FFD7BE", rgb: "255, 215, 190", cmyk: "0, 16, 27, 0" },
+            { name: "Melon", family: "Orange", hex: "#F5DEB3", rgb: "245, 222, 179", cmyk: "0, 10, 30, 0" },
+            { name: "Tangerine", family: "Orange", hex: "#FF9900", rgb: "255, 153, 0", cmyk: "0, 40, 100, 0" },
+            { name: "Marigold", family: "Orange", hex: "#F7DC6F", rgb: "247, 220, 111", cmyk: "0, 11, 57, 0" },
+            { name: "Amber", family: "Orange", hex: "#FFC080", rgb: "255, 192, 128", cmyk: "0, 25, 50, 0" },
+            { name: "Pumpkin", family: "Orange", hex: "#FFA07A", rgb: "255, 160, 122", cmyk: "0, 37, 52, 0" },
+            { name: "Terracotta", family: "Orange", hex: "#DA70D6", rgb: "218, 112, 214", cmyk: "0, 49, 99, 29" },
+            { name: "Spice", family: "Orange", hex: "#C8531F", rgb: "200, 83, 31", cmyk: "16, 59, 92, 3" },
+            { name: "Rust", family: "Orange", hex: "#B33A00", rgb: "179, 58, 0", cmyk: "19, 68, 100, 0" },
+            { name: "Seafoam", family: "Blue-Grey", hex: "#B2E6CE", rgb: "178, 230, 206", cmyk: "0, 5, 25, 0" },
+            { name: "Mint", family: "Blue-Grey", hex: "#ACFFAC", rgb: "172, 255, 172", cmyk: "0, 0, 33, 0" },
+            { name: "Aqua", family: "Blue-Grey", hex: "#00FFFF", rgb: "0, 255, 255", cmyk: "50, 0, 0, 0" },
+            { name: "Turquoise", family: "Blue-Grey", hex: "#1ABC9C", rgb: "26, 188, 156", cmyk: "20, 2, 10, 11" },
+            { name: "Teal", family: "Blue-Grey", hex: "#008080", rgb: "0, 128, 128", cmyk: "60, 33, 46, 4" },
+            { name: "Lagoon", family: "Blue-Grey", hex: "#34A85A", rgb: "52, 168, 90", cmyk: "23, 1, 17, 25" },
+            { name: "Peacock", family: "Blue-Grey", hex: "#00BFFF", rgb: "0, 191, 255", cmyk: "50, 1, 0, 0" },
+            { name: "Petrol", family: "Blue-Grey", hex: "#4169E1", rgb: "65, 105, 225", cmyk: "22, 55, 95, 5" },
+            { name: "Atlantic", family: "Blue-Grey", hex: "#03A9F4", rgb: "3, 169, 244", cmyk: "25, 31, 96, 20" },
+            { name: "Abyss", family: "Blue-Grey", hex: "#032B44", rgb: "3, 43, 68", cmyk: "62, 37, 94, 22" },
+            { name: "Mint", family: "Green", hex: "#ACFFAC", rgb: "172, 255, 172", cmyk: "0, 0, 33, 0" },
+            { name: "Sage", family: "Green", hex: "#8B9467", rgb: "139, 148, 103", cmyk: "25, 15, 60, 17" },
+            { name: "Pistachio", family: "Green", hex: "#C2E4D3", rgb: "194, 228, 211", cmyk: "0, 5, 22, 10" },
+            { name: "Olive", family: "Green", hex: "#556B2F", rgb: "85, 107, 47", cmyk: "40, 18, 91, 20" },
+            { name: "Fern", family: "Green", hex: "#3E8E41", rgb: "62, 142, 65", cmyk: "27, 1, 51, 25" },
+            { name: "Emerald", family: "Green", hex: "#008000", rgb: "0, 128, 0", cmyk: "75, 50, 100, 0" },
+            { name: "Jade", family: "Green", hex: "#00A86B", rgb: "0, 168, 107", cmyk: "60, 2, 20, 11" },
+            { name: "Forest", family: "Green", hex: "#228B22", rgb: "34, 139, 34", cmyk: "25, 15, 55, 17" },
+            { name: "Pine", family: "Green", hex: "#3E8E41", rgb: "62, 142, 65", cmyk: "27, 1, 51, 25" },
+            { name: "Evergreen", family: "Green", hex: "#2F4F4F", rgb: "47, 79, 79", cmyk: "35, 21, 75, 20" },
+            { name: "Soft Pink", family: "Pink", hex: "#F6B7C8", rgb: "246, 183, 200", cmyk: "1, 35, 6, 0" },
+            { name: "Light Cream", family: "Cream", hex: "#FFEEEE", rgb: "255, 238, 238", cmyk: "0, 7, 7, 0" },
+            { name: "Berry Red", family: "Red", hex: "#C81D4F", rgb: "200, 29, 79", cmyk: "16, 100, 61, 3" },
+            { name: "Cone Beige", family: "Beige", hex: "#C98A57", rgb: "201, 138, 87", cmyk: "20, 49, 73, 2" },
+            { name: "Matcha Lime", family: "Yellow-Green", hex: "#A9C632", rgb: "169, 198, 50", cmyk: "15, 0, 75, 22" },
+            { name: "Forest Brew", family: "Brown-Grey", hex: "#1D2E1B", rgb: "29, 46, 27", cmyk: "37, 0, 41, 82" },
+            { name: "Tea Mist", family: "Cream", hex: "#C8D2A6", rgb: "200, 210, 166", cmyk: "23, 8, 41, 25" },
+            { name: "Bamboo Beige", family: "Beige", hex: "#E6D4A6", rgb: "230, 212, 166", cmyk: "10, 13, 38, 0" }
+        ];
+
+        // Unique Color Families
+        const familyColors = {
+            "Purple": "bg-purple-100 text-purple-800 border-purple-200",
+            "Pink": "bg-pink-100 text-pink-800 border-pink-200",
+            "Red": "bg-rose-100 text-rose-800 border-rose-200",
+            "Yellow": "bg-amber-100 text-amber-800 border-amber-200",
+            "Brown": "bg-orange-100 text-amber-900 border-orange-200",
+            "Blue": "bg-sky-100 text-sky-800 border-sky-200",
+            "Grey": "bg-slate-200 text-slate-800 border-slate-300",
+            "Orange": "bg-orange-100 text-orange-800 border-orange-200",
+            "Blue-Grey": "bg-teal-100 text-teal-800 border-teal-200",
+            "Green": "bg-emerald-100 text-emerald-800 border-emerald-200",
+            "Cream": "bg-amber-50 text-amber-800 border-amber-100",
+            "Beige": "bg-yellow-100 text-amber-900 border-yellow-200",
+            "Yellow-Green": "bg-lime-100 text-lime-800 border-lime-200",
+            "Brown-Grey": "bg-stone-200 text-stone-800 border-stone-300"
+        };
+
+        let currentFamily = "All";
+        let searchQuery = "";
+
+        // Elements
+        const filterContainer = document.getElementById('family-filters');
+        const colorGrid = document.getElementById('color-grid');
+        const searchInput = document.getElementById('search-input');
+        const colorCount = document.getElementById('color-count');
+        const noResults = document.getElementById('no-results');
+
+        function init() {
+            renderFilters();
+            renderCards();
+            
+            // Event Listeners
+            searchInput.addEventListener('input', (e) => {
+                searchQuery = e.target.value.toLowerCase().trim();
+                renderCards();
+            });
+
+            lucide.createIcons();
+        }
+
+        // Calculate luminosity to set contrast text
+        function getContrastYIQ(hexcolor){
+            hexcolor = hexcolor.replace("#", "");
+            if(hexcolor.length === 3) {
+                hexcolor = hexcolor.split('').map(c => c + c).join('');
+            }
+            const r = parseInt(hexcolor.substr(0,2),16);
+            const g = parseInt(hexcolor.substr(2,2),16);
+            const b = parseInt(hexcolor.substr(4,2),16);
+            const yiq = ((r*299)+(g*587)+(b*114))/1000;
+            return (yiq >= 128) ? 'text-slate-800' : 'text-white';
+        }
+
+        // Render Filter Buttons
+        function renderFilters() {
+            const families = ["All", ...new Set(rawColorData.map(item => item.family))];
+            
+            filterContainer.innerHTML = families.map(fam => {
+                const isActive = fam === currentFamily;
+                const activeClass = isActive 
+                    ? 'bg-slate-900 text-white shadow-sm' 
+                    : 'bg-white text-slate-600 hover:bg-slate-100 border border-slate-200';
+                
+                return `
+                    <button 
+                        data-family="${fam}" 
+                        class="filter-btn px-3.5 py-1.5 rounded-xl text-xs font-bold transition-all ${activeClass}"
+                        onclick="selectFamily('${fam}')"
+                    >
+                        ${fam}
+                    </button>
+                `;
+            }).join('');
+        }
+
+        function selectFamily(fam) {
+            currentFamily = fam;
+            renderFilters();
+            renderCards();
+        }
+
+        // Render Cards
+        function renderCards() {
+            const filtered = rawColorData.filter(item => {
+                const matchesFamily = currentFamily === "All" || item.family === currentFamily;
+                const matchesSearch = item.name.toLowerCase().includes(searchQuery) ||
+                                      item.hex.toLowerCase().includes(searchQuery) ||
+                                      item.family.toLowerCase().includes(searchQuery);
+                return matchesFamily && matchesSearch;
+            });
+
+            colorCount.textContent = `Showing ${filtered.length} colors`;
+
+            if (filtered.length === 0) {
+                colorGrid.innerHTML = '';
+                noResults.classList.remove('hidden');
+                return;
+            }
+
+            noResults.classList.add('hidden');
+
+            colorGrid.innerHTML = filtered.map(item => {
+                const textColor = getContrastYIQ(item.hex);
+                const badgeStyle = familyColors[item.family] || 'bg-slate-100 text-slate-800 border-slate-200';
+
+                return `
+                    <div class="color-card bg-white rounded-3xl overflow-hidden border border-slate-200/80 shadow-sm flex flex-col justify-between">
+                        <!-- Swatch Box -->
+                        <div 
+                            class="h-36 w-full p-4 flex flex-col justify-between relative cursor-pointer group transition-all" 
+                            style="background-color: ${item.hex};"
+                            onclick="copyToClipboard('${item.hex}', 'Hex Code ${item.hex}')"
+                        >
+                            <div class="flex justify-between items-start">
+                                <span class="text-[10px] uppercase tracking-wider font-extrabold px-2.5 py-1 rounded-full bg-white/30 backdrop-blur-md border border-white/20 ${textColor}">
+                                    ${item.family}
+                                </span>
+                                <div class="opacity-0 group-hover:opacity-100 transition-opacity bg-white/40 backdrop-blur-md p-1.5 rounded-full ${textColor}">
+                                    <i data-lucide="copy" class="w-4 h-4"></i>
+                                </div>
+                            </div>
+                            
+                            <div class="flex items-end justify-between">
+                                <h3 class="text-xl font-bold ${textColor} drop-shadow-sm leading-tight">
+                                    ${item.name}
+                                </h3>
+                            </div>
+                        </div>
+
+                        <!-- Technical Values -->
+                        <div class="p-4 bg-white flex flex-col gap-2">
+                            <!-- HEX -->
+                            <div 
+                                onclick="copyToClipboard('${item.hex}', 'Hex Code ${item.hex}')"
+                                class="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-purple-50 transition-colors cursor-pointer group border border-slate-100"
+                            >
+                                <span class="text-xs font-bold text-slate-400">HEX</span>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="font-mono text-xs font-bold text-slate-700 group-hover:text-purple-600">${item.hex}</span>
+                                    <i data-lucide="copy" class="w-3 h-3 text-slate-300 group-hover:text-purple-500"></i>
+                                </div>
+                            </div>
+
+                            <!-- RGB -->
+                            <div 
+                                onclick="copyToClipboard('rgb(${item.rgb})', 'RGB value rgb(${item.rgb})')"
+                                class="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-purple-50 transition-colors cursor-pointer group border border-slate-100"
+                            >
+                                <span class="text-xs font-bold text-slate-400">RGB</span>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="font-mono text-xs font-medium text-slate-700 group-hover:text-purple-600">${item.rgb}</span>
+                                    <i data-lucide="copy" class="w-3 h-3 text-slate-300 group-hover:text-purple-500"></i>
+                                </div>
+                            </div>
+
+                            <!-- CMYK -->
+                            <div 
+                                onclick="copyToClipboard('cmyk(${item.cmyk})', 'CMYK value cmyk(${item.cmyk})')"
+                                class="flex items-center justify-between p-2 rounded-xl bg-slate-50 hover:bg-purple-50 transition-colors cursor-pointer group border border-slate-100"
+                            >
+                                <span class="text-xs font-bold text-slate-400">CMYK</span>
+                                <div class="flex items-center gap-1.5">
+                                    <span class="font-mono text-xs font-medium text-slate-700 group-hover:text-purple-600">${item.cmyk}</span>
+                                    <i data-lucide="copy" class="w-3 h-3 text-slate-300 group-hover:text-purple-500"></i>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                `;
+            }).join('');
+
+            lucide.createIcons();
+        }
+
+        // Copy Helper
+        function copyToClipboard(text, description) {
+            // Document execCommand fallback for strict iFrame execution
+            const dummy = document.createElement("textarea");
+            document.body.appendChild(dummy);
+            dummy.value = text;
+            dummy.select();
+            document.execCommand("copy");
+            document.body.removeChild(dummy);
+
+            showToast(`Copied ${description}!`);
+        }
+
+        // Toast Handler
+        let toastTimeout;
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            const toastMsg = document.getElementById('toast-message');
+            
+            toastMsg.textContent = message;
+            toast.classList.remove('translate-y-20', 'opacity-0', 'pointer-events-none');
+            
+            clearTimeout(toastTimeout);
+            toastTimeout = setTimeout(() => {
+                toast.classList.add('translate-y-20', 'opacity-0', 'pointer-events-none');
+            }, 2500);
+        }
+
+        // Kickoff script
+        window.onload = init;
+    </script>
+</body>
+</html>
